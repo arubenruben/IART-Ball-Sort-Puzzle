@@ -1,12 +1,13 @@
 import pygame
 
-from controller.menu_state.menu_state import MenuState
-from model.menu_models.playing_state_model import PlayingStateModel
+from src.controller.menu_state.menu_state import MenuState
+from src.model.menu_models.playing_state_model import PlayingStateModel
 
 
 class HumanPlayingState(MenuState):
-    def __init__(self, game):
-        super().__init__(game, PlayingStateModel())
+    def __init__(self, game, model):
+        super().__init__(game)
+        self._model = model
 
     def run(self):
         run = True

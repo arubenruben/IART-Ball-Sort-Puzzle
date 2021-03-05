@@ -2,15 +2,16 @@ import os
 
 import pygame
 
-from model.drawable import Drawable
-from model.elements.test_tube import TestTube
+from src.model.drawable import Drawable
+from src.model.utils.level_factory.level_creator import LevelCreator
 
 
 class PlayingStateModel(Drawable):
 
-    def __init__(self):
+    def __init__(self, screen_dimension):
         self._background = pygame.image.load(os.path.join('../', 'assets', 'img', 'background.jpg'))
-        self._test_tubes = [TestTube()]
+        self._level_creator = LevelCreator()
+        self._test_tubes = self._level_creator.create(1, screen_dimension)
 
     def update(self):
         pass
