@@ -7,35 +7,33 @@ class LevelCreator:
 
     def create(self, level_number, screen_dimension):
         screen_width, screen_height = screen_dimension
-        # With offset of 0.1 each side
 
         if level_number == 1:
             number_tubs = 5
             number_rows = number_tubs // 5
-            test_tube_dimensions = ((screen_width * 0.8) // 5, (screen_height * 0.8) // number_rows)
-            left_offset = screen_width * 0.1
-            top_offset = screen_height * 0.1
+            test_tube_dimensions = ((screen_width * 0.9) // 5, (screen_height * 0.8) // number_rows)
+            top_offset = screen_height * 0.25
 
             return [
                 TestTube(
                     [3, 2, 1, 2],
-                    pygame.Rect((left_offset, top_offset), test_tube_dimensions)
+                    pygame.Rect((0, top_offset), test_tube_dimensions)
                 ),
                 TestTube(
                     [2, 3, 1, 1],
-                    pygame.Rect((left_offset + test_tube_dimensions[0], top_offset), test_tube_dimensions)
+                    pygame.Rect((test_tube_dimensions[0], top_offset), test_tube_dimensions)
                 ),
                 TestTube(
                     [1, 2, 3, 3],
-                    pygame.Rect((left_offset + test_tube_dimensions[0] * 2, top_offset), test_tube_dimensions)
+                    pygame.Rect((test_tube_dimensions[0] * 2, top_offset), test_tube_dimensions)
                 ),
                 TestTube(
                     [0, 0, 0, 0],
-                    pygame.Rect((left_offset + test_tube_dimensions[0] * 3, top_offset), test_tube_dimensions)
+                    pygame.Rect((test_tube_dimensions[0] * 3, top_offset), test_tube_dimensions)
                 ),
                 TestTube(
                     [0, 0, 0, 0],
-                    pygame.Rect((left_offset + test_tube_dimensions[0] * 4, top_offset), test_tube_dimensions)
+                    pygame.Rect((test_tube_dimensions[0] * 4, top_offset), test_tube_dimensions)
                 ),
             ]
 
