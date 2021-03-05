@@ -9,31 +9,26 @@ class LevelCreator:
         screen_width, screen_height = screen_dimension
 
         if level_number == 1:
-            number_tubs = 5
-            number_rows = number_tubs // 5
-            test_tube_dimensions = ((screen_width * 0.9) // 5, (screen_height * 0.8) // number_rows)
-            top_offset = screen_height * 0.25
-
             return [
                 TestTube(
                     [3, 2, 1, 2],
-                    pygame.Rect((0, top_offset), test_tube_dimensions)
+                    pygame.Rect((80, screen_height // 3), (38, 180))
                 ),
                 TestTube(
                     [2, 3, 1, 1],
-                    pygame.Rect((test_tube_dimensions[0], top_offset), test_tube_dimensions)
+                    pygame.Rect((170, screen_height // 3), (38, 180))
                 ),
                 TestTube(
                     [1, 2, 3, 3],
-                    pygame.Rect((test_tube_dimensions[0] * 2, top_offset), test_tube_dimensions)
+                    pygame.Rect((280, screen_height // 3), (38, 180))
                 ),
                 TestTube(
                     [0, 0, 0, 0],
-                    pygame.Rect((test_tube_dimensions[0] * 3, top_offset), test_tube_dimensions)
+                    pygame.Rect((390, screen_height // 3), (38, 180))
                 ),
                 TestTube(
                     [0, 0, 0, 0],
-                    pygame.Rect((test_tube_dimensions[0] * 4, top_offset), test_tube_dimensions)
+                    pygame.Rect((480, screen_height // 3), (38, 180))
                 ),
             ]
 

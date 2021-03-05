@@ -9,15 +9,19 @@ from src.model.elements.ball import Ball
 class TestTube(Drawable):
 
     def __init__(self, balls, rect):
+        # Todo:Missing here a scale in the picture in order to dimensions work proprely
         self._background_image = pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png'))
         self._rect = rect
         self._balls = []
 
         for i in range(len(balls)):
-            if balls[1] == 0:
-                continue
+            if balls[i] == 0:
+                break
 
-            self._balls.append(Ball(balls[i], i, self.rect))
+            self.balls.append(
+                Ball(balls[i], i,
+                     pygame.Rect(self.rect.left + (self.rect.width // 2), self.rect.bottom - 20 * i, 10, 10))
+            )
 
     def update(self):
         pass

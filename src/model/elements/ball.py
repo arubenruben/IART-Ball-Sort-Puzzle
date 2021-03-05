@@ -5,8 +5,8 @@ from src.model.utils.colors import color_converter
 
 
 class Ball(Drawable):
-    def __init__(self, value, index, test_tube_rect):
-        self._rect = test_tube_rect
+    def __init__(self, value, index, rect):
+        self._rect = rect
         self._value = value
         self._index = index
         self._color = color_converter(self.value)
@@ -15,7 +15,7 @@ class Ball(Drawable):
         pass
 
     def draw(self, screen):
-        pygame.draw.circle(screen, self.color, (self.rect[0], self.rect[1]), 10)
+        pygame.draw.circle(screen, self.color, (self.rect.x, self.rect.y - 10-5), 10)
 
     @property
     def value(self):
