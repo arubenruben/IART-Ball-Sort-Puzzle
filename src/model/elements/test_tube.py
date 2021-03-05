@@ -10,7 +10,9 @@ class TestTube(Drawable):
 
     def __init__(self, balls, rect):
         # Todo:Missing here a scale in the picture in order to dimensions work proprely
-        self._background_image = pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png'))
+        self._background_image = pygame.transform.scale(
+            pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png')),
+            (rect.width, rect.height))
         self._rect = rect
         self._balls = []
 
