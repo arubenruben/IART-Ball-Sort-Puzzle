@@ -2,7 +2,7 @@ import os
 
 import pygame
 
-from src.model.drawable import Drawable
+from model.drawable import Drawable
 
 
 class TestTube(Drawable):

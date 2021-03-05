@@ -1,6 +1,6 @@
 import pygame
 
-from src.controller.menu_state.states.human_playing_state import HumanPlayingState
+from controller.menu_state.states.human_playing_state import HumanPlayingState
 
 
 class Game:

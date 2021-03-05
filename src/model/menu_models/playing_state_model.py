@@ -2,8 +2,8 @@ import os
 
 import pygame
 
-from src.model.drawable import Drawable
-from src.model.elements.test_tube import TestTube
+from model.drawable import Drawable
+from model.elements.test_tube import TestTube
 
 
 class PlayingStateModel(Drawable):
