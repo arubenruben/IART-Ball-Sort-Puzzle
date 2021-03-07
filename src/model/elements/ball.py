@@ -25,6 +25,8 @@ class Ball(Drawable):
     def color(self):
         return self._color
 
+
+
     @property
     def rect(self):
         return self._rect

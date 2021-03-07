@@ -1,5 +1,7 @@
 import pygame
 
+
+from controller.menu_state.states.ai_playing_state import AiPlayingState
 from controller.menu_state.states.human_playing_state import HumanPlayingState
 from src.model.menu_models.playing_state_model import PlayingStateModel
 
@@ -21,10 +23,10 @@ class Game:
         self._fps = fps
 
         # Must be the last thing to be created
-        self._menu_state = HumanPlayingState(self, PlayingStateModel((screen_width, screen_height)))
+        self._menu_state = AiPlayingState(self, PlayingStateModel((screen_width, screen_height)))
 
     def run(self):
-        self._menu_state.run()
+        self._menu_state.bfs()
 
     @property
     def screen(self):
