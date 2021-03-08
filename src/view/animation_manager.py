@@ -1,0 +1,2 @@
+class AnimationManager:
+    pass

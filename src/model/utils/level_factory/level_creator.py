@@ -85,6 +85,19 @@ class LevelCreator:
         distance_between_rows = math.floor(2 * screen_height_available / 10)
         total_distance_wasted_between_rows = (number_rows - 1) * math.floor(2 * screen_height_available / 10)
         test_tube_height = math.floor((screen_height_available - total_distance_wasted_between_rows) / number_rows)
+
+        # If it turns out the size of the tub is huge, repeat calculation with bigger capping
+        if test_tube_height > (screen_height // 3):
+            margin_y = math.floor(screen_height / 3)
+            margin_x = math.floor(screen_width / 5)
+
+            screen_width_available = screen_width - 2 * margin_x
+            screen_height_available = screen_height - 2 * margin_y
+
+            distance_between_rows = math.floor(2 * screen_height_available / 10)
+            total_distance_wasted_between_rows = (number_rows - 1) * math.floor(2 * screen_height_available / 10)
+            test_tube_height = math.floor((screen_height_available - total_distance_wasted_between_rows) / number_rows)
+
         test_tube_width = math.floor(screen_width_available / 10)
         ##########
 

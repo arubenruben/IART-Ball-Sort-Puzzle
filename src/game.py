@@ -5,7 +5,6 @@ class Game:
 
     def __init__(self, model, view):
         self._view = view
-
         self._menu_state = HumanPlayingState(self, model)
 
     def run(self):
