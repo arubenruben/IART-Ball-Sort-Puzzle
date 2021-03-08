@@ -20,6 +20,9 @@ class Ball(Drawable):
     def __eq__(self, other):
         return self.color == other.color
 
+    def __hash__(self):
+        return hash(tuple(self.color))
+
     @property
     def value(self):
         return self._value

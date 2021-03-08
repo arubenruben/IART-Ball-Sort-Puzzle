@@ -11,6 +11,13 @@ def get_simplified_state(tubes):
     return ret
 
 
+def is_solved(tubes):
+    for tube in tubes:
+        if len(set(tube)) > 1:
+            return False
+    return True
+
+
 def is_move_possible(tube1, tube2):
     return len(tube1) != 0 and len(tube2) < 4 and (len(tube2) == 0 or tube1[-1] == tube2[-1])
 
