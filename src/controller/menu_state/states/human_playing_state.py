@@ -5,8 +5,7 @@ from src.controller.menu_state.menu_state import MenuState
 
 class HumanPlayingState(MenuState):
     def __init__(self, game, model):
-        super().__init__(game)
-        self._model = model
+        super().__init__(game, model)
         self._animation = None
 
     def run(self):
@@ -14,7 +13,7 @@ class HumanPlayingState(MenuState):
         run = True
 
         while run:
-            self.game.clock.tick(self.game.fps)
+            self.game.view.clock.tick(self.game.view.fps)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
@@ -23,7 +22,7 @@ class HumanPlayingState(MenuState):
 
             self.model.update()
 
-            self.model.draw(self.game.screen)
+            self.model.draw(self.game.view.screen)
 
         pygame.quit()
 
@@ -51,10 +50,6 @@ class HumanPlayingState(MenuState):
 
     def perform_move_operation(self, tube_destination):
         pass
-
-    @property
-    def model(self):
-        return self._model
 
     @property
     def animation(self):
