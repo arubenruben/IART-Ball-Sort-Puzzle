@@ -59,6 +59,10 @@ class TestTube(Drawable):
             )
 
     def animate_up(self, callback=None):
+        # TODO:Refactor this if
+        if len(self.balls) == 0:
+            return
+
         ball = self.balls[(len(self.balls) - 1)]
 
         if callback is not None:
@@ -94,6 +98,15 @@ class TestTube(Drawable):
             self.callback = callback
             self.animating_move = True
             return
+
+        ball = self.balls[(len(self.balls) - 1)]
+        # Todo:Move Animation
+        if True:
+            ball.rect = self.destination_rect.copy()
+            self.callback()
+            self.reset_animations()
+        # else:
+        #   ball.rect = ball.rect.move(0, self.speed_y)
 
     def reset_animations(self):
         self.callback = None

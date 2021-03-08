@@ -45,6 +45,11 @@ class EventManagerPlayStateHuman(EventManager):
 
     # TODO:Need to exchange the balls from one tube to another
     def handle_moving_between_tubes(self):
+
+        ball = self.test_tube_animation_source.balls.pop()
+
+        self.test_tube_animation_destination.balls.append(ball)
+
         self.test_tube_animation_source = None
         self.test_tube_animation_destination = None
         self.animation_type = "down"
