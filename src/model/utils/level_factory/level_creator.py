@@ -10,6 +10,10 @@ class LevelCreator:
     def create(self, level_number, screen_dimension):
         screen_width, screen_height = screen_dimension
         raw_matrix = None
+        maximum_number_tubes_per_row = 5
+        response = []
+        number_cols_in_each_row = []
+
         if level_number == 1:
             raw_matrix = [
                 [3, 2, 1, 2],
@@ -71,8 +75,6 @@ class LevelCreator:
         if raw_matrix is None:
             return
 
-        response = []
-
         number_rows = math.ceil(len(raw_matrix) / 5)
         margin_y = math.floor(2 * screen_height / 10)
         margin_x = math.floor(2 * screen_width / 10)
@@ -83,28 +85,41 @@ class LevelCreator:
         distance_between_rows = math.floor(2 * screen_height_available / 10)
         total_distance_wasted_between_rows = (number_rows - 1) * math.floor(2 * screen_height_available / 10)
         test_tube_height = math.floor((screen_height_available - total_distance_wasted_between_rows) / number_rows)
+        test_tube_width = math.floor(screen_width_available / 10)
         ##########
 
-        test_tube_width = math.ceil(screen_width_available / 13)
-
-        response = []
         row_counter = 0
-        left_offset_counter = 0
+        distance_between_cols = -1
 
-        for i in range(len(raw_matrix)):
-            if i > 0 and i % 5 == 0:
+        offset_y = margin_y
+        offset_x = margin_x
+
+        for tube_counter in range(len(raw_matrix)):
+
+            if row_counter == number_rows - 1:
+                number_cols = len(raw_matrix) - tube_counter
+            else:
+                number_cols = maximum_number_tubes_per_row
+
+            if tube_counter == 0 or tube_counter > 0 and tube_counter % maximum_number_tubes_per_row == 0:
+                total_space_filled_by_tubes_in_row = number_cols * test_tube_width
+                total_space_available_for_distance_between_tubes = screen_width_available - total_space_filled_by_tubes_in_row
+                distance_between_cols = math.floor(total_space_available_for_distance_between_tubes / (number_cols - 1))
+
+            if tube_counter > 0 and tube_counter % maximum_number_tubes_per_row == 0:
                 row_counter += 1
-                left_offset_counter = 0
+                offset_y += distance_between_rows + test_tube_height
+                offset_x = margin_x
 
+            tube_position = pygame.Rect(
+                offset_x, offset_y, test_tube_width, test_tube_height
+            )
             response.append(
                 TestTube(
-                    raw_matrix[i],
-                    pygame.Rect(
-                        margin_x + (i % 5) * math.ceil(2 * test_tube_width),
-                        margin_y + row_counter * (test_tube_height + distance_between_rows),
-                        test_tube_width,
-                        test_tube_height
-                    )
+                    raw_matrix[tube_counter],
+                    tube_position
                 )
             )
+            offset_x += distance_between_cols + test_tube_width
+
         return response
