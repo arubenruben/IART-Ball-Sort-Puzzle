@@ -19,8 +19,8 @@ class HumanPlayingState(MenuState):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
-                if event.type == pygame.MOUSEBUTTONUP:
-                    self.event_manager.handle_mouse_event(pygame.mouse.get_pos())
+                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                    self.event_manager.handle_mouse_event(event.pos)
 
             self.model.update()
 
