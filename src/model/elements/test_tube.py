@@ -19,6 +19,9 @@ class TestTube(Drawable):
         self._callback = None
         self._destination_rect = None
         self._original_ball_position = None
+        self.distance_between_ball = 3
+        self.ball_radius = self.rect.width // 4
+        self.correction_y = self.rect.height // 8
 
         self._background_image = pygame.transform.scale(
             pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png')),
@@ -40,10 +43,9 @@ class TestTube(Drawable):
             ball.draw(screen)
 
     def produce_ball(self, raw_balls):
-        ball_radius = self.rect.width // 4
-        correction_y = self.rect.height // 8
-        distance_between_ball = 3
-
+        # TODO:DANGER DANGER DANGER DANGER REMOVER ISTO
+        self._balls = []
+        # DANGER DANGER DANGER DANGER
         for i in range(len(raw_balls)):
             if raw_balls[i] == 0:
                 return
@@ -52,9 +54,10 @@ class TestTube(Drawable):
                     raw_balls[i],
                     (
                         self.rect.center[0],
-                        self.rect.bottom - 2 * ball_radius * i - correction_y - (distance_between_ball * i)
+                        self.rect.bottom - 2 * self.ball_radius * i - self.correction_y - (
+                                self.distance_between_ball * i)
                     ),
-                    ball_radius
+                    self.ball_radius
                 )
             )
 
@@ -102,11 +105,10 @@ class TestTube(Drawable):
         ball = self.balls[(len(self.balls) - 1)]
         # Todo:Move Animation
         if True:
-            ball.rect = self.destination_rect.copy()
             self.callback()
             self.reset_animations()
-        # else:
-        #   ball.rect = ball.rect.move(0, self.speed_y)
+            # else:
+            #   ball.rect = ball.rect.move(0, self.speed_y)
 
     def reset_animations(self):
         self.callback = None
