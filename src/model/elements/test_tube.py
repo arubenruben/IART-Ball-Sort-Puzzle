@@ -14,10 +14,11 @@ class TestTube(Drawable):
         self._animating_up = False
         self._animating_down = False
         self._animating_move = False
-        self._speed_y = 10
-        self._speed_x = 10
+        self._speed_y = 5
+        self._speed_x = 5
         self._callback = None
         self._destination_rect = None
+        self._original_ball_position = None
 
         self._background_image = pygame.transform.scale(
             pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png')),
@@ -58,20 +59,47 @@ class TestTube(Drawable):
             )
 
     def animate_up(self, callback=None):
+        ball = self.balls[(len(self.balls) - 1)]
+
         if callback is not None:
             self.callback = callback
+            self.animating_up = True
+            self.original_ball_position = ball.rect.copy()
             return
+
+        if ball.rect.top <= self.rect.top - self.rect.height // 4:
+            self.callback()
+            self.reset_animations()
+        else:
+            ball.rect = ball.rect.move(0, -self.speed_y)
 
     def animate_down(self, callback=None):
         if callback is not None:
             self.callback = callback
+            self.animating_down = True
             return
+
+        ball = self.balls[(len(self.balls) - 1)]
+
+        if ball.rect.top >= self.original_ball_position.bottom - 8 * self.speed_y:
+            ball.rect = self.original_ball_position.copy()
+            self.callback()
+            self.reset_animations()
+        else:
+            ball.rect = ball.rect.move(0, self.speed_y)
 
     def move_between_tubes(self, destination_rect=None, callback=None):
         if destination_rect is not None and callback is not None:
             self.destination_rect = destination_rect
             self.callback = callback
+            self.animating_move = True
             return
+
+    def reset_animations(self):
+        self.callback = None
+        self.animating_up = False
+        self.animating_down = False
+        self.animating_move = False
 
     # Getter and Setters
     @property
@@ -102,13 +130,25 @@ class TestTube(Drawable):
     def animating_up(self):
         return self._animating_up
 
+    @animating_up.setter
+    def animating_up(self, value):
+        self._animating_up = value
+
     @property
     def animating_down(self):
         return self._animating_down
 
+    @animating_down.setter
+    def animating_down(self, value):
+        self._animating_down = value
+
     @property
     def animating_move(self):
         return self._animating_move
+
+    @animating_move.setter
+    def animating_move(self, value):
+        self._animating_move = value
 
     @property
     def callback(self):
@@ -125,3 +165,11 @@ class TestTube(Drawable):
     @destination_rect.setter
     def destination_rect(self, value):
         self._destination_rect = value
+
+    @property
+    def original_ball_position(self):
+        return self._original_ball_position
+
+    @original_ball_position.setter
+    def original_ball_position(self, value):
+        self._original_ball_position = value

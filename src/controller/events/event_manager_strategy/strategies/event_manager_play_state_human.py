@@ -24,30 +24,30 @@ class EventManagerPlayStateHuman(EventManager):
             if test_tube_that_collide is None:
                 return
             else:
-                self.animation_type = "moving"
                 self.test_tube_animation_source = test_tube_that_collide
-                test_tube_that_collide.animate_up(self.handle_move_up())
+                test_tube_that_collide.animate_up(self.handle_move_up)
 
         elif self.animation_type == "up":
             if test_tube_that_collide is None or test_tube_that_collide == self.test_tube_animation_source:
-                self.animation_type = "moving"
-                self.test_tube_animation_source = test_tube_that_collide
-                self.test_tube_animation_source.animate_down(self.handle_move_down())
-                return
+                self.test_tube_animation_source.animate_down(self.handle_move_down)
             else:
-                self.animation_type = "moving"
                 self.test_tube_animation_destination = test_tube_that_collide
                 self.test_tube_animation_source.move_between_tubes(self.test_tube_animation_destination.rect,
-                                                                   self.handle_moving_between_tubes())
+                                                                   self.handle_moving_between_tubes)
+        self.animation_type = "moving"
 
     def handle_move_up(self):
-        pass
+        self.animation_type = "up"
 
     def handle_move_down(self):
-        pass
+        self.test_tube_animation_source = None
+        self.animation_type = "down"
 
+    # TODO:Need to exchange the balls from one tube to another
     def handle_moving_between_tubes(self):
-        pass
+        self.test_tube_animation_source = None
+        self.test_tube_animation_destination = None
+        self.animation_type = "down"
 
     @property
     def animation_type(self):

@@ -8,7 +8,7 @@ class Ball(Drawable):
     def __init__(self, value, center, radius):
         self._x_center, self._y_center = center
         self._radius = radius
-        self._rect = pygame.Rect(self.x_center - self.radius, self.y_center + self.radius, 2 * radius, 2 * radius)
+        self._rect = pygame.Rect(self.x_center - self.radius, self.y_center - self.radius, 2 * radius, 2 * radius)
         self._value = value
         self._color = color_converter(self.value)
 
@@ -16,7 +16,7 @@ class Ball(Drawable):
         pass
 
     def draw(self, screen):
-        pygame.draw.circle(screen, self.color, (self.x_center, self.y_center), self.radius)
+        pygame.draw.circle(screen, self.color, (self.rect.centerx, self.rect.centery), self.radius)
 
     def __eq__(self, other):
         return self.color == other.color

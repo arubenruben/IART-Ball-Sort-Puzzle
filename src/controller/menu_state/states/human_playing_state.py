@@ -23,6 +23,7 @@ class HumanPlayingState(MenuState):
                     self.event_manager.handle_mouse_event(pygame.mouse.get_pos())
 
             self.model.update()
+
             self.model.draw(self.game.view.screen)
 
         pygame.quit()
