@@ -96,6 +96,11 @@ class LevelCreator:
 
         for tube_counter in range(len(raw_matrix)):
 
+            if tube_counter > 0 and tube_counter % maximum_number_tubes_per_row == 0:
+                row_counter += 1
+                offset_y += distance_between_rows + test_tube_height
+                offset_x = margin_x
+
             if row_counter == number_rows - 1:
                 number_cols = len(raw_matrix) - tube_counter
             else:
@@ -105,11 +110,6 @@ class LevelCreator:
                 total_space_filled_by_tubes_in_row = number_cols * test_tube_width
                 total_space_available_for_distance_between_tubes = screen_width_available - total_space_filled_by_tubes_in_row
                 distance_between_cols = math.floor(total_space_available_for_distance_between_tubes / (number_cols - 1))
-
-            if tube_counter > 0 and tube_counter % maximum_number_tubes_per_row == 0:
-                row_counter += 1
-                offset_y += distance_between_rows + test_tube_height
-                offset_x = margin_x
 
             tube_position = pygame.Rect(
                 offset_x, offset_y, test_tube_width, test_tube_height
