@@ -2,7 +2,6 @@ import os
 
 import pygame
 
-from src.controller.events.event import FINISH_ANIMATION_UP_EVENT
 from src.model.drawable import Drawable
 from src.model.elements.ball import Ball
 

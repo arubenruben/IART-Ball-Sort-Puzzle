@@ -1,5 +1,7 @@
-import pygame
 import math
+
+import pygame
+
 from src.model.elements.test_tube import TestTube
 
 
@@ -66,44 +68,43 @@ class LevelCreator:
 
             ]
 
-        if raw_matrix is not None:
+        if raw_matrix is None:
+            return
 
-            margins_y = (2 * screen_height) // 5
-            margins_x = (2 * screen_width) // 10
+        response = []
 
-            margin_left = margins_x
-            margin_top = margins_y // 2
+        number_rows = math.ceil(len(raw_matrix) / 5)
+        margin_y = math.floor(2 * screen_height / 10)
+        margin_x = math.floor(2 * screen_width / 10)
 
-            available_width = screen_width - margins_x
-            available_height = screen_height - margins_y
+        screen_width_available = screen_width - 2 * margin_x
+        screen_height_available = screen_height - 2 * margin_y
 
-            offset_between_rows = available_height // 10
+        distance_between_rows = math.floor(2 * screen_height_available / 10)
+        total_distance_wasted_between_rows = (number_rows - 1) * math.floor(2 * screen_height_available / 10)
+        test_tube_height = math.floor((screen_height_available - total_distance_wasted_between_rows) / number_rows)
+        ##########
 
-            number_rows = math.ceil(len(raw_matrix) / 5)
+        test_tube_width = math.ceil(screen_width_available / 13)
 
-            height_available_for_rows = available_height - (offset_between_rows * (number_rows - 1))
+        response = []
+        row_counter = 0
+        left_offset_counter = 0
 
-            test_tube_height = math.ceil(height_available_for_rows / number_rows)
-            test_tube_width = math.ceil(available_width / 13)
+        for i in range(len(raw_matrix)):
+            if i > 0 and i % 5 == 0:
+                row_counter += 1
+                left_offset_counter = 0
 
-            response = []
-            row_counter = 0
-            left_offset_counter = 0
-
-            for i in range(len(raw_matrix)):
-                if i > 0 and i % 5 == 0:
-                    row_counter += 1
-                    left_offset_counter = 0
-
-                response.append(
-                    TestTube(
-                        raw_matrix[i],
-                        pygame.Rect(
-                            margin_left + (i % 5) * math.ceil(2 * test_tube_width),
-                            margin_top + row_counter * (test_tube_height + offset_between_rows),
-                            test_tube_width,
-                            test_tube_height
-                        )
+            response.append(
+                TestTube(
+                    raw_matrix[i],
+                    pygame.Rect(
+                        margin_x + (i % 5) * math.ceil(2 * test_tube_width),
+                        margin_y + row_counter * (test_tube_height + distance_between_rows),
+                        test_tube_width,
+                        test_tube_height
                     )
                 )
-            return response
+            )
+        return response
