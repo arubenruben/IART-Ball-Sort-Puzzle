@@ -2,8 +2,8 @@ import os
 
 import pygame
 
-from src.model.drawable import Drawable
-from src.model.utils.level_factory.level_creator import LevelCreator
+from model.drawable import Drawable
+from model.utils.level_factory.level_creator import LevelCreator
 
 
 class PlayingStateModel(Drawable):

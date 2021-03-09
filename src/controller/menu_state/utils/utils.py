@@ -1,7 +1,7 @@
 import pygame
 import copy
 
-from src.model.elements.test_tube import TestTube
+from model.elements.test_tube import TestTube
 
 
 def get_simplified_state(tubes):

@@ -1,7 +1,7 @@
 import pygame
 
-from src.controller.menu_state.states.playing_state import PlayingState
-from src.controller.menu_state.utils.utils import *
+from controller.menu_state.states.playing_state import PlayingState
+from controller.menu_state.utils.utils import *
 
 
 class AiPlayingState(PlayingState):

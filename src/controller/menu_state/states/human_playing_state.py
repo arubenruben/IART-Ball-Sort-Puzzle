@@ -1,7 +1,7 @@
 import pygame
 
-from src.controller.menu_state.states.playing_state import PlayingState
-from src.model.menu_models.playing_state_model import PlayingStateModel
+from controller.menu_state.states.playing_state import PlayingState
+from model.menu_models.playing_state_model import PlayingStateModel
 
 
 class HumanPlayingState(PlayingState):

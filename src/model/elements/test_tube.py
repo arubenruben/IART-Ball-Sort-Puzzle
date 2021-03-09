@@ -2,8 +2,8 @@ import os
 
 import pygame
 
-from src.model.drawable import Drawable
-from src.model.elements.ball import Ball
+from model.drawable import Drawable
+from model.elements.ball import Ball
 
 
 class TestTube(Drawable):

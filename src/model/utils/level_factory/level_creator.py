@@ -1,6 +1,6 @@
 import pygame
 import math
-from src.model.elements.test_tube import TestTube
+from model.elements.test_tube import TestTube
 
 
 class LevelCreator:

@@ -3,7 +3,7 @@ import pygame
 
 from controller.menu_state.states.ai_playing_state import AiPlayingState
 from controller.menu_state.states.human_playing_state import HumanPlayingState
-from src.model.menu_models.playing_state_model import PlayingStateModel
+from model.menu_models.playing_state_model import PlayingStateModel
 
 
 class Game:
