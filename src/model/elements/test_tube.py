@@ -33,6 +33,17 @@ class TestTube(Drawable):
         for ball in self.balls:
             ball.draw(screen)
 
+    def getFirstBall(self):
+        if(len(self._balls)>0):
+            return self._balls[len(self._balls)-1]
+        return None 
+
+    def isFull(self):
+        return (len(self._balls)<4)
+
+    def isEmpty(self):
+        return (len(self._balls)==0)
+
     @property
     def balls(self):
         return self._balls

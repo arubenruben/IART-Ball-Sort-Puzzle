@@ -2,6 +2,7 @@ import pygame
 import copy
 
 from model.elements.test_tube import TestTube
+from model.elements.ball import Ball
 
 
 def get_simplified_state(tubes):
@@ -17,10 +18,11 @@ def is_solved(tubes):
             return False
     return True
 
-
 def is_move_possible(tube1, tube2):
-    return len(tube1) != 0 and len(tube2) < 4 and (len(tube2) == 0 or tube1[-1] == tube2[-1])
+    return (not tube1.isEmpty() and not tube2.isFull() and (tube2.isEmpty() or is_same_color(tube1.getFirstBall(),tube2.getFirstBall())))
 
+def is_same_color(ball1,ball2):
+    return ball1._color==ball2._color
 
 def move_ball(tube1, tube2):
     if is_move_possible(tube1, tube2):
