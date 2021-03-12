@@ -29,7 +29,7 @@ class TestTube(Drawable):
     def update(self):
         pass
 
-    def copy(self):
+    def __copy__(self):
         copy_obj = TestTube(self.balls, self.rect)
         for name, attr in self.__dict__.items():
             if hasattr(attr, 'copy') and callable(getattr(attr, 'copy')):
@@ -44,12 +44,12 @@ class TestTube(Drawable):
             ball.draw(screen)
 
     def getFirstBall(self):
-        if len(self._balls)>0:
+        if len(self._balls) > 0:
             return self._balls[len(self._balls)-1]
         return None 
 
     def isFull(self):
-        return len(self._balls) < 4
+        return len(self._balls) == 4
 
     def isEmpty(self):
         return len(self._balls) == 0
