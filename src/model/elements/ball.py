@@ -15,7 +15,13 @@ class Ball(Drawable):
         pass
 
     def draw(self, screen):
-        pygame.draw.circle(screen, self.color, (self.rect.x, self.rect.y - 10-5), 10)
+        pygame.draw.circle(screen, self.color, (self.rect.x, self.rect.y - 10 - 5), 10)
+
+    def __eq__(self, other):
+        return self.value
+
+    def __hash__(self):
+        return self.value
 
     @property
     def value(self):
@@ -24,8 +30,6 @@ class Ball(Drawable):
     @property
     def color(self):
         return self._color
-
-
 
     @property
     def rect(self):

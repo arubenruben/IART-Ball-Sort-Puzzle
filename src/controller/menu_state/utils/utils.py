@@ -1,33 +1,16 @@
-from copy import copy
-
-import pygame
-
-from src.model.elements.test_tube import TestTube
-from src.model.elements.ball import Ball
+def is_tube_solved(tube):
+    return False if len(set(tube.balls)) > 1 or len(tube.balls) == 1 else True
 
 
 def is_solved(tubes):
     for tube in tubes:
-        if len(set(tube)) > 1:
+        if not is_tube_solved(tube):
             return False
     return True
 
 
-def is_move_possible(tube1, tube2):
-    return (not tube1.isEmpty() and not tube2.isFull() and (
-            tube2.isEmpty() or is_same_color(tube1.getFirstBall(), tube2.getFirstBall())))
-
-
 def is_same_color(ball1, ball2):
     return ball1.color == ball2.color
-
-
-def move_ball(tube1, tube2):
-    if is_move_possible(tube1, tube2):
-        new_tube1 = copy(tube1)
-        new_tube2 = copy(tube2)
-        new_tube2.balls.append(new_tube1.balls.pop())
-        return new_tube1, new_tube2
 
 
 class Node:

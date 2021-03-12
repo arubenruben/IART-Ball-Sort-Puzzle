@@ -29,6 +29,17 @@ class TestTube(Drawable):
     def update(self):
         pass
 
+    def __eq__(self, other):
+        if len(self.balls) != len(other.balls):
+            return False
+        for i in range(len(self.balls)):
+            if self.balls[i] != other.balls[i]:
+                return False
+        return True
+
+    def __hash__(self):
+        return hash(tuple(self.balls))
+
     def __copy__(self):
         copy_obj = TestTube(self.balls, self.rect)
         for name, attr in self.__dict__.items():
