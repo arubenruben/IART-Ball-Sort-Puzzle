@@ -23,10 +23,10 @@ class Game:
         self._fps = fps
 
         # Must be the last thing to be created
-        self._menu_state = HumanPlayingState(self, PlayingStateModel((screen_width, screen_height)))
+        self._menu_state = AiPlayingState(self, PlayingStateModel((screen_width, screen_height)))
 
     def run(self):
-        self._menu_state.run()
+        self._menu_state.bfs()
 
     @property
     def screen(self):

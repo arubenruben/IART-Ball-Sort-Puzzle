@@ -1,8 +1,9 @@
-import pygame
-import copy
+import itertools
 
-from model.elements.test_tube import TestTube
-from model.elements.ball import Ball
+import pygame
+
+from src.model.elements.test_tube import TestTube
+from src.model.elements.ball import Ball
 
 
 def get_simplified_state(tubes):
@@ -18,16 +19,20 @@ def is_solved(tubes):
             return False
     return True
 
-def is_move_possible(tube1, tube2):
-    return (not tube1.isEmpty() and not tube2.isFull() and (tube2.isEmpty() or is_same_color(tube1.getFirstBall(),tube2.getFirstBall())))
 
-def is_same_color(ball1,ball2):
-    return ball1._color==ball2._color
+def is_move_possible(tube1, tube2):
+    return (not tube1.isEmpty() and not tube2.isFull() and (
+            tube2.isEmpty() or is_same_color(tube1.getFirstBall(), tube2.getFirstBall())))
+
+
+def is_same_color(ball1, ball2):
+    return ball1.color == ball2.color
+
 
 def move_ball(tube1, tube2):
     if is_move_possible(tube1, tube2):
-        new_tube1 = copy.deepcopy(tube1)
-        new_tube2 = copy.deepcopy(tube2)
+        new_tube1 = tube1.copy()
+        new_tube2 = tube2.copy
         new_tube2.append(new_tube1.pop())
         return new_tube1, new_tube2
 
@@ -41,6 +46,9 @@ class Node:
 
     def __eq__(self, other):
         return self.test_tubes == other.test_tubes
+
+    def __hash__(self):
+        return hash(tuple(self.test_tubes))
 
     @property
     def test_tubes(self):

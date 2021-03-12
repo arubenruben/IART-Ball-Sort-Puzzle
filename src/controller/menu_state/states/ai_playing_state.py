@@ -1,17 +1,18 @@
 import pygame
 
-from controller.menu_state.states.playing_state import PlayingState
-from controller.menu_state.utils.utils import *
+from src.controller.menu_state.states.playing_state import PlayingState
+from src.controller.menu_state.utils.utils import *
 
 
 class AiPlayingState(PlayingState):
     def bfs(self):
-        tubes = get_simplified_state(self.model.test_tubes)
-        print(is_solved(tubes))
-        start_node = Node(tubes, None, 0, None)
+        move_ball(self.model.test_tubes[0], self.model.test_tubes[-1])
+        start_node = Node(self.model.test_tubes, None, 0, None)
+        print(self.model.test_tubes[0].balls)
         # Not sure if list is best to save visited nodes
-        visited = [start_node]
+        visited = set([start_node])
         queue = [start_node]
 
         while queue:
             queue.pop(0)
+

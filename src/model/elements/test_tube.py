@@ -1,15 +1,16 @@
+import copy
 import os
 
 import pygame
 
-from model.drawable import Drawable
-from model.elements.ball import Ball
+from src.model.drawable import Drawable
+from src.model.elements.ball import Ball
 
 
 class TestTube(Drawable):
 
     def __init__(self, balls, rect):
-        # Todo:Missing here a scale in the picture in order to dimensions work proprely
+        # Todo:Missing here a scale in the picture in order to dimensions work properly
         self._background_image = pygame.transform.scale(
             pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png')),
             (rect.width, rect.height))
@@ -28,21 +29,30 @@ class TestTube(Drawable):
     def update(self):
         pass
 
+    def copy(self):
+        copy_obj = TestTube(self.balls, self.rect)
+        for name, attr in self.__dict__.items():
+            if hasattr(attr, 'copy') and callable(getattr(attr, 'copy')):
+                copy_obj.__dict__[name] = attr.copy()
+            else:
+                copy_obj.__dict__[name] = copy.deepcopy(attr)
+        return copy_obj
+
     def draw(self, screen):
         screen.blit(self.background_image, self.rect)
         for ball in self.balls:
             ball.draw(screen)
 
     def getFirstBall(self):
-        if(len(self._balls)>0):
+        if len(self._balls)>0:
             return self._balls[len(self._balls)-1]
         return None 
 
     def isFull(self):
-        return (len(self._balls)<4)
+        return len(self._balls) < 4
 
     def isEmpty(self):
-        return (len(self._balls)==0)
+        return len(self._balls) == 0
 
     @property
     def balls(self):
