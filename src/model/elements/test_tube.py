@@ -91,6 +91,8 @@ class TestTube(Drawable):
             # else:
             #   ball.rect = ball.rect.move(0, self.speed_y)
 
+    # Todo:Refactor return none
+
     def get_first_ball(self):
         if len(self._balls) > 0:
             return self._balls[len(self._balls) - 1]
@@ -101,14 +103,6 @@ class TestTube(Drawable):
 
     def is_empty(self):
         return len(self._balls) == 0
-
-    def __eq__(self, other):
-        if len(self.balls) != len(other.balls):
-            return False
-        for i in range(len(self.balls)):
-            if self.balls[i] != other.balls[i]:
-                return False
-        return True
 
     def __hash__(self):
         return hash(tuple(self.balls))

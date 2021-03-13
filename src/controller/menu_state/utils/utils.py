@@ -1,5 +1,9 @@
+# Using Aux Set to remove duplicates and if the number of balls is just 1 or 0 is finished
 def is_tube_solved(tube):
-    return False if len(set(tube.balls)) > 1 or len(tube.balls) == 1 else True
+    if len(set(tube.balls)) > 1 or len(tube.balls) == 1:
+        return False
+    else:
+        return True
 
 
 def is_solved(tubes):

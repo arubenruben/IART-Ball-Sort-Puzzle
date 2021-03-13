@@ -40,6 +40,14 @@ class AnimationHumanManager(AnimationManager):
         self.test_tube_source.set_animation_between_tubes(self.test_tube_destination.rect,
                                                           self.handle_finish_animation_move_between_tubes)
 
+    def reverse_move_animation(self):
+        self.state = "up"
+
+    def reset(self):
+        self.state = "down"
+        self.test_tube_source = None
+        self.test_tube_destination = None
+
     # Todo:Refactor
     def handle_finish_animation_move_between_tubes(self):
 

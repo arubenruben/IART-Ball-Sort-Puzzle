@@ -9,13 +9,13 @@ from src.model.utils.level_factory.level_creator import LevelCreator
 class PlayingStateModel(Drawable):
 
     def __init__(self, screen_dimension):
-        width, height = screen_dimension
-
+        self.width, self.height = screen_dimension
         self._background = pygame.transform.scale(
             pygame.image.load(os.path.join('../', 'assets', 'img', 'background.jpg')),
-            (width, height))
+            (self.width, self.height))
         self._level_creator = LevelCreator()
-        self._state = self._level_creator.create(2, (width, height))
+        self._state = self._level_creator.create(1, (self.width, self.height))
+        self._level = 1
 
     def update(self):
         for test_tube in self.state:
@@ -36,3 +36,9 @@ class PlayingStateModel(Drawable):
     @property
     def background(self):
         return self._background
+
+    def next_level(self):
+        self._level += 1
+        self._state = self._level_creator.create(self._level, (self.width, self.height))
+
+        return self.state

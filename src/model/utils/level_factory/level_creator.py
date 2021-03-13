@@ -71,6 +71,8 @@ class LevelCreator:
             return [
 
             ]
+        else:
+            return None
 
         if raw_matrix is None:
             return

@@ -1,6 +1,3 @@
-from src.controller.events.event_manager_strategy.event_manager import EventManager
-
-
 class MenuState:
     def __init__(self, game, model, event_manager):
         self._game = game
