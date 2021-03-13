@@ -21,7 +21,7 @@ class Node:
         self._operator = operator
 
     def __eq__(self, other):
-        return self.test_tubes == other.test_tubes
+        return self.test_tubes == other.state
 
     def __hash__(self):
         return hash(tuple(self.test_tubes))

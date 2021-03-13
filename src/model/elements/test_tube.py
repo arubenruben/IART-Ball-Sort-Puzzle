@@ -30,13 +30,77 @@ class TestTube(Drawable):
 
         self.produce_ball(raw_balls)
 
+    # Todo:Refactor
+    def produce_ball(self, raw_balls):
+        # TODO:DANGER DANGER DANGER DANGER REMOVER ISTO
+        self._balls = []
+        # DANGER DANGER DANGER DANGER
+        for i in range(len(raw_balls)):
+            if raw_balls[i] == 0:
+                return
+            self.balls.append(
+                Ball(
+                    raw_balls[i],
+                    (
+                        self.rect.center[0],
+                        self.rect.bottom - 2 * self.ball_radius * i - self.correction_y - (
+                                self.distance_between_ball * i)
+                    ),
+                    self.ball_radius
+                )
+            )
+
     def update(self):
         if self.animating_up:
             return self.animate_up()
         if self.animating_down:
             return self.animate_down()
         if self.animating_move:
-            return self.move_between_tubes()
+            return self.animate_between_tubes()
+
+    def draw(self, screen):
+        screen.blit(self.background_image, self.rect)
+        for ball in self.balls:
+            ball.draw(screen)
+
+    def animate_up(self):
+        ball = self.get_first_ball()
+
+        if ball.rect.top <= self.rect.top - self.rect.height // 4:
+            self.callback()
+            self.reset_animations()
+        else:
+            ball.rect = ball.rect.move(0, -self.speed_y)
+
+    def animate_down(self):
+        ball = self.get_first_ball()
+
+        if ball.rect.top >= self.original_ball_position.bottom - 8 * self.speed_y:
+            ball.rect = self.original_ball_position.copy()
+            self.callback()
+            self.reset_animations()
+        else:
+            ball.rect = ball.rect.move(0, self.speed_y)
+
+    # Todo:Move Animation
+    def animate_between_tubes(self):
+        ball = self.get_first_ball()
+        if True:
+            self.callback()
+            self.reset_animations()
+            # else:
+            #   ball.rect = ball.rect.move(0, self.speed_y)
+
+    def get_first_ball(self):
+        if len(self._balls) > 0:
+            return self._balls[len(self._balls) - 1]
+        return None
+
+    def is_full(self):
+        return len(self._balls) == 4
+
+    def is_empty(self):
+        return len(self._balls) == 0
 
     def __eq__(self, other):
         if len(self.balls) != len(other.balls):
@@ -57,96 +121,6 @@ class TestTube(Drawable):
             else:
                 copy_obj.__dict__[name] = copy.deepcopy(attr)
         return copy_obj
-
-    def draw(self, screen):
-        screen.blit(self.background_image, self.rect)
-        for ball in self.balls:
-            ball.draw(screen)
-
-    def getFirstBall(self):
-        if len(self._balls) > 0:
-            return self._balls[len(self._balls)-1]
-        return None 
-
-    def isFull(self):
-        return len(self._balls) == 4
-
-    def isEmpty(self):
-        return len(self._balls) == 0
-
-    def produce_ball(self, raw_balls):
-        # TODO:DANGER DANGER DANGER DANGER REMOVER ISTO
-        self._balls = []
-        # DANGER DANGER DANGER DANGER
-        for i in range(len(raw_balls)):
-            if raw_balls[i] == 0:
-                return
-            self.balls.append(
-                Ball(
-                    raw_balls[i],
-                    (
-                        self.rect.center[0],
-                        self.rect.bottom - 2 * self.ball_radius * i - self.correction_y - (
-                                self.distance_between_ball * i)
-                    ),
-                    self.ball_radius
-                )
-            )
-
-    def animate_up(self, callback=None):
-        # TODO:Refactor this if
-        if len(self.balls) == 0:
-            return
-
-        ball = self.balls[(len(self.balls) - 1)]
-
-        if callback is not None:
-            self.callback = callback
-            self.animating_up = True
-            self.original_ball_position = ball.rect.copy()
-            return
-
-        if ball.rect.top <= self.rect.top - self.rect.height // 4:
-            self.callback()
-            self.reset_animations()
-        else:
-            ball.rect = ball.rect.move(0, -self.speed_y)
-
-    def animate_down(self, callback=None):
-        if callback is not None:
-            self.callback = callback
-            self.animating_down = True
-            return
-
-        ball = self.balls[(len(self.balls) - 1)]
-
-        if ball.rect.top >= self.original_ball_position.bottom - 8 * self.speed_y:
-            ball.rect = self.original_ball_position.copy()
-            self.callback()
-            self.reset_animations()
-        else:
-            ball.rect = ball.rect.move(0, self.speed_y)
-
-    def move_between_tubes(self, destination_rect=None, callback=None):
-        if destination_rect is not None and callback is not None:
-            self.destination_rect = destination_rect
-            self.callback = callback
-            self.animating_move = True
-            return
-
-        ball = self.balls[(len(self.balls) - 1)]
-        # Todo:Move Animation
-        if True:
-            self.callback()
-            self.reset_animations()
-            # else:
-            #   ball.rect = ball.rect.move(0, self.speed_y)
-
-    def reset_animations(self):
-        self.callback = None
-        self.animating_up = False
-        self.animating_down = False
-        self.animating_move = False
 
     # Getter and Setters
     @property
@@ -220,3 +194,28 @@ class TestTube(Drawable):
     @original_ball_position.setter
     def original_ball_position(self, value):
         self._original_ball_position = value
+
+    def set_animation_up(self, callback):
+
+        ball = self.get_first_ball()
+
+        self.callback = callback
+        self.animating_up = True
+        self.original_ball_position = ball.rect.copy()
+
+    def set_animation_down(self, callback):
+
+        self.callback = callback
+        self.animating_down = True
+
+    def set_animation_between_tubes(self, destination_rect, callback):
+        self.destination_rect = destination_rect
+        self.callback = callback
+        self.animating_move = True
+        return
+
+    def reset_animations(self):
+        self.callback = None
+        self.animating_up = False
+        self.animating_down = False
+        self.animating_move = False

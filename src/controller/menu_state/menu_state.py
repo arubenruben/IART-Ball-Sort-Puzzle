@@ -2,10 +2,10 @@ from src.controller.events.event_manager_strategy.event_manager import EventMana
 
 
 class MenuState:
-    def __init__(self, game, model):
+    def __init__(self, game, model, event_manager):
         self._game = game
         self._model = model
-        self._event_manager = EventManager(model)
+        self._event_manager = event_manager
 
     def run(self):
         pass

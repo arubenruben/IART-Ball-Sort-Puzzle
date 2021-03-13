@@ -15,23 +15,23 @@ class PlayingStateModel(Drawable):
             pygame.image.load(os.path.join('../', 'assets', 'img', 'background.jpg')),
             (width, height))
         self._level_creator = LevelCreator()
-        self._test_tubes = self._level_creator.create(2, (width, height))
+        self._state = self._level_creator.create(2, (width, height))
 
     def update(self):
-        for test_tube in self.test_tubes:
+        for test_tube in self.state:
             test_tube.update()
 
     def draw(self, screen):
         screen.blit(self.background, (0, 0))
 
-        for test_tube in self.test_tubes:
+        for test_tube in self.state:
             test_tube.draw(screen)
 
         pygame.display.update()
 
     @property
-    def test_tubes(self):
-        return self._test_tubes
+    def state(self):
+        return self._state
 
     @property
     def background(self):

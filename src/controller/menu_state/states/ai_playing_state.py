@@ -11,7 +11,7 @@ from src.controller.menu_state.utils.utils import *
 
 class AiPlayingState(PlayingState):
     def bfs(self):
-        tubes = [copy(tube) for tube in self.model.test_tubes]
+        tubes = [copy(tube) for tube in self.model.state]
 
         # All possible permutations between tubes
         plays = list(itertools.permutations([n for n in range(len(tubes))], 2))
