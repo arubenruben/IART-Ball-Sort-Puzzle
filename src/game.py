@@ -8,7 +8,7 @@ class Game:
         self._menu_state = HumanPlayingState(self, model)
 
     def run(self):
-        self._menu_state.run()
+        self._menu_state.bfs()
 
     @property
     def menu_state(self):

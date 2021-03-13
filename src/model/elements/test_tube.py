@@ -1,3 +1,4 @@
+import copy
 import os
 
 import pygame
@@ -37,10 +38,41 @@ class TestTube(Drawable):
         if self.animating_move:
             return self.move_between_tubes()
 
+    def __eq__(self, other):
+        if len(self.balls) != len(other.balls):
+            return False
+        for i in range(len(self.balls)):
+            if self.balls[i] != other.balls[i]:
+                return False
+        return True
+
+    def __hash__(self):
+        return hash(tuple(self.balls))
+
+    def __copy__(self):
+        copy_obj = TestTube(self.balls, self.rect)
+        for name, attr in self.__dict__.items():
+            if hasattr(attr, 'copy') and callable(getattr(attr, 'copy')):
+                copy_obj.__dict__[name] = attr.copy()
+            else:
+                copy_obj.__dict__[name] = copy.deepcopy(attr)
+        return copy_obj
+
     def draw(self, screen):
         screen.blit(self.background_image, self.rect)
         for ball in self.balls:
             ball.draw(screen)
+
+    def getFirstBall(self):
+        if len(self._balls) > 0:
+            return self._balls[len(self._balls)-1]
+        return None 
+
+    def isFull(self):
+        return len(self._balls) == 4
+
+    def isEmpty(self):
+        return len(self._balls) == 0
 
     def produce_ball(self, raw_balls):
         # TODO:DANGER DANGER DANGER DANGER REMOVER ISTO

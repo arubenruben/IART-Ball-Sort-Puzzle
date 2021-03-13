@@ -19,10 +19,10 @@ class Ball(Drawable):
         pygame.draw.circle(screen, self.color, (self.rect.centerx, self.rect.centery), self.radius)
 
     def __eq__(self, other):
-        return self.color == other.color
+        return self.value
 
     def __hash__(self):
-        return hash(tuple(self.color))
+        return self.value
 
     @property
     def value(self):
