@@ -1,6 +1,9 @@
 # States: Down. Up. Moving_UP. Moving_DOWN Moving_BETWEEN_TUBES
+from src.model.move import Move
+from src.view.animation_managers.animation_bot_manager import AnimationManager
 
-class AnimationManager:
+
+class AnimationHumanManager(AnimationManager):
     def __init__(self):
         self._state = "down"
         self._test_tube_source = None
@@ -12,17 +15,18 @@ class AnimationManager:
             self.state = "moving_up"
             self.test_tube_source = test_tube
             self.test_tube_source.set_animation_up(self.handle_finish_animation_move_up)
+            return None
 
-        elif self.state == "up" and (test_tube is None or self.test_tube_source == test_tube):
+        if self.state == "up" and (test_tube is None or self.test_tube_source == test_tube):
             self.state = "moving_down"
             self.test_tube_source.set_animation_down(self.handle_finish_animation_move_down)
+            return None
 
-        elif self.state == "up" and test_tube is not None and self.test_tube_source != test_tube and not test_tube.is_full():
+        if self.state == "up" and test_tube is not None and self.test_tube_source != test_tube:
             self.state = "moving_between_tubes"
-            self._test_tube_destination = test_tube
-            self.test_tube_source.set_animation_between_tubes(test_tube.rect,
-                                                              self.handle_finish_animation_move_between_tubes)
-        # Animation Finisher Handlers
+            return Move(self.test_tube_source, test_tube)
+
+    # Animation Finisher Handlers
 
     def handle_finish_animation_move_up(self):
         self.state = "up"
@@ -30,6 +34,11 @@ class AnimationManager:
     def handle_finish_animation_move_down(self):
         self.state = "down"
         self.test_tube_source = None
+
+    def execute_move_animation(self, move):
+        self.test_tube_destination = move.destination_test_tube
+        self.test_tube_source.set_animation_between_tubes(self.test_tube_destination.rect,
+                                                          self.handle_finish_animation_move_between_tubes)
 
     # Todo:Refactor
     def handle_finish_animation_move_between_tubes(self):
