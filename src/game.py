@@ -1,12 +1,12 @@
-from controller.menu_state.states.human_playing_state import HumanPlayingState
-from src.controller.menu_state.states.ai_playing_state import AIPlayingState
+from src.controller.AI.execution_template.bfs import BFSAI
+from src.controller.menu_state.states.AI_playing_state import AIPlayingState
 
 
 class Game:
 
     def __init__(self, model, view):
         self._view = view
-        self._menu_state = AIPlayingState(self, model)
+        self._menu_state = BFSAI(self, model)
 
     def run(self):
         self._menu_state.run()

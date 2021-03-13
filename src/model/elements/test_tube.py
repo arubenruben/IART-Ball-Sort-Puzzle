@@ -104,6 +104,14 @@ class TestTube(Drawable):
     def is_empty(self):
         return len(self._balls) == 0
 
+    def __eq__(self, other):
+        if len(self.balls) != len(other.balls):
+            return False
+        for i in range(len(self.balls)):
+            if self.balls[i] != other.balls[i]:
+                return False
+        return True
+
     def __hash__(self):
         return hash(tuple(self.balls))
 
@@ -213,3 +221,11 @@ class TestTube(Drawable):
         self.animating_up = False
         self.animating_down = False
         self.animating_move = False
+
+    def raw_ball_list(self):
+        return_list = []
+
+        for ball in self.balls:
+            return_list.append(ball.value)
+
+        return return_list

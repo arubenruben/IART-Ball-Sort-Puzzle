@@ -5,11 +5,17 @@ class Move:
 
     def validate(self):
 
-        if not self.origin_test_tube.is_empty() and self.destination_test_tube.is_empty():
-            return True
+        if self.origin_test_tube == self.destination_test_tube:
+            return False
+
+        if self.origin_test_tube.is_empty():
+            return False
 
         if self.destination_test_tube.is_full():
             return False
+
+        if not self.origin_test_tube.is_empty() and self.destination_test_tube.is_empty():
+            return True
 
         if self.origin_test_tube.get_first_ball().color == self.destination_test_tube.get_first_ball().color:
             return True
