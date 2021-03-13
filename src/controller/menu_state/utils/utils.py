@@ -1,3 +1,12 @@
+def move_ball(tube1, tube2):
+    tube2.balls.append(tube1.balls.pop())
+
+
+def is_move_possible(tube1, tube2):
+    return (not tube1.isEmpty() and not tube2.isFull() and not is_tube_solved(tube1)
+            and (tube2.isEmpty() or is_same_color(tube1.getFirstBall(), tube2.getFirstBall())))
+
+
 def is_tube_solved(tube):
     return False if len(set(tube.balls)) > 1 or len(tube.balls) == 1 else True
 

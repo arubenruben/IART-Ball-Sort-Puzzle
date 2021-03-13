@@ -18,22 +18,24 @@ class AiPlayingState(PlayingState):
 
         start_node = Node([copy(tube) for tube in tubes], None, 0, None)
         visited = set([start_node])
-        queue = [start_node]
+        queue = list()
+        queue.append(start_node)
 
         while queue:
             parent = queue.pop(0)
             if is_solved(parent.test_tubes):
                 while 1:
-                    if parent._depth == 0:
+                    if parent.depth == 0:
                         break
-                    print(parent.operator._idx1, parent.operator._idx2)
+                    print(parent.operator.tube1idx, parent.operator.tube2idx)
                     parent = parent.parent
 
                 return parent
             for play in plays:
-                aux = [copy(tube) for tube in parent.test_tubes]
-                curr_move = Move(aux[play[0]], aux[play[1]], play[0], play[1])
-                if curr_move.move_ball():
+                curr_move = Move(play[0], play[1])
+                if is_move_possible(parent.test_tubes[play[0]], parent.test_tubes[play[1]]):
+                    aux = [copy(tube) for tube in parent.test_tubes]
+                    move_ball(aux[play[0]], aux[play[1]])
                     child = Node(aux, parent, parent.depth + 1, curr_move)
                     if child not in visited:
                         queue.append(child)
