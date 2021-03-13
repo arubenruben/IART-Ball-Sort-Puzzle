@@ -1,6 +1,5 @@
 class EventManager:
     def __init__(self, animation_manager):
-
         self._animation_manager = animation_manager
 
     def handle_mouse_event(self, state, event):

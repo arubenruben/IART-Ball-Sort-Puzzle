@@ -1,7 +1,5 @@
 import pygame
 
-from src.view.animation_managers.animation_human_manager import AnimationManager, AnimationHumanManager
-
 
 class View:
     def __init__(self, screen_dimension, fps):
@@ -14,7 +12,6 @@ class View:
         self._clock = pygame.time.Clock()
         self._screen = pygame.display.set_mode((self._width, self._height))
         self._fps = fps
-        self._animation_manager = AnimationHumanManager()
 
     @property
     def width(self):

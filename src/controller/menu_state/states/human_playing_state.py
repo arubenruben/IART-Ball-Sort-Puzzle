@@ -3,15 +3,19 @@ import pygame
 from src.controller.events.event_manager_strategy.event_manager import EventManager
 from src.controller.menu_state.menu_state import MenuState
 from src.controller.menu_state.utils.utils import is_solved
+from src.view.animation_managers.animation_human_manager import AnimationHumanManager
 
 
 class HumanPlayingState(MenuState):
     def __init__(self, game, model):
-        super().__init__(game, model, EventManager(game.view.animation_manager))
+        super().__init__(game, model)
+
+        # Todo:Order Matters refactor
+        self._animationManager = AnimationHumanManager()
+        self._event_manager = EventManager(self._animationManager)
 
     def run(self):
         run = True
-
         while run:
             move = None
 
@@ -21,7 +25,7 @@ class HumanPlayingState(MenuState):
                 if self.model.next_level() is None:
                     break
                 else:
-                    self.game.view.animation_manager.reset()
+                    self.animation_manager.reset()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -37,8 +41,16 @@ class HumanPlayingState(MenuState):
                 continue
 
             if move.validate():
-                move.execute(self.game.view.animation_manager)
+                move.execute(self.animation_manager)
             else:
-                move.fail(self.game.view.animation_manager)
+                move.fail(self.animation_manager)
 
         pygame.quit()
+
+    @property
+    def event_manager(self):
+        return self._event_manager
+
+    @property
+    def animation_manager(self):
+        return self._animationManager

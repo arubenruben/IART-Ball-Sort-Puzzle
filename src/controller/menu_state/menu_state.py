@@ -1,8 +1,7 @@
 class MenuState:
-    def __init__(self, game, model, event_manager):
+    def __init__(self, game, model):
         self._game = game
         self._model = model
-        self._event_manager = event_manager
 
     def run(self):
         pass
@@ -14,7 +13,3 @@ class MenuState:
     @property
     def model(self):
         return self._model
-
-    @property
-    def event_manager(self):
-        return self._event_manager
