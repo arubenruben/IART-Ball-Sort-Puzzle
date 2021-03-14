@@ -5,7 +5,7 @@ import pygame
 
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
-from src.controller.menu_state.utils.utils import is_move_possible, move_ball
+from src.controller.menu_state.utils.utils import move_ball
 from src.model.move import Move
 
 
@@ -34,7 +34,7 @@ class AIPlayingState(PlayingState):
 
                 curr_move = Move(play[0], play[1])
 
-                if is_move_possible(self.current_node.test_tubes[play[0]], self.current_node.test_tubes[play[1]]):
+                if curr_move.validate(self.current_node.test_tubes):
 
                     aux = [copy(tube) for tube in self.current_node.test_tubes]
                     move_ball(aux[play[0]], aux[play[1]])
