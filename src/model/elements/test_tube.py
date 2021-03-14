@@ -108,12 +108,9 @@ class TestTube(Drawable):
         if len(self.balls) != len(other.balls):
             return False
         for i in range(len(self.balls)):
-            if self.balls[i] != other.balls[i]:
+            if self.balls[i].value != 0 and other.balls[i].value != 0 and self.balls[i].value != other.balls[i].value:
                 return False
         return True
-
-    def __hash__(self):
-        return hash(tuple(self.balls))
 
     def __copy__(self):
         copy_obj = TestTube(self.balls, self.rect)

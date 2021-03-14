@@ -1,6 +1,7 @@
 class Node:
     def __init__(self, test_tubes, parent, depth, operator):
-        self._test_tubes = test_tubes  # Game State
+        # Game State
+        self._test_tubes = test_tubes
         self._parent = parent
         self._depth = depth
         self._operator = operator
@@ -8,12 +9,12 @@ class Node:
     def __eq__(self, other):
         return self.test_tubes == other.test_tubes
 
-    def __hash__(self):
-        return hash(tuple(self.test_tubes))
-
     @property
     def test_tubes(self):
         return self._test_tubes
+
+    def __hash__(self):
+        return super().__hash__()
 
     @property
     def parent(self):
