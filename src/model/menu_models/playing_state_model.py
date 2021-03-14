@@ -44,3 +44,7 @@ class PlayingStateModel(Drawable):
         self._state = State(self._level_creator.create(self._level, (self.width, self.height)))
 
         return self.state
+
+    @property
+    def test_tubes(self):
+        return self._test_tubes

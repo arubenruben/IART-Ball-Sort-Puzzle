@@ -1,47 +1,57 @@
+import itertools
+from copy import copy
+
 import pygame
 
-from src.controller.AI.MoveGenerator import MoveGenerator
-from src.controller.AI.node import Node
-from src.controller.AI.utils import is_solved
+from src.controller.AI.utils import is_solved, Node, is_move_possible, move_ball
 from src.controller.menu_state.states.playing_state import PlayingState
+from src.model.move import Move
 
 
 class AIPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
-        self._move_generator = MoveGenerator()
-        self._current_node = Node(model.state, None, None)
+
+        tubes = [copy(tube) for tube in self.model.test_tubes]
+
+        self.plays = list(itertools.permutations([n for n in range(len(tubes))], 2))
+
+        self._current_node = Node([copy(tube) for tube in tubes], None, 0, None)
 
         self._queue = [self._current_node]
 
-        self._visited = [self._current_node]
+        self._visited = set([self._current_node])
 
     def run(self):
-        run = True
 
-        while run and self.current_node is not None:
+        while self.queue:
 
-            # self.game.view.clock.tick(self.game.view.fps)
+            parent = self.queue.pop(0)
 
-            if is_solved(self.current_node.state.test_tubes):
-                break
+            if is_solved(parent.test_tubes):
+                while 1:
+                    if parent.depth == 0:
+                        break
+                    print(parent.operator.tube1idx, parent.operator.tube2idx)
+                    parent = parent.parent
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
+                return parent
+            for play in self.plays:
+                curr_move = Move(play[0], play[1])
+                if is_move_possible(parent.test_tubes[play[0]], parent.test_tubes[play[1]]):
+                    aux = [copy(tube) for tube in parent.test_tubes]
+                    move_ball(aux[play[0]], aux[play[1]])
+                    child = Node(aux, parent, parent.depth + 1, curr_move)
+                    if child not in self.visited:
+                        self.queue.append(child)
+                        print(len(self.queue))
+                        self.visited.add(child)
 
-            potential_nodes = self._move_generator.state_expansion(self.current_node)
-
-            self.exec(potential_nodes)
-
-            self.current_node = self.queue.pop(0)
-
-            self._visited.append(self.current_node)
-            # self.model.draw(self.game.view.screen)
-
-        print(len(self._visited))
+        print(len(self.visited))
 
         pygame.quit()
+
+        return None
 
     # Template Methods
     def exec(self, state_expansion):

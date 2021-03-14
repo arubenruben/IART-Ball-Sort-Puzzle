@@ -1,5 +1,4 @@
 from src.controller.AI.execution_template.bfs import BFSAI
-from src.controller.menu_state.states.AI_playing_state import AIPlayingState
 
 
 class Game:
