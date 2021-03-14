@@ -220,4 +220,17 @@ class TestTube(Drawable):
         self.animating_move = False
 
     def is_solved(self):
-        return False if len(set(self.balls)) > 1 or (4 > len(self.balls) > 0) else True
+
+        if len(self.balls) == 0:
+            return True
+
+        if len(self.balls) < 4:
+            return False
+
+        start_ball = self.balls[0]
+
+        for i in range(len(self.balls)):
+            if self.balls[i].value != start_ball.value:
+                return False
+
+        return True

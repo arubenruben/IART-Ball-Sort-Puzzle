@@ -1,5 +1,11 @@
 def is_same_color(ball1, ball2):
-    return ball1.value == ball2.value
+    if ball1.value == 0 or ball2.value == 0:
+        return True
+
+    if ball1.value == ball2.value:
+        return True
+
+    return False
 
 
 def is_solved(tubes):
