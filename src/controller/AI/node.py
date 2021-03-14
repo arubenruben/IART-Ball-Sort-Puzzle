@@ -7,14 +7,21 @@ class Node:
         self._operator = operator
 
     def __eq__(self, other):
-        return self.test_tubes == other.test_tubes
+        for i in range(len(self.test_tubes)):
+            if len(self.test_tubes[i].balls) != len(other.test_tubes[i].balls):
+                return False
+
+            for j in range(len(self.test_tubes[i].balls)):
+                if self.test_tubes[i].balls[j].value != self.test_tubes[i].balls[j].value:
+                    return False
+        return True
+
+    def __hash__(self):
+        return super().__hash__()
 
     @property
     def test_tubes(self):
         return self._test_tubes
-
-    def __hash__(self):
-        return super().__hash__()
 
     @property
     def parent(self):

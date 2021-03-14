@@ -30,6 +30,10 @@ class AIPlayingState(PlayingState):
             if is_solved(self.current_node.test_tubes):
                 break
 
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+
             for play in self.plays:
 
                 curr_move = Move(play[0], play[1])
@@ -42,12 +46,12 @@ class AIPlayingState(PlayingState):
 
                     child = Node(test_tube_copy, self.current_node, self.current_node.depth + 1, curr_move)
 
-                    if child not in self.queue:
+                    if child not in self.queue and child not in self.visited:
                         self.exec(child)
 
             self.current_node = self.queue.pop(0)
-            print(len(self.queue))
             self.visited.add(self.current_node)
+            print(len(self.queue))
 
         print(len(self.visited))
 
