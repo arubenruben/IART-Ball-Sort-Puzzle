@@ -1,7 +1,8 @@
-# States: Down. Up. Moving_UP. Moving_DOWN Moving_BETWEEN_TUBES
-from src.model.move import Move
+from src.model.move_for_human import MoveForHuman
 from src.view.animation_managers.animation_bot_manager import AnimationManager
 
+
+# States: Down. Up. Moving_UP. Moving_DOWN Moving_BETWEEN_TUBES
 
 class AnimationHumanManager(AnimationManager):
     def __init__(self):
@@ -24,7 +25,7 @@ class AnimationHumanManager(AnimationManager):
 
         if self.state == "up" and test_tube is not None and self.test_tube_source != test_tube:
             self.state = "moving_between_tubes"
-            return Move(self.test_tube_source, test_tube)
+            return MoveForHuman(self.test_tube_source, test_tube)
 
     # Animation Finisher Handlers
 

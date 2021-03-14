@@ -1,8 +1,8 @@
 import pygame
-from src.controller.AI.utils import is_solved
 
 from src.controller.events.event_manager_strategy.event_manager import EventManager
 from src.controller.menu_state.menu_state import MenuState
+from src.controller.menu_state.utils.utils import is_solved
 from src.view.animation_managers.animation_human_manager import AnimationHumanManager
 
 
@@ -21,7 +21,7 @@ class HumanPlayingState(MenuState):
 
             self.game.view.clock.tick(self.game.view.fps)
 
-            if is_solved(self.model.state):
+            if is_solved(self.model.test_tubes):
                 if self.model.next_level() is None:
                     break
                 else:
@@ -31,7 +31,7 @@ class HumanPlayingState(MenuState):
                 if event.type == pygame.QUIT:
                     run = False
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                    move = self.event_manager.handle_mouse_event(self.model.state, event)
+                    move = self.event_manager.handle_mouse_event(self.model.test_tubes, event)
 
             self.model.update()
 

@@ -75,9 +75,3 @@ class AIPlayingState(PlayingState):
     @property
     def visited(self):
         return self._visited
-
-    def is_solved(self, tubes):
-        for tube in tubes:
-            if not tube.is_solved():
-                return False
-        return True
