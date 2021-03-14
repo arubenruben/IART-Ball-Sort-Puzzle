@@ -30,6 +30,10 @@ class AIPlayingState(PlayingState):
             if is_solved(self.current_node.test_tubes):
                 break
 
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+
             for play in self.plays:
 
                 curr_move = Move(play[0], play[1])
