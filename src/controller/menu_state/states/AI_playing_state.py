@@ -20,18 +20,27 @@ class AIPlayingState(PlayingState):
         run = True
 
         while run and self.current_node is not None:
-            if is_solved(self.current_node.state.test_tubes):
-                break
 
             # self.game.view.clock.tick(self.game.view.fps)
 
-            self.exec(self._move_generator.state_expansion(self.current_node))
+            if is_solved(self.current_node.state.test_tubes):
+                break
 
-            self.current_node = self.queue.pop()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+
+            potential_nodes = self._move_generator.state_expansion(self.current_node)
+
+            self.exec(potential_nodes)
+
+            self.current_node = self.queue.pop(0)
 
             self._visited.append(self.current_node)
             # self.model.draw(self.game.view.screen)
+
         print(len(self._visited))
+
         pygame.quit()
 
     # Template Methods

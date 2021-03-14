@@ -14,12 +14,20 @@ class State:
         return State(test_tube_copy_list)
 
     def move(self, move):
-        extracted_ball = move.origin_test_tube.balls.pop()
-        move.destination_test_tube.balls.append(extracted_ball)
+        extracted_ball = self.test_tubes[move.origin_test_tube_index].balls.pop(
+            len(self.test_tubes[move.origin_test_tube_index].balls) - 1)
+        self.test_tubes[move.destination_test_tube_index].balls.append(extracted_ball)
 
     @property
     def test_tubes(self):
         return self._test_tubes
 
     def __eq__(self, other):
-        return self.test_tubes == other.test_tubes
+        for i in range(len(self.test_tubes)):
+            if len(self.test_tubes[i].balls) != len(other.test_tubes[i].balls):
+                return False
+            for j in range(len(self.test_tubes[i].balls)):
+                if self.test_tubes[i].balls[j].value != other.test_tubes[i].balls[j].value:
+                    return False
+
+        return True

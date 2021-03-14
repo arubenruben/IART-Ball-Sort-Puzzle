@@ -11,7 +11,7 @@ class MoveGenerator:
         for i in range(len(node.state.test_tubes)):
             for j in range(len(node.state.test_tubes)):
 
-                temp_move = Move(node.state.test_tubes[i], node.state.test_tubes[j])
+                temp_move = Move(node.state, i, j)
 
                 if temp_move.validate():
                     state_copy = node.state.copy()
