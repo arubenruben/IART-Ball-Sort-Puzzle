@@ -15,9 +15,13 @@ class PlayingStateModel(Drawable):
             pygame.image.load(os.path.join('../', 'assets', 'img', 'background.jpg')),
             (self.width, self.height))
         self._level_creator = LevelCreator()
+<<<<<<< HEAD
         self._test_tubes = self._level_creator.create(1, (self.width, self.height))
         self._state = State(self._test_tubes)
         self._level = 1
+=======
+        self._test_tubes = self._level_creator.create(1, screen_dimension)
+>>>>>>> master
 
     def update(self):
         for test_tube in self.state.test_tubes:
