@@ -20,41 +20,36 @@ class AIPlayingState(PlayingState):
 
         self._queue = [self._current_node]
 
-        self._visited = set([self._current_node])
+        self._visited = {self._current_node}
 
     def run(self):
+        run = True
+        while run and self.queue:
 
-        while self.queue:
+            if is_solved(self.current_node.test_tubes):
+                break
 
-            parent = self.queue.pop(0)
-
-            if is_solved(parent.test_tubes):
-                while 1:
-                    if parent.depth == 0:
-                        break
-                    print(parent.operator.tube1idx, parent.operator.tube2idx)
-                    parent = parent.parent
-
-                return parent
             for play in self.plays:
                 curr_move = Move(play[0], play[1])
-                if is_move_possible(parent.test_tubes[play[0]], parent.test_tubes[play[1]]):
-                    aux = [copy(tube) for tube in parent.test_tubes]
+                if is_move_possible(self.current_node.test_tubes[play[0]], self.current_node.test_tubes[play[1]]):
+                    aux = [copy(tube) for tube in self.current_node.test_tubes]
                     move_ball(aux[play[0]], aux[play[1]])
-                    child = Node(aux, parent, parent.depth + 1, curr_move)
-                    if child not in self.visited:
-                        self.queue.append(child)
-                        print(len(self.queue))
-                        self.visited.add(child)
+                    child = Node(aux, self.current_node, self.current_node.depth + 1, curr_move)
+
+                    if child not in self.queue:
+                        self.exec(child)
+
+            print(len(self.queue))
+
+            self.current_node = self.queue.pop(0)
+            self.visited.add(self.current_node)
 
         print(len(self.visited))
 
         pygame.quit()
 
-        return None
-
     # Template Methods
-    def exec(self, state_expansion):
+    def exec(self, child):
         pass
 
     def evaluate(self, node_expansion):

@@ -1,9 +1,9 @@
 from src.controller.menu_state.states.AI_playing_state import AIPlayingState
 
 
-class BFSAI(AIPlayingState):
+class DFSAI(AIPlayingState):
     def exec(self, child):
-        self.queue.append(child)
+        self.queue.insert(0, child)
 
     def evaluate(self, node_list):
         for node in node_list:
