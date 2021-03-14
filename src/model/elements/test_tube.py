@@ -105,15 +105,18 @@ class TestTube(Drawable):
         return len(self._balls) == 0
 
     def __eq__(self, other):
+
         if len(self.balls) != len(other.balls):
             return False
+
         for i in range(len(self.balls)):
-            if self.balls[i].value != 0 and other.balls[i].value != 0 and self.balls[i].value != other.balls[i].value:
+            if self.balls[i].value != other.balls[i].value:
                 return False
+
         return True
 
     def __copy__(self):
-        copy_obj = TestTube(self.balls, self.rect)
+        copy_obj = TestTube(self.get_raw_balls(), self.rect)
         for name, attr in self.__dict__.items():
             if hasattr(attr, 'copy') and callable(getattr(attr, 'copy')):
                 copy_obj.__dict__[name] = attr.copy()
@@ -234,3 +237,10 @@ class TestTube(Drawable):
                 return False
 
         return True
+
+    def get_raw_balls(self):
+        aux_list = []
+        for ball in self.balls:
+            aux_list.append(ball.value)
+
+        return aux_list

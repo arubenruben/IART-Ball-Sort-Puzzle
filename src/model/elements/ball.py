@@ -18,9 +18,6 @@ class Ball(Drawable):
     def draw(self, screen):
         pygame.draw.circle(screen, self.color, (self.rect.centerx, self.rect.centery), self.radius)
 
-    def __hash__(self) -> int:
-        return super().__hash__()
-
     @property
     def value(self):
         return self._value
