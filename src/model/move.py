@@ -19,3 +19,6 @@ class Move:
             self.tube1idx].is_solved() and (test_tubes[self.tube2idx].is_empty() or is_same_color(
             test_tubes[self.tube1idx].get_first_ball(),
             test_tubes[self.tube2idx].get_first_ball())))
+
+    def execute(self, test_tubes):
+        test_tubes[self.tube2idx].balls.append(test_tubes[self.tube1idx].balls.pop())

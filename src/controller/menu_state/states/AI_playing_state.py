@@ -5,7 +5,6 @@ import pygame
 
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
-from src.controller.menu_state.utils.utils import move_ball
 from src.model.move import Move
 
 
@@ -36,16 +35,17 @@ class AIPlayingState(PlayingState):
 
                 if curr_move.validate(self.current_node.test_tubes):
 
-                    aux = [copy(tube) for tube in self.current_node.test_tubes]
-                    move_ball(aux[play[0]], aux[play[1]])
-                    child = Node(aux, self.current_node, self.current_node.depth + 1, curr_move)
+                    test_tube_copy = [copy(tube) for tube in self.current_node.test_tubes]
+
+                    curr_move.execute(test_tube_copy)
+
+                    child = Node(test_tube_copy, self.current_node, self.current_node.depth + 1, curr_move)
 
                     if child not in self.queue:
                         self.exec(child)
 
-            print(len(self.queue))
-
             self.current_node = self.queue.pop(0)
+
             self.visited.add(self.current_node)
 
         print(len(self.visited))
