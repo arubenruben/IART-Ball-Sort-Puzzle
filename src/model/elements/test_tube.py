@@ -104,17 +104,6 @@ class TestTube(Drawable):
     def is_empty(self):
         return len(self._balls) == 0
 
-    def __eq__(self, other):
-
-        if len(self.balls) != len(other.balls):
-            return False
-
-        for i in range(len(self.balls)):
-            if self.balls[i].value != other.balls[i].value:
-                return False
-
-        return True
-
     def __copy__(self):
         copy_obj = TestTube(self.get_raw_balls(), self.rect)
         for name, attr in self.__dict__.items():

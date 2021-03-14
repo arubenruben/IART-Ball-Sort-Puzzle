@@ -16,6 +16,9 @@ class Node:
                     return False
         return True
 
+    def __hash__(self):
+        return super().__hash__()
+
     @property
     def test_tubes(self):
         return self._test_tubes

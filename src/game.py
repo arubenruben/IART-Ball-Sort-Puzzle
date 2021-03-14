@@ -1,3 +1,4 @@
+from src.controller.AI.execution_template.dfs import DFSAI
 from src.controller.menu_state.states.human_playing_state import HumanPlayingState
 from src.controller.AI.execution_template.bfs import BFSAI
 

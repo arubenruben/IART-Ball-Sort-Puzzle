@@ -21,7 +21,7 @@ class AIPlayingState(PlayingState):
 
         self._queue = [self._current_node]
 
-        self._visited = [self._current_node]
+        self._visited = {self._current_node}
 
     def run(self):
         run = True
@@ -42,11 +42,11 @@ class AIPlayingState(PlayingState):
 
                     child = Node(test_tube_copy, self.current_node, self.current_node.depth + 1, curr_move)
 
-                    if child not in self.queue:
+                    if child not in self.queue and child not in self.visited:
                         self.exec(child)
 
             self.current_node = self.queue.pop(0)
-            self.visited.append(self.current_node)
+            self.visited.add(self.current_node)
             print(len(self.queue))
 
         print(len(self.visited))
