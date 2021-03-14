@@ -222,10 +222,5 @@ class TestTube(Drawable):
         self.animating_down = False
         self.animating_move = False
 
-    def raw_ball_list(self):
-        return_list = []
-
-        for ball in self.balls:
-            return_list.append(ball.value)
-
-        return return_list
+    def is_solved(self):
+        return False if len(set(self.balls)) > 1 or (4 > len(self.balls) > 0) else True

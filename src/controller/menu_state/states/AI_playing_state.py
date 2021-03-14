@@ -3,8 +3,9 @@ from copy import copy
 
 import pygame
 
+from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
-from src.controller.menu_state.utils.utils import Node, is_solved, is_move_possible, move_ball
+from src.controller.menu_state.utils.utils import is_move_possible, move_ball
 from src.model.move import Move
 
 
@@ -26,12 +27,15 @@ class AIPlayingState(PlayingState):
         run = True
         while run and self.queue:
 
-            if is_solved(self.current_node.test_tubes):
+            if self.is_solved(self.current_node.test_tubes):
                 break
 
             for play in self.plays:
+
                 curr_move = Move(play[0], play[1])
+
                 if is_move_possible(self.current_node.test_tubes[play[0]], self.current_node.test_tubes[play[1]]):
+
                     aux = [copy(tube) for tube in self.current_node.test_tubes]
                     move_ball(aux[play[0]], aux[play[1]])
                     child = Node(aux, self.current_node, self.current_node.depth + 1, curr_move)
@@ -71,3 +75,9 @@ class AIPlayingState(PlayingState):
     @property
     def visited(self):
         return self._visited
+
+    def is_solved(self, tubes):
+        for tube in tubes:
+            if not tube.is_solved():
+                return False
+        return True
