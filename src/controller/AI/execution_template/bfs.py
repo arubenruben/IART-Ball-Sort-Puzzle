@@ -1,5 +1,3 @@
-import copy
-
 from src.controller.menu_state.states.AI_playing_state import AIPlayingState
 
 

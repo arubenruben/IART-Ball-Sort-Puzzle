@@ -3,8 +3,8 @@ from copy import copy
 
 import pygame
 
-from src.controller.AI.utils import is_solved, Node, is_move_possible, move_ball
 from src.controller.menu_state.states.playing_state import PlayingState
+from src.controller.menu_state.utils.utils import Node, is_solved, is_move_possible, move_ball
 from src.model.move import Move
 
 

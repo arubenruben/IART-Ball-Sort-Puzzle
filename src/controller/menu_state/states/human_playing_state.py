@@ -1,6 +1,6 @@
 import pygame
-
 from src.controller.AI.utils import is_solved
+
 from src.controller.events.event_manager_strategy.event_manager import EventManager
 from src.controller.menu_state.menu_state import MenuState
 from src.view.animation_managers.animation_human_manager import AnimationHumanManager

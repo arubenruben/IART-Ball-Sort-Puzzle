@@ -3,12 +3,12 @@ def move_ball(tube1, tube2):
 
 
 def is_move_possible(tube1, tube2):
-    return (not tube1.isEmpty() and not tube2.isFull() and not is_tube_solved(tube1)
-            and (tube2.isEmpty() or is_same_color(tube1.getFirstBall(), tube2.getFirstBall())))
+    return (not tube1.is_empty() and not tube2.is_full() and not is_tube_solved(tube1)
+            and (tube2.is_empty() or is_same_color(tube1.get_first_ball(), tube2.get_first_ball())))
 
 
 def is_tube_solved(tube):
-    return False if len(set(tube.balls)) > 1 or (len(tube.balls) < 4 and len(tube.balls) > 0) else True
+    return False if len(set(tube.balls)) > 1 or (4 > len(tube.balls) > 0) else True
 
 
 def is_solved(tubes):
