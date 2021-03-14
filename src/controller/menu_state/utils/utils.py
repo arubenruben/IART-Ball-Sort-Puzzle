@@ -8,7 +8,7 @@ def is_move_possible(tube1, tube2):
 
 
 def is_tube_solved(tube):
-    return False if len(set(tube.balls)) > 1 or len(tube.balls) == 1 else True
+    return False if len(set(tube.balls)) > 1 or (len(tube.balls) < 4 and len(tube.balls) > 0) else True
 
 
 def is_solved(tubes):

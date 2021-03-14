@@ -39,6 +39,7 @@ class AiPlayingState(PlayingState):
                     child = Node(aux, parent, parent.depth + 1, curr_move)
                     if child not in visited:
                         queue.append(child)
+                        print(len(queue))
                         visited.add(child)
 
         return None
