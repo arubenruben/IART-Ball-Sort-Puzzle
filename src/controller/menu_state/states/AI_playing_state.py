@@ -7,13 +7,14 @@ from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
 from src.controller.utils.utils import is_solved
 from src.model.move import Move
+from src.model.state import State
 
 
 class AIPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
 
-        tubes = [copy(tube) for tube in self.model.test_tubes]
+        tubes = [copy(tube) for tube in self.model.state.test_tubes]
 
         self.plays = list(itertools.permutations([n for n in range(len(tubes))], 2))
 
@@ -27,7 +28,7 @@ class AIPlayingState(PlayingState):
         run = True
         while run and self.queue:
 
-            if is_solved(self.current_node.test_tubes):
+            if is_solved(State(self.current_node.test_tubes)):
                 break
 
             for event in pygame.event.get():

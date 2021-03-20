@@ -21,4 +21,4 @@ class Move:
             test_tubes[self.tube2idx].get_first_ball())))
 
     def execute(self, test_tubes):
-        test_tubes[self.tube2idx].balls.append(test_tubes[self.tube1idx].balls.pop())
+        test_tubes[self.tube2idx].insert_ball(test_tubes[self.tube1idx].pop_ball())

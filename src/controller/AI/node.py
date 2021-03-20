@@ -8,11 +8,11 @@ class Node:
 
     def __eq__(self, other):
         for i in range(len(self.test_tubes)):
-            if len(self.test_tubes[i].balls) != len(other.test_tubes[i].balls):
+            if len(self.test_tubes[i]._balls) != len(other.test_tubes[i]._balls):
                 return False
 
-            for j in range(len(self.test_tubes[i].balls)):
-                if self.test_tubes[i].balls[j].value != self.test_tubes[i].balls[j].value:
+            for j in range(len(self.test_tubes[i]._balls)):
+                if self.test_tubes[i]._balls[j].value != self.test_tubes[i]._balls[j].value:
                     return False
         return True
 
