@@ -12,7 +12,7 @@ class HumanPlayingState(MenuState):
 
         # Todo:Order Matters refactor
         self._animation_manager = AnimationHumanManager()
-        self._event_manager = EventManager(self._animation_manager, model.test_tubes)
+        self._event_manager = EventManager(self._animation_manager, model.state)
 
     def run(self):
 
@@ -23,11 +23,12 @@ class HumanPlayingState(MenuState):
 
             self.game.view.clock.tick(self.game.view.fps)
 
-            if is_solved(self.model.test_tubes):
-                if self.model.next_level() is None:
+            if is_solved(self.model.state):
+                if self.model.next_level():
                     break
                 else:
                     self._animation_manager = AnimationHumanManager()
+                    self._event_manager = EventManager(self._animation_manager, self.model.state)
 
             # TODO:Test if game is possible. Game end
 

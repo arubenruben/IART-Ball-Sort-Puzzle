@@ -1,7 +1,7 @@
 class EventManager:
-    def __init__(self, animation_manager, test_tubes):
+    def __init__(self, animation_manager, state):
         self._animation_manager = animation_manager
-        self._test_tubes = test_tubes
+        self._state = state
 
     def handle_mouse_event(self, event):
 
@@ -10,7 +10,7 @@ class EventManager:
 
         test_tube_that_collide = None
 
-        for test_tube in self._test_tubes:
+        for test_tube in self._state.test_tubes:
             if test_tube.rect.collidepoint(event.pos):
                 test_tube_that_collide = test_tube
                 break
