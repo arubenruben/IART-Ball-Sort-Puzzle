@@ -5,7 +5,7 @@ import pygame
 
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
-from src.controller.menu_state.utils.utils import is_solved
+from src.controller.utils.utils import is_solved
 from src.model.move import Move
 
 

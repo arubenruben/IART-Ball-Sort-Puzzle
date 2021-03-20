@@ -32,7 +32,3 @@ class View:
     @property
     def fps(self):
         return self._fps
-
-    @property
-    def animation_manager(self):
-        return self._animation_manager

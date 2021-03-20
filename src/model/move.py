@@ -1,4 +1,4 @@
-from src.controller.menu_state.utils.utils import is_same_color
+from src.controller.utils.utils import is_same_color
 
 
 class Move:

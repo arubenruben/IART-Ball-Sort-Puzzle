@@ -1,21 +1,15 @@
 class EventManager:
-    def __init__(self, animation_manager):
+    def __init__(self, animation_manager, test_tubes):
         self._animation_manager = animation_manager
+        self._test_tubes = test_tubes
 
-    def handle_mouse_event(self, state, event):
+    def handle_mouse_event(self, event):
 
-        if self.animation_manager.animation_pending:
+        if self._animation_manager.animation_pending:
             return
 
-        test_tube_that_collide = None
-
-        for test_tube in state:
+        for test_tube in self._test_tubes:
             if test_tube.rect.collidepoint(event.pos):
-                test_tube_that_collide = test_tube
-                break
+                return self._animation_manager.process_collision(test_tube)
 
-        return self.animation_manager.process_collision(test_tube_that_collide)
-
-    @property
-    def animation_manager(self):
-        return self._animation_manager
+        return None
