@@ -15,7 +15,7 @@ class AIPlayingState(PlayingState):
         super().__init__(game, model)
         self.move_generator = MoveGenerator(len(model.state.test_tubes))
 
-        self._current_node = Node(State([copy(tube) for tube in model.state.test_tubes]), None, 0, None)
+        self._current_node = Node(model.state.clone(), None, 0, None)
 
         self._queue = [self._current_node]
 
@@ -38,11 +38,11 @@ class AIPlayingState(PlayingState):
 
                 if curr_move.validate(self.current_node.state.test_tubes):
 
-                    test_tube_copy = State([copy(tube) for tube in self.current_node.state.test_tubes])
+                    state_clone = self.current_node.state.clone()
 
-                    curr_move.execute(test_tube_copy)
+                    curr_move.execute(state_clone)
 
-                    child = Node(test_tube_copy, self.current_node, self.current_node.depth + 1, curr_move)
+                    child = Node(state_clone, self.current_node, self.current_node.depth + 1, curr_move)
 
                     if child not in self.queue and child not in self.visited:
                         self.exec(child)

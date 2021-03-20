@@ -4,6 +4,7 @@ import pygame
 
 from src.model.elements.ball import Ball
 from src.model.elements.test_tube import TestTube
+from src.model.utils.raw_ball_converter import convert_raw_matrix_to_balls
 
 
 class LevelCreator:
@@ -128,7 +129,7 @@ class LevelCreator:
             tube_position = pygame.Rect(
                 offset_x, offset_y, test_tube_width, test_tube_height
             )
-            balls = self.convert_raw_matrix_to_balls(raw_matrix[tube_counter], tube_position)
+            balls = convert_raw_matrix_to_balls(raw_matrix[tube_counter], tube_position)
 
             response.append(
                 TestTube(
@@ -140,14 +141,3 @@ class LevelCreator:
 
         return response
 
-    def convert_raw_matrix_to_balls(self, raw_list, tube_position):
-        response = []
-
-        for i in range(len(raw_list)):
-
-            if raw_list[i] == 0:
-                break
-
-            response.append(Ball(tube_position, raw_list[i], i))
-
-        return response

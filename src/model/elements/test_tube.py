@@ -81,11 +81,7 @@ class TestTube(Drawable):
 
     def __copy__(self):
         copy_obj = TestTube(self.get_raw_balls(), self.rect)
-        for name, attr in self.__dict__.items():
-            if hasattr(attr, 'copy') and callable(getattr(attr, 'copy')):
-                copy_obj.__dict__[name] = attr.copy()
-            else:
-                copy_obj.__dict__[name] = copy.deepcopy(attr)
+
         return copy_obj
 
     def is_solved(self):
