@@ -33,3 +33,6 @@ class Node:
     @property
     def state(self):
         return self._state
+
+    def clone(self):
+        return Node(self.state.clone(), self.parent, self.depth, self.operator)

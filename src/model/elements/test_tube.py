@@ -1,5 +1,6 @@
 import copy
 import os
+from time import sleep
 
 import pygame
 
@@ -42,8 +43,8 @@ class TestTube(Drawable):
         ball = self.get_first_ball()
 
         if ball.rect.top <= self.rect.top - self.rect.height // 4:
-            self.callback()
             self.reset_animations()
+            self.callback()
         else:
             ball.rect = ball.rect.move(0, -self.speed_y)
 
@@ -52,8 +53,8 @@ class TestTube(Drawable):
 
         if ball.rect.top >= self.original_ball_position.bottom - 8 * self.speed_y:
             ball.rect = self.original_ball_position.copy()
-            self.callback()
             self.reset_animations()
+            self.callback()
         else:
             ball.rect = ball.rect.move(0, self.speed_y)
 
@@ -61,8 +62,8 @@ class TestTube(Drawable):
     def animate_between_tubes(self):
         ball = self.get_first_ball()
         if True:
-            self.callback()
             self.reset_animations()
+            self.callback()
             # else:
             #   ball.rect = ball.rect.move(0, self.speed_y)
 
@@ -192,10 +193,8 @@ class TestTube(Drawable):
         self.destination_rect = destination_rect
         self.callback = callback
         self.animating_move = True
-        return
 
     def reset_animations(self):
-        self.callback = None
         self.animating_up = False
         self.animating_down = False
         self.animating_move = False

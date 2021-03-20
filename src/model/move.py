@@ -1,21 +1,22 @@
 class Move:
-    def __init__(self, tube1idx, tube2idx):
-        self._tube1idx = tube1idx
-        self._tube2idx = tube2idx
+    def __init__(self, origin_index, destination_index):
+        self._origin_index = origin_index
+        self._destination_index = destination_index
 
     @property
-    def tube1idx(self):
-        return self._tube1idx
+    def origin_index(self):
+        return self._origin_index
 
     @property
-    def tube2idx(self):
-        return self._tube2idx
+    def destination_index(self):
+        return self._destination_index
 
     def validate(self, test_tubes):
-        return (not test_tubes[self.tube1idx].is_empty() and not test_tubes[self.tube2idx].is_full() and not test_tubes[
-            self.tube1idx].is_solved() and (test_tubes[self.tube2idx].is_empty() or
-                                            (test_tubes[self.tube1idx].get_first_ball() == test_tubes[
-                                                self.tube2idx].get_first_ball())))
+        return (not test_tubes[self.origin_index].is_empty() and not test_tubes[
+            self.destination_index].is_full() and not test_tubes[
+            self.origin_index].is_solved() and (test_tubes[self.destination_index].is_empty() or
+                                                (test_tubes[self.origin_index].get_first_ball() == test_tubes[
+                                                    self.destination_index].get_first_ball())))
 
     def execute(self, state):
-        state.test_tubes[self.tube2idx].insert_ball(state.test_tubes[self.tube1idx].pop_ball())
+        state.test_tubes[self.destination_index].insert_ball(state.test_tubes[self.origin_index].pop_ball())
