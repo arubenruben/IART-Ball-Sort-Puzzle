@@ -1,8 +1,8 @@
-import itertools
 from copy import copy
 
 import pygame
 
+from src.controller.AI.move_generator import MoveGenerator
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
 
@@ -13,10 +13,9 @@ from src.model.state import State
 class AIPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
+        self.move_generator = MoveGenerator(len(model.state.test_tubes))
 
         self._current_node = Node(State([copy(tube) for tube in model.state.test_tubes]), None, 0, None)
-
-        self.plays = list(itertools.permutations([n for n in range(len(self.current_node.state.test_tubes))], 2))
 
         self._queue = [self._current_node]
 
@@ -33,7 +32,7 @@ class AIPlayingState(PlayingState):
                 if event.type == pygame.QUIT:
                     run = False
 
-            for play in self.plays:
+            for play in self.move_generator.plays:
 
                 curr_move = Move(play[0], play[1])
 
