@@ -8,8 +8,11 @@ class EventManager:
         if self._animation_manager.animation_pending:
             return
 
+        test_tube_that_collide = None
+
         for test_tube in self._test_tubes:
             if test_tube.rect.collidepoint(event.pos):
-                return self._animation_manager.process_collision(test_tube)
+                test_tube_that_collide = test_tube
+                break
 
-        return None
+        return self._animation_manager.process_collision(test_tube_that_collide)

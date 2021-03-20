@@ -9,9 +9,9 @@ from src.model.elements.ball import Ball
 
 class TestTube(Drawable):
 
-    def __init__(self, raw_balls, rect):
+    def __init__(self, balls, rect):
         self._rect = rect
-        self._balls = []
+        self._balls = balls
         self._animating_up = False
         self._animating_down = False
         self._animating_move = False
@@ -28,8 +28,6 @@ class TestTube(Drawable):
             pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png')),
             (rect.width, rect.height))
 
-        self.produce_ball(raw_balls)
-
     # Todo:Refactor
     def produce_ball(self, raw_balls):
         # TODO:DANGER DANGER DANGER DANGER REMOVER ISTO
@@ -38,17 +36,7 @@ class TestTube(Drawable):
         for i in range(len(raw_balls)):
             if raw_balls[i] == 0:
                 return
-            self.balls.append(
-                Ball(
-                    raw_balls[i],
-                    (
-                        self.rect.center[0],
-                        self.rect.bottom - 2 * self.ball_radius * i - self.correction_y - (
-                                self.distance_between_ball * i)
-                    ),
-                    self.ball_radius
-                )
-            )
+            self.balls.append(Ball(self._rect, raw_balls[i], i))
 
     def update(self):
         if self.animating_up:
@@ -112,6 +100,22 @@ class TestTube(Drawable):
             else:
                 copy_obj.__dict__[name] = copy.deepcopy(attr)
         return copy_obj
+
+    def is_solved(self):
+
+        if len(self.balls) == 0:
+            return True
+
+        if len(self.balls) < 4:
+            return False
+
+        start_ball = self.balls[0]
+
+        for i in range(len(self.balls)):
+            if self.balls[i].value != start_ball.value:
+                return False
+
+        return True
 
     # Getter and Setters
     @property
@@ -210,22 +214,6 @@ class TestTube(Drawable):
         self.animating_up = False
         self.animating_down = False
         self.animating_move = False
-
-    def is_solved(self):
-
-        if len(self.balls) == 0:
-            return True
-
-        if len(self.balls) < 4:
-            return False
-
-        start_ball = self.balls[0]
-
-        for i in range(len(self.balls)):
-            if self.balls[i].value != start_ball.value:
-                return False
-
-        return True
 
     def get_raw_balls(self):
         aux_list = []

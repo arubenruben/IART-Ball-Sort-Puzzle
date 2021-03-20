@@ -2,6 +2,7 @@ import math
 
 import pygame
 
+from src.model.elements.ball import Ball
 from src.model.elements.test_tube import TestTube
 
 
@@ -9,10 +10,8 @@ class LevelCreator:
 
     def create(self, level_number, screen_dimension):
         screen_width, screen_height = screen_dimension
-        raw_matrix = None
         maximum_number_tubes_per_row = 5
         response = []
-        number_cols_in_each_row = []
 
         if level_number == 1:
             raw_matrix = [
@@ -129,12 +128,26 @@ class LevelCreator:
             tube_position = pygame.Rect(
                 offset_x, offset_y, test_tube_width, test_tube_height
             )
+            balls = self.convert_raw_matrix_to_balls(raw_matrix[tube_counter], tube_position)
+
             response.append(
                 TestTube(
-                    raw_matrix[tube_counter],
+                    balls,
                     tube_position
                 )
             )
             offset_x += distance_between_cols + test_tube_width
+
+        return response
+
+    def convert_raw_matrix_to_balls(self, raw_list, tube_position):
+        response = []
+
+        for i in range(len(raw_list)):
+
+            if raw_list[i] == 0:
+                break
+
+            response.append(Ball(tube_position, raw_list[i], i))
 
         return response

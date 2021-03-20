@@ -11,8 +11,8 @@ class HumanPlayingState(MenuState):
         super().__init__(game, model)
 
         # Todo:Order Matters refactor
-        self._animationManager = AnimationHumanManager()
-        self._event_manager = EventManager(self._animationManager, model.test_tubes)
+        self._animation_manager = AnimationHumanManager()
+        self._event_manager = EventManager(self._animation_manager, model.test_tubes)
 
     def run(self):
 
@@ -23,13 +23,11 @@ class HumanPlayingState(MenuState):
 
             self.game.view.clock.tick(self.game.view.fps)
 
-            # Todo:Nao gosto disto
-
             if is_solved(self.model.test_tubes):
                 if self.model.next_level() is None:
-                    run = False
+                    break
                 else:
-                    self.animation_manager.reset()
+                    self._animation_manager = AnimationHumanManager()
 
             # TODO:Test if game is possible. Game end
 
@@ -37,25 +35,15 @@ class HumanPlayingState(MenuState):
                 if event.type == pygame.QUIT:
                     run = False
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                    move = self.event_manager.handle_mouse_event(event)
+                    move = self._event_manager.handle_mouse_event(event)
 
             self.model.update()
             self.model.draw(self.game.view.screen)
 
-            if move is None:
-                continue
-
-            if move.validate():
-                move.execute(self.animation_manager)
-            else:
-                move.fail(self.animation_manager)
+            if move is not None:
+                if move.validate():
+                    move.execute(self._animation_manager)
+                else:
+                    move.fail(self._animation_manager)
 
         pygame.quit()
-
-    @property
-    def event_manager(self):
-        return self._event_manager
-
-    @property
-    def animation_manager(self):
-        return self._animationManager

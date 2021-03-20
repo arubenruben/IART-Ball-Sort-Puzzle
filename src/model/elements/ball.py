@@ -5,10 +5,19 @@ from src.model.utils.colors import color_converter
 
 
 class Ball(Drawable):
-    def __init__(self, value, center, radius):
-        self._x_center, self._y_center = center
-        self._radius = radius
-        self._rect = pygame.Rect(self.x_center - self.radius, self.y_center - self.radius, 2 * radius, 2 * radius)
+    def __init__(self, test_tube_rect, value, position_in_tube):
+        self._position_in_tube = position_in_tube
+        self._radius = test_tube_rect.width // 4
+        self._correction_y = test_tube_rect.height // 8
+        self._distance_between_ball = 3
+
+        self._x_center = test_tube_rect.center[0]
+        self._y_center = test_tube_rect.bottom - 2 * self._radius * self._position_in_tube - self._correction_y - (
+                self._distance_between_ball * self._position_in_tube)
+
+        self._rect = pygame.Rect(
+            self.x_center - self.radius, self.y_center - self.radius, 2 * self._radius, 2 * self._radius
+        )
         self._value = value
         self._color = color_converter(self.value)
 
