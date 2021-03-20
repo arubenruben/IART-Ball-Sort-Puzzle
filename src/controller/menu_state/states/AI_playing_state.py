@@ -5,7 +5,7 @@ import pygame
 
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
-from src.controller.utils.utils import is_solved
+
 from src.model.move import Move
 from src.model.state import State
 
@@ -14,11 +14,9 @@ class AIPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
 
-        tubes = [copy(tube) for tube in self.model.state.test_tubes]
+        self._current_node = Node(State([copy(tube) for tube in model.state.test_tubes]), None, 0, None)
 
-        self.plays = list(itertools.permutations([n for n in range(len(tubes))], 2))
-
-        self._current_node = Node([copy(tube) for tube in tubes], None, 0, None)
+        self.plays = list(itertools.permutations([n for n in range(len(self.current_node.state.test_tubes))], 2))
 
         self._queue = [self._current_node]
 
@@ -28,7 +26,7 @@ class AIPlayingState(PlayingState):
         run = True
         while run and self.queue:
 
-            if is_solved(State(self.current_node.test_tubes)):
+            if self.is_solved(self.current_node.state.test_tubes):
                 break
 
             for event in pygame.event.get():
@@ -39,9 +37,9 @@ class AIPlayingState(PlayingState):
 
                 curr_move = Move(play[0], play[1])
 
-                if curr_move.validate(self.current_node.test_tubes):
+                if curr_move.validate(self.current_node.state.test_tubes):
 
-                    test_tube_copy = [copy(tube) for tube in self.current_node.test_tubes]
+                    test_tube_copy = State([copy(tube) for tube in self.current_node.state.test_tubes])
 
                     curr_move.execute(test_tube_copy)
 

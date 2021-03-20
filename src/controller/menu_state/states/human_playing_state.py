@@ -1,12 +1,11 @@
 import pygame
 
 from src.controller.events.event_manager_strategy.event_manager import EventManager
-from src.controller.menu_state.menu_state import MenuState
-from src.controller.utils.utils import is_solved
+from src.controller.menu_state.states.playing_state import PlayingState
 from src.view.animation_managers.animation_human_manager import AnimationHumanManager
 
 
-class HumanPlayingState(MenuState):
+class HumanPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
 
@@ -23,7 +22,7 @@ class HumanPlayingState(MenuState):
 
             self.game.view.clock.tick(self.game.view.fps)
 
-            if is_solved(self.model.state):
+            if self.is_solved(self.model.state.test_tubes):
                 if self.model.next_level():
                     break
                 else:

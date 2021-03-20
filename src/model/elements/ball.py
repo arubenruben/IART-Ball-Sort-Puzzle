@@ -54,3 +54,6 @@ class Ball(Drawable):
     @property
     def radius(self):
         return self._radius
+
+    def __eq__(self, other):
+        return self.value == other.value
