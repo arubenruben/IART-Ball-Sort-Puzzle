@@ -22,7 +22,7 @@ class AIPlayingState(PlayingState):
 
         self._queue = []
 
-        self._visited = {self._current_node}
+        self._visited = [self._current_node]
 
     def run(self):
         run = True
@@ -37,30 +37,34 @@ class AIPlayingState(PlayingState):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
-
-            for play in self._move_generator.plays:
-
-                curr_move = Move(play[0], play[1])
-
-                if curr_move.validate(self.current_node.state.test_tubes):
-
-                    state_clone = self.current_node.state.clone()
-
-                    curr_move.execute(state_clone)
-
-                    child = Node(state_clone, self.current_node.clone(), self.current_node.depth + 1, copy(curr_move))
-
-                    if child not in self.queue and child not in self.visited:
-                        self.exec(child)
-
             if not self._animation_manager.animation_pending:
+                for play in self._move_generator.plays:
+
+                    curr_move = Move(play[0], play[1])
+
+                    if curr_move.validate(self.current_node.state):
+
+                        state_clone = self.current_node.state.clone()
+
+                        curr_move.execute(state_clone)
+
+                        child = Node(state_clone, self.current_node.clone(), self.current_node.depth + 1, copy(curr_move))
+
+                        unique = True
+                        for visited_node in self.visited:
+                            if child == visited_node:
+                                unique = False
+                                break
+                        if unique:
+                            self.exec(child)
+
                 self.current_node = self.queue.pop(0)
-                self.visited.add(self.current_node)
+                self.visited.append(self.current_node)
                 self._animation_manager.execute_move_animation(self.current_node, self.model)
 
             self.model.update()
             self.model.draw(self.game.view.screen)
-
+            print(len(self.queue))
             if len(self.queue) == 0:
                 print("No possible moves")
                 break

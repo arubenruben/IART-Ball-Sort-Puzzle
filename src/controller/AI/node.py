@@ -11,12 +11,24 @@ class Node:
                 return False
 
             for j in range(len(self.state.test_tubes[i]._balls)):
-                if self.state.test_tubes[i]._balls[j].value != self.state.test_tubes[i]._balls[j].value:
+                if self.state.test_tubes[i]._balls[j].value != other.state.test_tubes[i]._balls[j].value:
                     return False
+        #self.print_state(other)
+        #print("--------------------------")
         return True
 
-    def __hash__(self):
-        return super().__hash__()
+
+    def print_state(self, other):
+        for i in range(len(self.state.test_tubes)):
+            array_append = []
+            for j in range(len(self.state.test_tubes[i]._balls)):
+                array_append.append(self.state.test_tubes[i]._balls[j].value)
+            print(array_append)
+        for i in range(len(other.state.test_tubes)):
+            array_append = []
+            for j in range(len(other.state.test_tubes[i]._balls)):
+                array_append.append(other.state.test_tubes[i]._balls[j].value)
+            print(array_append)
 
     @property
     def parent(self):

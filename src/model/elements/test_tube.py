@@ -80,11 +80,6 @@ class TestTube(Drawable):
     def is_empty(self):
         return len(self._balls) == 0
 
-    def __copy__(self):
-        copy_obj = TestTube(self.get_raw_balls(), self.rect)
-
-        return copy_obj
-
     def is_solved(self):
 
         if len(self._balls) == 0:
