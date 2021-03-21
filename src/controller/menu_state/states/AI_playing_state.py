@@ -26,10 +26,10 @@ class AIPlayingState(PlayingState):
 
     def run(self):
         run = True
-
+        iterative_deepening_counter = 1
         while run:
 
-            self.game.view.clock.tick(2)
+            self.game.view.clock.tick(self.game.view.fps)
 
             if self.is_solved(self.current_node.state.test_tubes):
                 break
@@ -38,52 +38,26 @@ class AIPlayingState(PlayingState):
                 if event.type == pygame.QUIT:
                     run = False
 
-            for play in self._move_generator.plays:
+            self.exec(iterative_deepening_counter)
 
-                curr_move = Move(play[0], play[1])
-
-                if curr_move.validate(self.current_node.state):
-
-                    state_clone = self.current_node.state.clone()
-
-                    curr_move.execute(state_clone)
-
-                    child = Node(state_clone, self.current_node.clone(), self.current_node.depth + 1,
-                                 copy(curr_move))
-
-                    unique = True
-                    for visited_node in self.visited:
-                        if child == visited_node:
-                            unique = False
-                            break
-
-                    for node_in_queue in self.queue:
-                        if child == node_in_queue:
-                            unique = False
-                            break
-
-                    if unique:
-                        self.exec(child)
-
-            self.current_node = self.queue.pop()
-            self.visited.append(self.current_node)
-            self.model.state = self.current_node.state
             # self._animation_manager.execute_move_animation(self.current_node, self.model)
 
             self.model.update()
             self.model.draw(self.game.view.screen)
 
-            print(len(self.queue))
             if len(self.queue) == 0:
                 print("No possible moves")
                 break
+
+            print(len(self.queue))
+            iterative_deepening_counter += 1
 
         print(len(self.visited))
 
         pygame.quit()
 
     # Template Methods
-    def exec(self, child):
+    def exec(self, current_iteration=None):
         pass
 
     def evaluate(self, node_expansion):
