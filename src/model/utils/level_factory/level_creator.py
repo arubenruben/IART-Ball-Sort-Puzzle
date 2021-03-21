@@ -22,7 +22,7 @@ class LevelCreator:
                 [0, 0, 0, 0],
             ]
 
-        elif level_number == 3:
+        elif level_number == 2:
 
             raw_matrix = [
                 [1, 5, 2, 2],
@@ -35,7 +35,7 @@ class LevelCreator:
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
             ]
-        elif level_number == 2:
+        elif level_number == 3:
 
             return [
 

@@ -4,6 +4,8 @@ class Node:
         self._parent = parent
         self._depth = depth
         self._operator = operator
+        self._g = depth
+        self._h = None
 
     def __eq__(self, other):
         for i in range(len(self.state.test_tubes)):
@@ -31,6 +33,22 @@ class Node:
     @property
     def state(self):
         return self._state
+
+    @property
+    def g(self):
+        return self._g
+
+    @g.setter
+    def g(self, value):
+        self._g = value
+
+    @property
+    def h(self):
+        return self._h
+
+    @h.setter
+    def h(self, value):
+        self._h = value
 
     def clone(self):
         return Node(self.state.clone(), self.parent, self.depth, self.operator)

@@ -8,6 +8,6 @@ class DFS(AIPlayingState):
     def exec(self, child):
         self.queue.insert(0, child)
 
-    def evaluate(self, node_list):
-        for node in node_list:
-            node.cost = 1
+    def extract(self):
+        self.current_node = self.queue.pop()
+        self.visited.append(self.current_node)

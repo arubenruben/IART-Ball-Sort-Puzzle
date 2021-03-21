@@ -66,8 +66,7 @@ class AIPlayingState(PlayingState):
                     if unique:
                         self.exec(child)
 
-            self.current_node = self.queue.pop()
-            self.visited.append(self.current_node)
+            self.extract()
 
             print(len(self.queue))
 
@@ -85,9 +84,10 @@ class AIPlayingState(PlayingState):
     def exec(self, child):
         pass
 
-    def evaluate(self, node_expansion):
+    def extract(self):
         pass
 
+    #
     def draw_solution(self):
         path = []
 
