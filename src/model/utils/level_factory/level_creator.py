@@ -2,7 +2,6 @@ import math
 
 import pygame
 
-from src.model.elements.ball import Ball
 from src.model.elements.test_tube import TestTube
 from src.model.utils.raw_ball_converter import convert_raw_matrix_to_balls
 

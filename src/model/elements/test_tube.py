@@ -1,6 +1,4 @@
-import copy
 import os
-from time import sleep
 
 import pygame
 

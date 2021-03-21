@@ -1,7 +1,4 @@
-from src.controller.AI.execution_template.bfs import BFS
-from src.controller.AI.execution_template.dfs import DFS
 from src.controller.AI.execution_template.iterative_deepening import IterativeDeepening
-from src.controller.menu_state.states.human_playing_state import HumanPlayingState
 
 
 class Game:

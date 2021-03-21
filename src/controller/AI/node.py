@@ -16,19 +16,6 @@ class Node:
 
         return True
 
-
-    def print_state(self, other):
-        for i in range(len(self.state.test_tubes)):
-            array_append = []
-            for j in range(len(self.state.test_tubes[i]._balls)):
-                array_append.append(self.state.test_tubes[i]._balls[j].value)
-            print(array_append)
-        for i in range(len(other.state.test_tubes)):
-            array_append = []
-            for j in range(len(other.state.test_tubes[i]._balls)):
-                array_append.append(other.state.test_tubes[i]._balls[j].value)
-            print(array_append)
-
     @property
     def parent(self):
         return self._parent

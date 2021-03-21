@@ -5,9 +5,7 @@ import pygame
 from src.controller.AI.move_generator import MoveGenerator
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
-
 from src.model.move import Move
-from src.model.state import State
 from src.view.animation_managers.animation_bot_manager import AnimationBotManager
 
 
@@ -27,13 +25,72 @@ class AIPlayingState(PlayingState):
         self._visited = [self._current_node]
 
     def run(self):
+        solved = False
+        run = True
 
-        result = self.exec()
+        while run:
 
-        if result is False:
+            if self.is_solved(self.current_node.state.test_tubes):
+                solved = True
+                break
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return
+
+            for play in self._move_generator.plays:
+
+                curr_move = Move(play[0], play[1])
+
+                if curr_move.validate(self.current_node.state):
+
+                    state_clone = self.current_node.state.clone()
+
+                    curr_move.execute(state_clone)
+
+                    child = Node(state_clone, self.current_node.clone(), self.current_node.depth + 1,
+                                 copy(curr_move))
+
+                    unique = True
+
+                    for visited_node in self.visited:
+                        if child == visited_node:
+                            unique = False
+                            break
+
+                    for node_in_queue in self.queue:
+                        if child == node_in_queue:
+                            unique = False
+                            break
+
+                    if unique:
+                        self.exec(child)
+
+            self.current_node = self.queue.pop()
+            self.visited.append(self.current_node)
+
+            print(len(self.queue))
+
+            if len(self.queue) == 0:
+                print("No possible moves")
+                solved = False
+                break
+
+        if solved is False:
             return print("No solution")
+        else:
+            self.draw_solution()
 
+    # Template Methods
+    def exec(self, child):
+        pass
+
+    def evaluate(self, node_expansion):
+        pass
+
+    def draw_solution(self):
         path = []
+
         curr_node = self.visited[len(self.visited) - 1]
         while curr_node.parent is not None:
             path.append(curr_node)
@@ -54,13 +111,6 @@ class AIPlayingState(PlayingState):
         print(len(self.visited))
 
         pygame.quit()
-
-    # Template Methods
-    def exec(self):
-        pass
-
-    def evaluate(self, node_expansion):
-        pass
 
     # Getters and Setters
     @property

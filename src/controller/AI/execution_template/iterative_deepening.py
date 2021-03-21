@@ -2,7 +2,6 @@ from copy import copy
 
 import pygame
 
-from src.controller.AI.execution_template.dfs import DFS
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.AI_playing_state import AIPlayingState
 from src.model.move import Move
@@ -12,10 +11,10 @@ class IterativeDeepening(AIPlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
 
-    def exec(self):
+    def run(self):
         run = True
         max_depth = 1
-
+        solved = False
         self.model.draw(self.game.view.screen)
 
         while run:
@@ -31,19 +30,18 @@ class IterativeDeepening(AIPlayingState):
 
             current_depth = 1
 
-
-
             while True:
 
                 if self.is_solved(self.current_node.state.test_tubes):
-                    return True
+                    solved = True
+                    break
 
                 if current_depth > max_depth:
                     break
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
-                        break
+                        return
 
                 for play in self._move_generator.plays:
 
@@ -77,5 +75,8 @@ class IterativeDeepening(AIPlayingState):
                 self.model.state = self.current_node.state
 
                 current_depth += 1
+
+            if solved:
+                return self.draw_solution()
 
             max_depth += 1
