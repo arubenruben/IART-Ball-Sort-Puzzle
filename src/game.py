@@ -6,7 +6,7 @@ from src.controller.menu_state.states.human_playing_state import HumanPlayingSta
 class Game:
     def __init__(self, model, view):
         self._view = view
-        self._menu_state = HumanPlayingState(self, model)
+        self._menu_state = BFS(self, model)
 
     def run(self):
         self._menu_state.run()

@@ -29,7 +29,7 @@ class AIPlayingState(PlayingState):
 
         while run:
 
-            self.game.view.clock.tick(self.game.view.fps)
+            self.game.view.clock.tick(2)
 
             if self.is_solved(self.current_node.state.test_tubes):
                 break
@@ -37,33 +37,42 @@ class AIPlayingState(PlayingState):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
-            if not self._animation_manager.animation_pending:
-                for play in self._move_generator.plays:
 
-                    curr_move = Move(play[0], play[1])
+            for play in self._move_generator.plays:
 
-                    if curr_move.validate(self.current_node.state):
+                curr_move = Move(play[0], play[1])
 
-                        state_clone = self.current_node.state.clone()
+                if curr_move.validate(self.current_node.state):
 
-                        curr_move.execute(state_clone)
+                    state_clone = self.current_node.state.clone()
 
-                        child = Node(state_clone, self.current_node.clone(), self.current_node.depth + 1, copy(curr_move))
+                    curr_move.execute(state_clone)
 
-                        unique = True
-                        for visited_node in self.visited:
-                            if child == visited_node:
-                                unique = False
-                                break
-                        if unique:
-                            self.exec(child)
+                    child = Node(state_clone, self.current_node.clone(), self.current_node.depth + 1,
+                                 copy(curr_move))
 
-                self.current_node = self.queue.pop(0)
-                self.visited.append(self.current_node)
-                self._animation_manager.execute_move_animation(self.current_node, self.model)
+                    unique = True
+                    for visited_node in self.visited:
+                        if child == visited_node:
+                            unique = False
+                            break
+
+                    for node_in_queue in self.queue:
+                        if child == node_in_queue:
+                            unique = False
+                            break
+
+                    if unique:
+                        self.exec(child)
+
+            self.current_node = self.queue.pop()
+            self.visited.append(self.current_node)
+            self.model.state = self.current_node.state
+            # self._animation_manager.execute_move_animation(self.current_node, self.model)
 
             self.model.update()
             self.model.draw(self.game.view.screen)
+
             print(len(self.queue))
             if len(self.queue) == 0:
                 print("No possible moves")

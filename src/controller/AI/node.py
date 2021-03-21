@@ -13,8 +13,8 @@ class Node:
             for j in range(len(self.state.test_tubes[i]._balls)):
                 if self.state.test_tubes[i]._balls[j].value != other.state.test_tubes[i]._balls[j].value:
                     return False
-        #self.print_state(other)
-        #print("--------------------------")
+        # self.print_state(other)
+        # print("--------------------------")
         return True
 
 
