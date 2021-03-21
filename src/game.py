@@ -1,10 +1,9 @@
-from src.controller.AI.execution_template.dfs import DFSAI
+from src.controller.AI.execution_template.bfs import BFS
+from src.controller.AI.execution_template.dfs import DFS
 from src.controller.menu_state.states.human_playing_state import HumanPlayingState
-from src.controller.AI.execution_template.bfs import BFSAI
 
 
 class Game:
-
     def __init__(self, model, view):
         self._view = view
         self._menu_state = HumanPlayingState(self, model)

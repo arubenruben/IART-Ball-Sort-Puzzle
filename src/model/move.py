@@ -1,24 +1,35 @@
-from src.controller.menu_state.utils.utils import is_same_color
-
-
 class Move:
-    def __init__(self, tube1idx, tube2idx):
-        self._tube1idx = tube1idx
-        self._tube2idx = tube2idx
+    def __init__(self, origin_index, destination_index):
+        self._origin_index = origin_index
+        self._destination_index = destination_index
 
     @property
-    def tube1idx(self):
-        return self._tube1idx
+    def origin_index(self):
+        return self._origin_index
 
     @property
-    def tube2idx(self):
-        return self._tube2idx
+    def destination_index(self):
+        return self._destination_index
 
-    def validate(self, test_tubes):
-        return (not test_tubes[self.tube1idx].is_empty() and not test_tubes[self.tube2idx].is_full() and not test_tubes[
-            self.tube1idx].is_solved() and (test_tubes[self.tube2idx].is_empty() or is_same_color(
-            test_tubes[self.tube1idx].get_first_ball(),
-            test_tubes[self.tube2idx].get_first_ball())))
+    def validate(self, state):
 
-    def execute(self, test_tubes):
-        test_tubes[self.tube2idx].balls.append(test_tubes[self.tube1idx].balls.pop())
+        if state.test_tubes[self.origin_index].is_empty():
+            return False
+
+        if state.test_tubes[self.destination_index].is_full():
+            return False
+
+        if state.test_tubes[self.origin_index].is_solved():
+            return False
+
+        if state.test_tubes[self.destination_index].is_empty():
+            return True
+
+        if state.test_tubes[self.origin_index].get_first_ball().value != state.test_tubes[
+            self.destination_index].get_first_ball().value:
+            return False
+
+        return True
+
+    def execute(self, state):
+        state.test_tubes[self.destination_index].insert_ball(state.test_tubes[self.origin_index].pop_ball())

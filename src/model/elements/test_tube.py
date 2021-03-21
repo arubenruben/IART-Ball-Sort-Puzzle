@@ -1,5 +1,6 @@
 import copy
 import os
+from time import sleep
 
 import pygame
 
@@ -9,9 +10,9 @@ from src.model.elements.ball import Ball
 
 class TestTube(Drawable):
 
-    def __init__(self, raw_balls, rect):
+    def __init__(self, balls, rect):
         self._rect = rect
-        self._balls = []
+        self._balls = balls
         self._animating_up = False
         self._animating_down = False
         self._animating_move = False
@@ -20,35 +21,10 @@ class TestTube(Drawable):
         self._callback = None
         self._destination_rect = None
         self._original_ball_position = None
-        self.distance_between_ball = 3
-        self.ball_radius = self.rect.width // 4
-        self.correction_y = self.rect.height // 8
 
         self._background_image = pygame.transform.scale(
             pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png')),
             (rect.width, rect.height))
-
-        self.produce_ball(raw_balls)
-
-    # Todo:Refactor
-    def produce_ball(self, raw_balls):
-        # TODO:DANGER DANGER DANGER DANGER REMOVER ISTO
-        self._balls = []
-        # DANGER DANGER DANGER DANGER
-        for i in range(len(raw_balls)):
-            if raw_balls[i] == 0:
-                return
-            self.balls.append(
-                Ball(
-                    raw_balls[i],
-                    (
-                        self.rect.center[0],
-                        self.rect.bottom - 2 * self.ball_radius * i - self.correction_y - (
-                                self.distance_between_ball * i)
-                    ),
-                    self.ball_radius
-                )
-            )
 
     def update(self):
         if self.animating_up:
@@ -60,15 +36,15 @@ class TestTube(Drawable):
 
     def draw(self, screen):
         screen.blit(self.background_image, self.rect)
-        for ball in self.balls:
+        for ball in self._balls:
             ball.draw(screen)
 
     def animate_up(self):
         ball = self.get_first_ball()
 
         if ball.rect.top <= self.rect.top - self.rect.height // 4:
-            self.callback()
             self.reset_animations()
+            self.callback()
         else:
             ball.rect = ball.rect.move(0, -self.speed_y)
 
@@ -77,8 +53,8 @@ class TestTube(Drawable):
 
         if ball.rect.top >= self.original_ball_position.bottom - 8 * self.speed_y:
             ball.rect = self.original_ball_position.copy()
-            self.callback()
             self.reset_animations()
+            self.callback()
         else:
             ball.rect = ball.rect.move(0, self.speed_y)
 
@@ -86,8 +62,8 @@ class TestTube(Drawable):
     def animate_between_tubes(self):
         ball = self.get_first_ball()
         if True:
-            self.callback()
             self.reset_animations()
+            self.callback()
             # else:
             #   ball.rect = ball.rect.move(0, self.speed_y)
 
@@ -104,19 +80,30 @@ class TestTube(Drawable):
     def is_empty(self):
         return len(self._balls) == 0
 
-    def __copy__(self):
-        copy_obj = TestTube(self.get_raw_balls(), self.rect)
-        for name, attr in self.__dict__.items():
-            if hasattr(attr, 'copy') and callable(getattr(attr, 'copy')):
-                copy_obj.__dict__[name] = attr.copy()
-            else:
-                copy_obj.__dict__[name] = copy.deepcopy(attr)
-        return copy_obj
+    def is_solved(self):
+
+        if len(self._balls) == 0:
+            return True
+
+        if len(self._balls) < 4:
+            return False
+
+        start_ball = self._balls[0]
+
+        for i in range(len(self._balls)):
+            if self._balls[i].value != start_ball.value:
+                return False
+
+        return True
 
     # Getter and Setters
-    @property
-    def balls(self):
-        return self._balls
+    def insert_ball(self, ball):
+        self._balls.append(Ball(self.rect, ball.value, len(self._balls)))
+
+    def pop_ball(self):
+        if len(self._balls) > 0:
+            return self._balls.pop()
+        return None
 
     @property
     def background_image(self):
@@ -186,16 +173,14 @@ class TestTube(Drawable):
     def original_ball_position(self, value):
         self._original_ball_position = value
 
+    # Animations
     def set_animation_up(self, callback):
-
         ball = self.get_first_ball()
-
         self.callback = callback
         self.animating_up = True
         self.original_ball_position = ball.rect.copy()
 
     def set_animation_down(self, callback):
-
         self.callback = callback
         self.animating_down = True
 
@@ -203,33 +188,15 @@ class TestTube(Drawable):
         self.destination_rect = destination_rect
         self.callback = callback
         self.animating_move = True
-        return
 
     def reset_animations(self):
-        self.callback = None
         self.animating_up = False
         self.animating_down = False
         self.animating_move = False
 
-    def is_solved(self):
-
-        if len(self.balls) == 0:
-            return True
-
-        if len(self.balls) < 4:
-            return False
-
-        start_ball = self.balls[0]
-
-        for i in range(len(self.balls)):
-            if self.balls[i].value != start_ball.value:
-                return False
-
-        return True
-
     def get_raw_balls(self):
         aux_list = []
-        for ball in self.balls:
+        for ball in self._balls:
             aux_list.append(ball.value)
 
         return aux_list

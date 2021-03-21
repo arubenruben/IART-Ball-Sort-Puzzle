@@ -1,57 +1,73 @@
-import itertools
 from copy import copy
 
 import pygame
 
+from src.controller.AI.move_generator import MoveGenerator
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
-from src.controller.menu_state.utils.utils import is_solved
+
 from src.model.move import Move
+from src.model.state import State
+from src.view.animation_managers.animation_bot_manager import AnimationBotManager
 
 
 class AIPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
+        self._move_generator = MoveGenerator(len(model.state.test_tubes))
 
-        tubes = [copy(tube) for tube in self.model.test_tubes]
+        self._current_node = Node(model.state.clone(), None, 0, None)
 
-        self.plays = list(itertools.permutations([n for n in range(len(tubes))], 2))
+        self._animation_manager = AnimationBotManager()
 
-        self._current_node = Node([copy(tube) for tube in tubes], None, 0, None)
+        self._queue = []
 
-        self._queue = [self._current_node]
-
-        self._visited = {self._current_node}
+        self._visited = [self._current_node]
 
     def run(self):
         run = True
-        while run and self.queue:
 
-            if is_solved(self.current_node.test_tubes):
+        while run:
+
+            self.game.view.clock.tick(self.game.view.fps)
+
+            if self.is_solved(self.current_node.state.test_tubes):
                 break
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
+            if not self._animation_manager.animation_pending:
+                for play in self._move_generator.plays:
 
-            for play in self.plays:
+                    curr_move = Move(play[0], play[1])
 
-                curr_move = Move(play[0], play[1])
+                    if curr_move.validate(self.current_node.state):
 
-                if curr_move.validate(self.current_node.test_tubes):
+                        state_clone = self.current_node.state.clone()
 
-                    test_tube_copy = [copy(tube) for tube in self.current_node.test_tubes]
+                        curr_move.execute(state_clone)
 
-                    curr_move.execute(test_tube_copy)
+                        child = Node(state_clone, self.current_node.clone(), self.current_node.depth + 1, copy(curr_move))
 
-                    child = Node(test_tube_copy, self.current_node, self.current_node.depth + 1, curr_move)
+                        unique = True
+                        for visited_node in self.visited:
+                            if child == visited_node:
+                                unique = False
+                                break
+                        if unique:
+                            self.exec(child)
 
-                    if child not in self.queue and child not in self.visited:
-                        self.exec(child)
+                self.current_node = self.queue.pop(0)
+                self.visited.append(self.current_node)
+                self._animation_manager.execute_move_animation(self.current_node, self.model)
 
-            self.current_node = self.queue.pop(0)
-            self.visited.add(self.current_node)
+            self.model.update()
+            self.model.draw(self.game.view.screen)
             print(len(self.queue))
+            if len(self.queue) == 0:
+                print("No possible moves")
+                break
 
         print(len(self.visited))
 

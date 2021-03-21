@@ -52,18 +52,11 @@ class AnimationHumanManager(AnimationManager):
     # Todo:Refactor
     def handle_finish_animation_move_between_tubes(self):
 
-        ball_test = self.test_tube_source.balls.pop()
-        array_aux = []
-
-        for ball in self.test_tube_destination.balls:
-            array_aux.append(ball.value)
-
-        array_aux.append(ball_test.value)
-        self.test_tube_destination.produce_ball(array_aux)
+        ball_test = self.test_tube_source.pop_ball()
+        self.test_tube_destination.insert_ball(ball_test)
 
         self.state = "down"
         self.test_tube_source = None
-
         self.test_tube_destination = None
 
     # Getters and Setters
