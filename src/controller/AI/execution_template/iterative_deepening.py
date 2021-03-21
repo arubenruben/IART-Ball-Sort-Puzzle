@@ -16,22 +16,27 @@ class IterativeDeepening(AIPlayingState):
         run = True
         max_depth = 1
 
+        self.model.draw(self.game.view.screen)
+
         while run:
+
+            if max_depth > 100:
+                return False
+
             self._queue = []
+
+            self._current_node = Node(self._starting_state.clone(), None, 0, None)
+
             self._visited = [self._current_node]
-
-            self._current_node = self._starting_state.clone()
-
-            self.model.state = self._current_node.state
 
             current_depth = 1
 
+
+
             while True:
 
-                self.game.view.clock.tick(self.game.view.fps)
-
                 if self.is_solved(self.current_node.state.test_tubes):
-                    return
+                    return True
 
                 if current_depth > max_depth:
                     break
@@ -72,8 +77,5 @@ class IterativeDeepening(AIPlayingState):
                 self.model.state = self.current_node.state
 
                 current_depth += 1
-
-                self.model.update()
-                self.model.draw(self.game.view.screen)
 
             max_depth += 1

@@ -16,7 +16,7 @@ class AIPlayingState(PlayingState):
         super().__init__(game, model)
         self._move_generator = MoveGenerator(len(model.state.test_tubes))
 
-        self._starting_state = Node(model.state.clone(), None, 0, None)
+        self._starting_state = model.state.clone()
 
         self._current_node = Node(model.state.clone(), None, 0, None)
 
@@ -27,7 +27,23 @@ class AIPlayingState(PlayingState):
         self._visited = [self._current_node]
 
     def run(self):
-        self.exec()
+
+        result = self.exec()
+
+        if result is False:
+            return print("No solution")
+
+        print("Solution")
+
+        self.model.state = self._starting_state.clone()
+
+        while len(self.visited):
+            self.game.view.clock.tick(self.game.view.fps)
+
+            if not self._animation_manager.animation_pending:
+                self._animation_manager.execute_move_animation(self.visited.pop(0), self.model)
+            self.model.update()
+            self.model.draw(self.game.view.screen)
 
         print(len(self.visited))
 

@@ -17,10 +17,8 @@ class DFS(AIPlayingState):
 
         while run:
 
-            self.game.view.clock.tick(self.game.view.fps)
-
             if self.is_solved(self.current_node.state.test_tubes):
-                break
+                return True
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -55,10 +53,8 @@ class DFS(AIPlayingState):
 
             self.current_node = self.queue.pop(0)
             self.visited.append(self.current_node)
-            self.model.state = self.current_node.state
 
-            self.model.update()
-            self.model.draw(self.game.view.screen)
+        return False
 
     def evaluate(self, node_list):
         for node in node_list:
