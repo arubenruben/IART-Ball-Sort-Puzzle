@@ -8,9 +8,8 @@ from src.model.move import Move
 
 
 class DFS(AIPlayingState):
-    def __init__(self, game, model, max_depth=None):
+    def __init__(self, game, model):
         super().__init__(game, model)
-        self._max_depth = max_depth
 
     def exec(self):
         run = True

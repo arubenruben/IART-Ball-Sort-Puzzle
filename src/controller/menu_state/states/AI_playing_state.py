@@ -33,15 +33,21 @@ class AIPlayingState(PlayingState):
         if result is False:
             return print("No solution")
 
-        print("Solution")
+        path = []
+        curr_node = self.visited[len(self.visited) - 1]
+        while curr_node.parent is not None:
+            path.append(curr_node)
+            curr_node = curr_node.parent
+
+        path.reverse()
 
         self.model.state = self._starting_state.clone()
 
         while len(self.visited):
             self.game.view.clock.tick(self.game.view.fps)
 
-            if not self._animation_manager.animation_pending:
-                self._animation_manager.execute_move_animation(self.visited.pop(0), self.model)
+            if not self._animation_manager.animation_pending and len(path):
+                self._animation_manager.execute_move_animation(path.pop(0), self.model)
             self.model.update()
             self.model.draw(self.game.view.screen)
 
