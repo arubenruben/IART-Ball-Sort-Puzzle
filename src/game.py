@@ -1,12 +1,13 @@
 from src.controller.AI.execution_template.bfs import BFS
 from src.controller.AI.execution_template.dfs import DFS
+from src.controller.AI.execution_template.iterative_deepening import IterativeDeepening
 from src.controller.menu_state.states.human_playing_state import HumanPlayingState
 
 
 class Game:
     def __init__(self, model, view):
         self._view = view
-        self._menu_state = DFS(self, model)
+        self._menu_state = IterativeDeepening(self, model)
 
     def run(self):
         self._menu_state.run()

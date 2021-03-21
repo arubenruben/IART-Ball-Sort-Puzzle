@@ -16,6 +16,8 @@ class AIPlayingState(PlayingState):
         super().__init__(game, model)
         self._move_generator = MoveGenerator(len(model.state.test_tubes))
 
+        self._starting_state = Node(model.state.clone(), None, 0, None)
+
         self._current_node = Node(model.state.clone(), None, 0, None)
 
         self._animation_manager = AnimationBotManager()
@@ -25,39 +27,14 @@ class AIPlayingState(PlayingState):
         self._visited = [self._current_node]
 
     def run(self):
-        run = True
-        iterative_deepening_counter = 1
-        while run:
-
-            self.game.view.clock.tick(self.game.view.fps)
-
-            if self.is_solved(self.current_node.state.test_tubes):
-                break
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
-
-            self.exec(iterative_deepening_counter)
-
-            # self._animation_manager.execute_move_animation(self.current_node, self.model)
-
-            self.model.update()
-            self.model.draw(self.game.view.screen)
-
-            if len(self.queue) == 0:
-                print("No possible moves")
-                break
-
-            print(len(self.queue))
-            iterative_deepening_counter += 1
+        self.exec()
 
         print(len(self.visited))
 
         pygame.quit()
 
     # Template Methods
-    def exec(self, current_iteration=None):
+    def exec(self):
         pass
 
     def evaluate(self, node_expansion):

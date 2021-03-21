@@ -1,5 +1,7 @@
 from copy import copy
 
+import pygame
+
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.AI_playing_state import AIPlayingState
 from src.model.move import Move
@@ -10,41 +12,53 @@ class DFS(AIPlayingState):
         super().__init__(game, model)
         self._max_depth = max_depth
 
-    def exec(self, current_iteration=None):
+    def exec(self):
+        run = True
 
-        if self._max_depth is not None and current_iteration is not None and current_iteration > self._max_depth:
-            return
+        while run:
 
-        for play in self._move_generator.plays:
+            self.game.view.clock.tick(self.game.view.fps)
 
-            curr_move = Move(play[0], play[1])
+            if self.is_solved(self.current_node.state.test_tubes):
+                break
 
-            if curr_move.validate(self.current_node.state):
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    break
 
-                state_clone = self.current_node.state.clone()
+            for play in self._move_generator.plays:
 
-                curr_move.execute(state_clone)
+                curr_move = Move(play[0], play[1])
 
-                child = Node(state_clone, self.current_node.clone(), self.current_node.depth + 1,
-                             copy(curr_move))
+                if curr_move.validate(self.current_node.state):
 
-                unique = True
-                for visited_node in self.visited:
-                    if child == visited_node:
-                        unique = False
-                        break
+                    state_clone = self.current_node.state.clone()
 
-                for node_in_queue in self.queue:
-                    if child == node_in_queue:
-                        unique = False
-                        break
+                    curr_move.execute(state_clone)
 
-                if unique:
-                    self.queue.insert(0, child)
+                    child = Node(state_clone, self.current_node.clone(), self.current_node.depth + 1,
+                                 copy(curr_move))
 
-        self.current_node = self.queue.pop(0)
-        self.visited.append(self.current_node)
-        self.model.state = self.current_node.state
+                    unique = True
+                    for visited_node in self.visited:
+                        if child == visited_node:
+                            unique = False
+                            break
+
+                    for node_in_queue in self.queue:
+                        if child == node_in_queue:
+                            unique = False
+                            break
+
+                    if unique:
+                        self.queue.insert(0, child)
+
+            self.current_node = self.queue.pop(0)
+            self.visited.append(self.current_node)
+            self.model.state = self.current_node.state
+
+            self.model.update()
+            self.model.draw(self.game.view.screen)
 
     def evaluate(self, node_list):
         for node in node_list:
