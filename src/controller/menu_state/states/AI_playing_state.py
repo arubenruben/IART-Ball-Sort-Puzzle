@@ -68,7 +68,7 @@ class AIPlayingState(PlayingState):
 
             self.extract()
 
-            print(len(self.queue))
+            print(len(self.visited))
 
             if len(self.queue) == 0:
                 print("No possible moves")
