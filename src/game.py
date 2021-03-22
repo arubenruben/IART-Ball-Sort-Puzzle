@@ -7,7 +7,7 @@ from src.controller.AI.heuristics.concrete_heuristics.entropy import EntropyHeur
 class Game:
     def __init__(self, model, view):
         self._view = view
-        self._menu_state = AStar(self, model, EntropyHeuristic())
+        self._menu_state = DFS(self, model)
 
     def run(self):
         self._menu_state.run()

@@ -16,8 +16,8 @@ class TestTube(Drawable):
         self._animating_up = False
         self._animating_down = False
         self._animating_move = False
-        self._speed_y = 10
-        self._speed_x = 10
+        self._speed_y = 5
+        self._speed_x = 5
         self._callback = None
         self._destination_rect = None
         self._original_ball_position = None
@@ -218,3 +218,13 @@ class TestTube(Drawable):
             aux_list.append(ball.value)
 
         return aux_list
+
+    def __eq__(self, other):
+        if len(self._balls) != len(other._balls):
+            return False
+
+        for i in range(len(self._balls)):
+            if self._balls[i].value != other._balls[i].value:
+                return False
+
+        return True

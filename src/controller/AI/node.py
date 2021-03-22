@@ -1,3 +1,6 @@
+import math
+
+
 class Node:
     def __init__(self, state, parent, depth, operator):
         self._state = state
@@ -9,28 +12,19 @@ class Node:
 
     def __eq__(self, other):
 
-        other_indexes_used = []
+        test_tube_duplication_aux = []
 
-        for i in range(len(self.state.test_tubes)):
-            for j in range(len(other.state.test_tubes)):
+        for test_tube in self.state.test_tubes:
+            test_tube_duplication_aux.append(test_tube)
 
-                if j in other_indexes_used:
-                    continue
+        for other_test_tube in other.state.test_tubes:
 
-                if len(self.state.test_tubes[i]._balls) != len(other.state.test_tubes[j]._balls):
-                    continue
+            for self_test_tube in test_tube_duplication_aux:
+                if self_test_tube == other_test_tube:
+                    test_tube_duplication_aux.remove(self_test_tube)
+                    break
 
-                if len(self.state.test_tubes[i]._balls) == 0:
-                    other_indexes_used.append(j)
-                    continue
-
-                for k in range(len(self.state.test_tubes[i]._balls)):
-                    if self.state.test_tubes[i]._balls[k].value != other.state.test_tubes[j]._balls[k].value:
-                        break
-                    if k == len(self.state.test_tubes[i]._balls) - 1:
-                        other_indexes_used.append(j)
-
-        return len(other_indexes_used) == len(self.state.test_tubes)
+        return len(test_tube_duplication_aux) == 0
 
     @property
     def parent(self):
