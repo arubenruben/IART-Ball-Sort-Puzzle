@@ -4,6 +4,8 @@ class Node:
         self._parent = parent
         self._depth = depth
         self._operator = operator
+        self._g = depth
+        self._h = None
 
     def __eq__(self, other):
         for i in range(len(self.state.test_tubes)):
@@ -15,19 +17,6 @@ class Node:
                     return False
 
         return True
-
-
-    def print_state(self, other):
-        for i in range(len(self.state.test_tubes)):
-            array_append = []
-            for j in range(len(self.state.test_tubes[i]._balls)):
-                array_append.append(self.state.test_tubes[i]._balls[j].value)
-            print(array_append)
-        for i in range(len(other.state.test_tubes)):
-            array_append = []
-            for j in range(len(other.state.test_tubes[i]._balls)):
-                array_append.append(other.state.test_tubes[i]._balls[j].value)
-            print(array_append)
 
     @property
     def parent(self):
@@ -44,6 +33,22 @@ class Node:
     @property
     def state(self):
         return self._state
+
+    @property
+    def g(self):
+        return self._g
+
+    @g.setter
+    def g(self, value):
+        self._g = value
+
+    @property
+    def h(self):
+        return self._h
+
+    @h.setter
+    def h(self, value):
+        self._h = value
 
     def clone(self):
         return Node(self.state.clone(), self.parent, self.depth, self.operator)

@@ -1,5 +1,3 @@
-from time import sleep
-
 from src.view.animation_managers.animation_manager import AnimationManager
 
 

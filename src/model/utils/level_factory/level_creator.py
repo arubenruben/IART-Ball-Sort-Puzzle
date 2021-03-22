@@ -2,7 +2,6 @@ import math
 
 import pygame
 
-from src.model.elements.ball import Ball
 from src.model.elements.test_tube import TestTube
 from src.model.utils.raw_ball_converter import convert_raw_matrix_to_balls
 
@@ -23,7 +22,7 @@ class LevelCreator:
                 [0, 0, 0, 0],
             ]
 
-        elif level_number == 3:
+        elif level_number == 2:
 
             raw_matrix = [
                 [1, 5, 2, 2],
@@ -36,7 +35,7 @@ class LevelCreator:
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
             ]
-        elif level_number == 2:
+        elif level_number == 3:
 
             return [
 
