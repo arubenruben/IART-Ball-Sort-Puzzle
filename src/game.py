@@ -7,7 +7,7 @@ from src.controller.AI.execution_template.iterative_deepening import IterativeDe
 class Game:
     def __init__(self, model, view):
         self._view = view
-        self._menu_state = IterativeDeepening(self, model)
+        self._menu_state = AStar(self, model, None)
 
     def run(self):
         self._menu_state.run()

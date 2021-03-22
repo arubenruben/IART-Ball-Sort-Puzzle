@@ -85,3 +85,4 @@ class IterativeDeepening(AIPlayingState):
                     return self.run()
                 else:
                     pygame.quit()
+                    return

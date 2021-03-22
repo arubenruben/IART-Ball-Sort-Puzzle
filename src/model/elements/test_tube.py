@@ -34,10 +34,10 @@ class TestTube(Drawable):
         if self.animating_move:
             return self.animate_between_tubes()
 
-    def draw(self, screen):
-        screen.blit(self.background_image, self.rect)
+    def draw(self, view):
+        view.screen.blit(self.background_image, self.rect)
         for ball in self._balls:
-            ball.draw(screen)
+            ball.draw(view)
 
     def animate_up(self):
         ball = self.get_first_ball()

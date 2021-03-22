@@ -16,7 +16,6 @@ class HumanPlayingState(PlayingState):
     def run(self):
 
         run = True
-
         while run:
             move = None
 
@@ -38,7 +37,7 @@ class HumanPlayingState(PlayingState):
                     move = self._event_manager.handle_mouse_event(event)
 
             self.model.update()
-            self.model.draw(self.game.view.screen)
+            self.model.draw(self.game.view)
 
             if move is not None:
                 if move.validate():

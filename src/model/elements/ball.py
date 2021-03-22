@@ -25,8 +25,8 @@ class Ball(Drawable):
     def update(self):
         pass
 
-    def draw(self, screen):
-        pygame.draw.circle(screen, self.color, (self.rect.centerx, self.rect.centery), self.radius)
+    def draw(self, view):
+        pygame.draw.circle(view.screen, self.color, (self.rect.centerx, self.rect.centery), self.radius)
 
     @property
     def value(self):

@@ -1,10 +1,12 @@
 from copy import copy
+from time import sleep
 
 import pygame
 
 from src.controller.AI.move_generator import MoveGenerator
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
+from src.model.headers.bot_searching_header import BotSearchingHeader
 from src.model.move import Move
 from src.view.animation_managers.animation_bot_manager import AnimationBotManager
 
@@ -29,7 +31,6 @@ class AIPlayingState(PlayingState):
         run = True
 
         while run:
-
             if self.is_solved(self.current_node.state.test_tubes):
                 solved = True
                 break
@@ -37,6 +38,9 @@ class AIPlayingState(PlayingState):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return
+
+            self.model.update()
+            self.model.draw(self.game.view)
 
             for play in self._move_generator.plays:
 
@@ -65,10 +69,11 @@ class AIPlayingState(PlayingState):
 
                     if unique:
                         self.exec(child)
+                        self.model.header.statistics.current_depth = child.depth
+                        self.model.header.statistics.visited_queue_length = len(self.visited)
+                        self.model.header.statistics.queue_length = len(self.queue)
 
             self.extract()
-
-            print(len(self.queue))
 
             if len(self.queue) == 0:
                 print("No possible moves")
@@ -94,8 +99,14 @@ class AIPlayingState(PlayingState):
 
     #
     def draw_solution(self):
-        path = []
 
+        sleep(3)
+
+        header = self.model.header
+
+        self.model.header = None
+
+        path = []
         curr_node = self.visited[len(self.visited) - 1]
         while curr_node.parent is not None:
             path.append(curr_node)
@@ -111,9 +122,9 @@ class AIPlayingState(PlayingState):
             if not self._animation_manager.animation_pending and len(path):
                 self._animation_manager.execute_move_animation(path.pop(0), self.model)
             self.model.update()
-            self.model.draw(self.game.view.screen)
+            self.model.draw(self.game.view)
 
-        print(len(self.visited))
+        self.model.header = BotSearchingHeader(header.algorithm_name)
 
     # Getters and Setters
     @property

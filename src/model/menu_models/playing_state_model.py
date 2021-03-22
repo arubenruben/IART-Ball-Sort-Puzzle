@@ -18,16 +18,24 @@ class PlayingStateModel(Drawable):
         self._level_creator = LevelCreator()
         self._state = State(self._level_creator.create(1, (self.width, self.height)))
         self._level = 1
+        self._header = None
 
     def update(self):
+
+        if self.header:
+            self.header.update()
+
         for test_tube in self.state.test_tubes:
             test_tube.update()
 
-    def draw(self, screen):
-        screen.blit(self.background, (0, 0))
+    def draw(self, view):
+        view.screen.blit(self.background, (0, 0))
 
         for test_tube in self.state.test_tubes:
-            test_tube.draw(screen)
+            test_tube.draw(view)
+
+        if self.header:
+            self.header.draw(view)
 
         pygame.display.update()
 
@@ -48,3 +56,11 @@ class PlayingStateModel(Drawable):
     @state.setter
     def state(self, value):
         self._state = value
+
+    @property
+    def header(self):
+        return self._header
+
+    @header.setter
+    def header(self, value):
+        self._header = value
