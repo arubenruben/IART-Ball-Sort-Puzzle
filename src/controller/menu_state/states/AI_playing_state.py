@@ -12,11 +12,11 @@ from src.view.animation_managers.animation_bot_manager import AnimationBotManage
 class AIPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
-        self._move_generator = MoveGenerator(len(model.state.test_tubes))
+        self._move_generator = MoveGenerator(len(self.model.state.test_tubes))
 
-        self._starting_state = model.state.clone()
+        self._starting_state = self.model.state.clone()
 
-        self._current_node = Node(model.state.clone(), None, 0, None)
+        self._current_node = Node(self.model.state.clone(), None, 0, None)
 
         self._animation_manager = AnimationBotManager()
 
@@ -79,6 +79,11 @@ class AIPlayingState(PlayingState):
             return print("No solution")
         else:
             self.draw_solution()
+            if self.model.next_level():
+                self.reset()
+                return self.run()
+
+        pygame.quit()
 
     # Template Methods
     def exec(self, child):
@@ -100,7 +105,7 @@ class AIPlayingState(PlayingState):
 
         self.model.state = self._starting_state.clone()
 
-        while len(self.visited):
+        while len(path):
             self.game.view.clock.tick(self.game.view.fps)
 
             if not self._animation_manager.animation_pending and len(path):
@@ -109,8 +114,6 @@ class AIPlayingState(PlayingState):
             self.model.draw(self.game.view.screen)
 
         print(len(self.visited))
-
-        pygame.quit()
 
     # Getters and Setters
     @property
@@ -128,3 +131,16 @@ class AIPlayingState(PlayingState):
     @property
     def visited(self):
         return self._visited
+
+    def reset(self):
+        self._move_generator = MoveGenerator(len(self.model.state.test_tubes))
+
+        self._starting_state = self.model.state.clone()
+
+        self._current_node = Node(self.model.state.clone(), None, 0, None)
+
+        self._animation_manager = AnimationBotManager()
+
+        self._queue = []
+
+        self._visited = [self._current_node]

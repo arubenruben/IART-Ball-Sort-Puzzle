@@ -24,10 +24,10 @@ class HumanPlayingState(PlayingState):
 
             if self.is_solved(self.model.state.test_tubes):
                 if self.model.next_level():
-                    break
-                else:
                     self._animation_manager = AnimationHumanManager()
                     self._event_manager = EventManager(self._animation_manager, self.model.state)
+                else:
+                    break
 
             # TODO:Test if game is possible. Game end
 
