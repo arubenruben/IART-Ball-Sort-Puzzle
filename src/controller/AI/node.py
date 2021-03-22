@@ -8,15 +8,29 @@ class Node:
         self._h = None
 
     def __eq__(self, other):
+
+        other_indexes_used = []
+
         for i in range(len(self.state.test_tubes)):
-            if len(self.state.test_tubes[i]._balls) != len(other.state.test_tubes[i]._balls):
-                return False
+            for j in range(len(other.state.test_tubes)):
 
-            for j in range(len(self.state.test_tubes[i]._balls)):
-                if self.state.test_tubes[i]._balls[j].value != other.state.test_tubes[i]._balls[j].value:
-                    return False
+                if j in other_indexes_used:
+                    continue
 
-        return True
+                if len(self.state.test_tubes[i]._balls) != len(other.state.test_tubes[j]._balls):
+                    continue
+
+                if len(self.state.test_tubes[i]._balls) == 0:
+                    other_indexes_used.append(j)
+                    continue
+
+                for k in range(len(self.state.test_tubes[i]._balls)):
+                    if self.state.test_tubes[i]._balls[k].value != other.state.test_tubes[j]._balls[k].value:
+                        break
+                    if k == len(self.state.test_tubes[i]._balls) - 1:
+                        other_indexes_used.append(j)
+
+        return len(other_indexes_used) == len(self.state.test_tubes)
 
     @property
     def parent(self):

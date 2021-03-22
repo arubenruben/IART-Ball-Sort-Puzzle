@@ -21,13 +21,3 @@ class State:
     @property
     def test_tubes(self):
         return self._test_tubes
-
-    def __eq__(self, other):
-        for i in range(len(self.test_tubes)):
-            if len(self.test_tubes[i].balls) != len(other.test_tubes[i].balls):
-                return False
-            for j in range(len(self.test_tubes[i].balls)):
-                if self.test_tubes[i].balls[j].value != other.test_tubes[i].balls[j].value:
-                    return False
-
-        return True
