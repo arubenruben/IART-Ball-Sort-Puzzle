@@ -9,7 +9,8 @@ class Ball(Drawable):
         self._position_in_tube = position_in_tube
         self._radius = test_tube_rect.width // 4
         self._correction_y = test_tube_rect.height // 8
-        self._distance_between_ball = 3
+
+        self._distance_between_ball = (test_tube_rect.height - (2 * self._correction_y + 8 * self._radius)) // 3
 
         self._x_center = test_tube_rect.center[0]
         self._y_center = test_tube_rect.bottom - 2 * self._radius * self._position_in_tube - self._correction_y - (

@@ -11,6 +11,8 @@ class TestTube(Drawable):
     def __init__(self, balls, rect):
         self._rect = rect
         self._balls = balls
+        self._capacity = 4
+
         self._animating_up = False
         self._animating_down = False
         self._animating_move = False
@@ -73,7 +75,7 @@ class TestTube(Drawable):
         return None
 
     def is_full(self):
-        return len(self._balls) == 4
+        return len(self._balls) == self._capacity
 
     def is_empty(self):
         return len(self._balls) == 0
@@ -83,7 +85,7 @@ class TestTube(Drawable):
         if len(self._balls) == 0:
             return True
 
-        if len(self._balls) < 4:
+        if len(self._balls) < self._capacity:
             return False
 
         start_ball = self._balls[0]

@@ -99,6 +99,8 @@ class LevelCreator:
             total_distance_wasted_between_rows = (number_rows - 1) * math.floor(2 * screen_height_available / 10)
             test_tube_height = math.floor((screen_height_available - total_distance_wasted_between_rows) / number_rows)
 
+
+
         test_tube_width = math.floor(screen_width_available / 10)
         ##########
 
@@ -139,4 +141,3 @@ class LevelCreator:
             offset_x += distance_between_cols + test_tube_width
 
         return response
-
