@@ -9,11 +9,11 @@ class AStar(AIPlayingState):
         self.model.header = BotSearchingHeader("A STAR")
 
     def exec(self, child):
-        child.h = 0
+        child.h = self._heuristic.evaluate(child)
         self.queue.insert(0, child)
 
     def extract(self):
-        self.queue.sort(key=get_a_star_value)
+        self.queue.sort(key=get_a_star_value, reverse=True)
 
         self.current_node = self.queue.pop()
         self.visited.append(self.current_node)

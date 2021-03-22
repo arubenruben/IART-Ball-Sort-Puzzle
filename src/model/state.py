@@ -14,6 +14,13 @@ class State:
 
         return self._test_tubes
 
+    @property
+    def raw_test_tubes(self):
+        if self._raw_test_tubes is None:
+            self.expand()
+
+        return self._raw_test_tubes
+
     def expand(self):
         self._test_tubes = []
         for raw_test_tube in self._raw_test_tubes:
@@ -30,3 +37,7 @@ class State:
         clone._raw_test_tubes = raw_tubes
 
         return clone
+
+    def updateRawTubes(self,destination,origin):
+        movedColor = self._raw_test_tubes[origin][0].pop()
+        self._raw_test_tubes[destination][0].append(movedColor)
