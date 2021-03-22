@@ -10,7 +10,7 @@ class AStar(AIPlayingState):
 
     def exec(self, child):
         child.h = self._heuristic.evaluate(child)
-        self.queue.insert(0, child)
+        self.queue.append(child)
 
     def extract(self):
         self.queue.sort(key=get_a_star_value, reverse=True)
