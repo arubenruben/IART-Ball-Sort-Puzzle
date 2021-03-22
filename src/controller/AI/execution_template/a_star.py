@@ -9,8 +9,7 @@ class AStar(AIPlayingState):
         self.model.header = BotSearchingHeader("A STAR")
 
     def exec(self, child):
-        # child.h = self._heuristic.evaluate(child)
-        child.h = 0
+        child.h = self._heuristic.evaluate(child)
         self.queue.append(child)
 
     def extract(self):

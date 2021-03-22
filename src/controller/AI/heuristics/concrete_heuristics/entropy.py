@@ -19,9 +19,14 @@ class EntropyHeuristic(Heuristic):
 
             tubeColor = tube[0][0]
 
+            mustFail = False
             for i in range(1, len(tube[0])):
 
-                if tube[0][i] != tubeColor:
+                if mustFail is not True and tube[0][i] != tubeColor:
+                    entropy_sum += 1
+                    mustFail = True
+
+                if mustFail is True:
                     entropy_sum += 1
 
         return entropy_sum
