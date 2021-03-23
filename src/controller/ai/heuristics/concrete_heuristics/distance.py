@@ -1,4 +1,4 @@
-from src.controller.AI.heuristics.heuristic import Heuristic
+from src.controller.ai.heuristics.heuristic import Heuristic
 
 
 class DistanceHeuristic(Heuristic):
