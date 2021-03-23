@@ -1,10 +1,10 @@
 import pygame
 
-from src.controller.ai.execution_template.a_star import AStar
-from src.controller.ai.execution_template.greedy import Greedy
-from src.controller.ai.heuristics.concrete_heuristics.distance import DistanceHeuristic
-from src.controller.ai.heuristics.concrete_heuristics.entropy import EntropyHeuristic
-from src.controller.ai.heuristics.concrete_heuristics.taboo_search_like import TabooSearchHeuristic
+from src.controller.AI.execution_template.a_star import AStar
+from src.controller.AI.execution_template.greedy import Greedy
+from src.controller.AI.heuristics.concrete_heuristics.distance import DistanceHeuristic
+from src.controller.AI.heuristics.concrete_heuristics.entropy import EntropyHeuristic
+from src.controller.AI.heuristics.concrete_heuristics.taboo_search_like import TabooSearchHeuristic
 from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
 from src.controller.menu_state.menu_state import MenuState
 from src.model.elements.button import Button
