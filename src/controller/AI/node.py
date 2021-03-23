@@ -8,11 +8,36 @@ class Node:
         self._h = None
 
     def __eq__(self, other):
+        selfTubesClone = self.state.raw_test_tubes[:]
+        otherTubesClone = other.state.raw_test_tubes[:]
+        i=0
+        for tube1 in list(selfTubesClone):
+            j = 0
+            removed = False
+            for tube2 in list(otherTubesClone):  
+                if self.compareRawTubes(tube1[0],tube2[0]):
+                    selfTubesClone.pop(i)
+                    i-=1
+                    otherTubesClone.pop(j)
+                    removed=True
+                    break
+                j+=1
+            if not removed:
+                return False
+            i+=1
 
-        test_tube_duplication_aux = []
+        if len(selfTubesClone)==0:
+            return True
+        
+        """for i in range(len(self.state.test_tubes)):
+            if len(self.state.test_tubes[i]._balls) != len(other.state.test_tubes[i]._balls):
+               return False
 
-        for test_tube in self.state.test_tubes:
-            test_tube_duplication_aux.append(test_tube)
+            for j in range(len(self.state.test_tubes[i]._balls)):
+                if self.state.test_tubes[i]._balls[j].value != other.state.test_tubes[i]._balls[j].value:
+                    return False
+
+        return True"""
 
         for other_test_tube in other.state.test_tubes:
 
@@ -57,3 +82,13 @@ class Node:
 
     def clone(self):
         return Node(self.state.clone(), self.parent, self.depth, self.operator)
+
+    def compareRawTubes(self,tube1,tube2):
+        if len(tube1) != len(tube2):
+            return False
+        
+        for j in range(len(tube1)):
+            if tube1[j]!=tube2[j]:
+                return False
+
+        return True
