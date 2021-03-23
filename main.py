@@ -1,4 +1,4 @@
-from game import Game
+from src.game import Game
 from src.model.menu_models.home_state_model import HomeStateModel
 from src.model.menu_models.playing_state_model import PlayingStateModel
 from src.view.view import View

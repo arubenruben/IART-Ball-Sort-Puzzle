@@ -2,7 +2,7 @@ from copy import copy
 
 import pygame
 
-from src.controller.AI.node import Node
+from src.controller.ai.node import Node
 from src.controller.menu_state.states.ai_playing_state import AIPlayingState
 from src.model.headers.bot_searching_header import BotSearchingHeader
 from src.model.move import Move
