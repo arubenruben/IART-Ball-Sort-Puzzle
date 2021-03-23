@@ -18,5 +18,5 @@ class DistanceHeuristic(Heuristic):
 
             for i in range(1, len(tube[0])):
                 if tube[0][i] != tubeColor:
-
+                    pass
         pass
