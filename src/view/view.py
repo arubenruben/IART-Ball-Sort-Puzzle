@@ -7,7 +7,7 @@ class View:
         pygame.font.init()
         pygame.mixer.init()
         pygame.display.set_caption("Ball-Sort")
-
+        pygame.mixer.init()
         self._width, self._height = screen_dimension
         self._clock = pygame.time.Clock()
         self._screen = pygame.display.set_mode((self._width, self._height))

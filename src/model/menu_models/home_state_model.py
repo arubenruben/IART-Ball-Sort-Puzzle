@@ -15,6 +15,8 @@ class HomeStateModel(Drawable):
 
         self._header = HomeHeader()
         self._buttons = []
+        pygame.mixer.music.load(os.path.join('../', 'assets', 'sounds', 'music.wav'))
+        pygame.mixer.music.play(-1)
 
     def update(self):
         super().update()
