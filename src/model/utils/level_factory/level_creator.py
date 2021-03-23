@@ -10,7 +10,7 @@ class LevelCreator:
 
     def create(self, level_number, screen_dimension):
         screen_width, screen_height = screen_dimension
-        maximum_number_tubes_per_row = 6
+        maximum_number_tubes_per_row = 5
         response = []
 
         if level_number == 1:
