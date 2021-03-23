@@ -9,6 +9,8 @@ class Statistics:
         self._current_depth = 0
         self._visited_queue_length = 0
         self._queue_length = 0
+        self._current_level = 0
+        self._plays_missing = 0
 
     def time_elapsed(self):
         return round(self._current_time_stamp - self._starting_time_stamp)
@@ -52,3 +54,19 @@ class Statistics:
     @queue_length.setter
     def queue_length(self, value):
         self._queue_length = value
+
+    @property
+    def current_level(self):
+        return self._current_level
+
+    @current_level.setter
+    def current_level(self, value):
+        self._current_level = value
+
+    @property
+    def plays_missing(self):
+        return self._plays_missing
+
+    @plays_missing.setter
+    def plays_missing(self, value):
+        self._plays_missing = value

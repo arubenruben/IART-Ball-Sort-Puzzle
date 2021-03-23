@@ -38,6 +38,6 @@ class State:
 
         return clone
 
-    def updateRawTubes(self,destination,origin):
-        movedColor = self._raw_test_tubes[origin][0].pop()
-        self._raw_test_tubes[destination][0].append(movedColor)
+    def update_raw_tubes(self, destination, origin):
+        moved_color = self._raw_test_tubes[origin][0].pop()
+        self._raw_test_tubes[destination][0].append(moved_color)

@@ -64,3 +64,7 @@ class PlayingStateModel(Drawable):
     @header.setter
     def header(self, value):
         self._header = value
+
+    @property
+    def level(self):
+        return self._level

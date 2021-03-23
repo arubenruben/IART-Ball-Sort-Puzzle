@@ -1,4 +1,5 @@
 from src.controller.AI.execution_template.a_star import AStar
+from src.controller.AI.execution_template.bfs import BFS
 from src.controller.AI.execution_template.dfs import DFS
 from src.controller.AI.execution_template.greedy import Greedy
 from src.controller.AI.heuristics.concrete_heuristics.entropy import EntropyHeuristic
@@ -7,7 +8,7 @@ from src.controller.AI.heuristics.concrete_heuristics.entropy import EntropyHeur
 class Game:
     def __init__(self, model, view):
         self._view = view
-        self._menu_state = AStar(self, model, EntropyHeuristic())
+        self._menu_state = DFS(self, model)
 
     def run(self):
         self._menu_state.run()

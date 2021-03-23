@@ -6,10 +6,11 @@ class BFS(AIPlayingState):
 
     def __init__(self, game, model):
         super().__init__(game, model)
-        self.model.header = BotSearchingHeader("BFS")
+        self._staring_header = BotSearchingHeader("BFS")
+        self.model.header = self._staring_header
 
     def exec(self, child):
-        self.queue.append(child)
+        self.queue.insert(0, child)
 
     def extract(self):
         self.current_node = self.queue.pop()

@@ -27,7 +27,8 @@ class BotSearchingHeader(Drawable):
 
         third_line = view.font_36.render("Visited Nodes: " + str(
             self.statistics.visited_queue_length) + "   Auxiliary Queue Size: " + str(
-            str(self.statistics.queue_length)), True, (255, 255, 255))
+            str(self.statistics.queue_length)) + "   Current Depth: " + str(self.statistics.current_depth), True,
+                                         (255, 255, 255))
 
         view.screen.blit(third_line, (
             view.width // 2 - third_line.get_width() // 2,

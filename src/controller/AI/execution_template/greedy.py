@@ -6,7 +6,8 @@ class Greedy(AIPlayingState):
     def __init__(self, game, model, heuristic):
         super().__init__(game, model)
         self._heuristic = heuristic
-        self.model.header = BotSearchingHeader("Greedy")
+        self._staring_header = BotSearchingHeader("Greedy")
+        self.model.header = self._staring_header
 
     def exec(self, child):
         child.h = self._heuristic.evaluate(child)

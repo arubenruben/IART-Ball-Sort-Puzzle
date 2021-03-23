@@ -7,6 +7,7 @@ from src.controller.AI.move_generator import MoveGenerator
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
 from src.model.headers.bot_searching_header import BotSearchingHeader
+from src.model.headers.bot_simulating_header import BotSimulatingHeader
 from src.model.move import Move
 from src.view.animation_managers.animation_bot_manager import AnimationBotManager
 
@@ -25,6 +26,8 @@ class AIPlayingState(PlayingState):
         self._queue = []
 
         self._visited = [self._current_node]
+
+        self._staring_header = None
 
     def run(self):
         solved = False
@@ -100,11 +103,10 @@ class AIPlayingState(PlayingState):
     #
     def draw_solution(self):
 
-        sleep(3)
-
         header = self.model.header
 
-        self.model.header = None
+        self.model.header = BotSimulatingHeader()
+        self.model.header.statistics.current_level = self.model.level
 
         path = []
         curr_node = self.visited[len(self.visited) - 1]
@@ -116,15 +118,17 @@ class AIPlayingState(PlayingState):
 
         self.model.state = self._starting_state.clone()
 
-        while len(path):
+        while len(path) > 0 or self._animation_manager.animation_pending:
+            self.model.header.statistics.plays_missing = len(path)
             self.game.view.clock.tick(self.game.view.fps)
 
             if not self._animation_manager.animation_pending and len(path):
                 self._animation_manager.execute_move_animation(path.pop(0), self.model)
+
             self.model.update()
             self.model.draw(self.game.view)
 
-        self.model.header = BotSearchingHeader(header.algorithm_name)
+        self._animation_manager.animation_pending = False
 
     # Getters and Setters
     @property
@@ -155,3 +159,5 @@ class AIPlayingState(PlayingState):
         self._queue = []
 
         self._visited = [self._current_node]
+
+        self.model.header = self._staring_header
