@@ -28,8 +28,11 @@ class DistanceHeuristic(Heuristic):
 
             curr_count = count_tube_colors(tube[0], tube[0][0])
             if tube[0][0] in tube_color.keys():
-                if curr_count > tube_color[tube[0][0]][1] :
+                if curr_count > tube_color[tube[0][0]][1]:
                     tube_color[tube[0][0]] = (j, curr_count)
+                elif curr_count == tube_color[tube[0][0]][1]:
+                    if len(tube[0]) < len(tubes[tube_color[tube[0][0]][0]][0]):
+                        tube_color[tube[0][0]] = (j, curr_count)
             else:
                 tube_color[tube[0][0]] = (j, curr_count)
 
@@ -49,4 +52,5 @@ class DistanceHeuristic(Heuristic):
                     continue
                 else:
                     distance += len(tube[0]) - i
+
         return distance
