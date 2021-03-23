@@ -2,7 +2,9 @@ import pygame
 
 from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
 from src.controller.menu_state.menu_state import MenuState
-from src.model.headers.victory_header import VictoryHeader
+from src.model.elements.button import Button
+from src.model.headers.defeat_header import DefeatHeader
+from src.model.menu_models.home_state_model import HomeStateModel
 
 
 class DefeatState(MenuState):
@@ -10,7 +12,12 @@ class DefeatState(MenuState):
         super().__init__(game, model)
         self._event_manager = HomeEventManager(model)
         self.running = True
-        self.model.header = VictoryHeader()
+        self.model.header = DefeatHeader()
+
+        back_button = Button(pygame.Rect(model.width // 2 - 400 // 2, model.height // 2 - 100 // 2, 400, 100),
+                             "Back to Home", self.change_state_home)
+
+        self.model.buttons.append(back_button)
 
     def run(self):
         while self.running:
@@ -29,3 +36,8 @@ class DefeatState(MenuState):
                     if button is not None:
                         self.running = False
                         return button.callback()
+
+    def change_state_home(self):
+        from src.controller.menu_state.states.home_state import HomeState
+        self.game.menu_state = HomeState(self.game, HomeStateModel((self.game.view.width, self.game.view.height)))
+        return self.game.run()

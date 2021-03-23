@@ -6,7 +6,8 @@ class DefeatHeader(Drawable):
         pass
 
     def update(self):
-        super().update()
+        pass
 
     def draw(self, view):
-        super().draw(view)
+        first_line = view.font_72.render("You Lose", True, (255, 255, 255))
+        view.screen.blit(first_line, (view.width // 2 - first_line.get_width() // 2, view.height // 4))

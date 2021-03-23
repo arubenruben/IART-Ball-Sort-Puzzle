@@ -22,7 +22,7 @@ class HomeStateModel(Drawable):
     def draw(self, view):
         view.screen.blit(self.background, (0, 0))
 
-        self._header.draw(view)
+        self.header.draw(view)
 
         for button in self.buttons:
             button.draw(view)
@@ -36,3 +36,11 @@ class HomeStateModel(Drawable):
     @property
     def buttons(self):
         return self._buttons
+
+    @property
+    def header(self):
+        return self._header
+
+    @header.setter
+    def header(self, value):
+        self._header = value
