@@ -1,14 +1,17 @@
-from src.controller.menu_state.states.AI_playing_state import AIPlayingState
+from src.controller.menu_state.states.ai_playing_state import AIPlayingState
+from src.model.headers.bot_searching_header import BotSearchingHeader
 
 
 class AStar(AIPlayingState):
     def __init__(self, game, model, heuristic):
         super().__init__(game, model)
         self._heuristic = heuristic
+        self._staring_header = BotSearchingHeader("A STAR")
+        self.model.header = self._staring_header
 
     def exec(self, child):
         child.h = self._heuristic.evaluate(child)
-        self.queue.insert(0, child)
+        self.queue.append(child)
 
     def extract(self):
         self.queue.sort(key=get_a_star_value, reverse=True)

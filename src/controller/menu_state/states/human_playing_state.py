@@ -1,6 +1,6 @@
 import pygame
 
-from src.controller.events.event_manager_strategy.event_manager import EventManager
+from src.controller.events.event_manager_strategy.human_playing_event_manager import HumanPlayingEventManager
 from src.controller.menu_state.states.playing_state import PlayingState
 from src.view.animation_managers.animation_human_manager import AnimationHumanManager
 
@@ -11,34 +11,37 @@ class HumanPlayingState(PlayingState):
 
         # Todo:Order Matters refactor
         self._animation_manager = AnimationHumanManager()
-        self._event_manager = EventManager(self._animation_manager, model.state)
+        self._event_manager = HumanPlayingEventManager(self._animation_manager, model.state)
+        self.running = True
 
     def run(self):
 
-        run = True
-
-        while run:
+        while self.running:
             move = None
+
+            self.model.update()
+            self.model.draw(self.game.view)
 
             self.game.view.clock.tick(self.game.view.fps)
 
             if self.is_solved(self.model.state.test_tubes):
                 if self.model.next_level():
-                    break
-                else:
                     self._animation_manager = AnimationHumanManager()
-                    self._event_manager = EventManager(self._animation_manager, self.model.state)
+                    self._event_manager = HumanPlayingEventManager(self._animation_manager, self.model.state)
+                else:
+                    break
 
             # TODO:Test if game is possible. Game end
 
             for event in pygame.event.get():
+
                 if event.type == pygame.QUIT:
-                    run = False
+                    self.running = False
+                    pygame.quit()
+                    break
+
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     move = self._event_manager.handle_mouse_event(event)
-
-            self.model.update()
-            self.model.draw(self.game.view.screen)
 
             if move is not None:
                 if move.validate():

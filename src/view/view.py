@@ -12,6 +12,8 @@ class View:
         self._clock = pygame.time.Clock()
         self._screen = pygame.display.set_mode((self._width, self._height))
         self._fps = fps
+        self._font72 = pygame.font.SysFont(None, 72)
+        self._font36 = pygame.font.SysFont(None, 36)
 
     @property
     def width(self):
@@ -32,3 +34,11 @@ class View:
     @property
     def fps(self):
         return self._fps
+
+    @property
+    def font_72(self):
+        return self._font72
+
+    @property
+    def font_36(self):
+        return self._font36

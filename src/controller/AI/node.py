@@ -39,6 +39,15 @@ class Node:
 
         return True"""
 
+        for other_test_tube in other.state.test_tubes:
+
+            for self_test_tube in test_tube_duplication_aux:
+                if self_test_tube == other_test_tube:
+                    test_tube_duplication_aux.remove(self_test_tube)
+                    break
+
+        return len(test_tube_duplication_aux) == 0
+
     @property
     def parent(self):
         return self._parent

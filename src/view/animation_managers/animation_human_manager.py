@@ -18,12 +18,12 @@ class AnimationHumanManager(AnimationManager):
             self.test_tube_source.set_animation_up(self.handle_finish_animation_move_up)
             return None
 
-        if self.state == "up" and (test_tube is None or self.test_tube_source == test_tube):
+        if self.state == "up" and (test_tube is None or self.test_tube_source is test_tube):
             self.state = "moving_down"
             self.test_tube_source.set_animation_down(self.handle_finish_animation_move_down)
             return None
 
-        if self.state == "up" and test_tube is not None and self.test_tube_source != test_tube:
+        if self.state == "up" and test_tube is not None and self.test_tube_source is not test_tube:
             self.state = "moving_between_tubes"
             return MoveForHuman(self.test_tube_source, test_tube)
 

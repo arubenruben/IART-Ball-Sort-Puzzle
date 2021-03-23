@@ -11,6 +11,8 @@ class TestTube(Drawable):
     def __init__(self, balls, rect):
         self._rect = rect
         self._balls = balls
+        self._capacity = 4
+
         self._animating_up = False
         self._animating_down = False
         self._animating_move = False
@@ -21,7 +23,7 @@ class TestTube(Drawable):
         self._original_ball_position = None
 
         self._background_image = pygame.transform.scale(
-            pygame.image.load(os.path.join('./', 'assets', 'img', 'test_tube.png')),
+            pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png')),
             (rect.width, rect.height))
 
     def update(self):
@@ -32,10 +34,10 @@ class TestTube(Drawable):
         if self.animating_move:
             return self.animate_between_tubes()
 
-    def draw(self, screen):
-        screen.blit(self.background_image, self.rect)
+    def draw(self, view):
+        view.screen.blit(self.background_image, self.rect)
         for ball in self._balls:
-            ball.draw(screen)
+            ball.draw(view)
 
     def animate_up(self):
         ball = self.get_first_ball()
@@ -59,11 +61,29 @@ class TestTube(Drawable):
     # Todo:Move Animation
     def animate_between_tubes(self):
         ball = self.get_first_ball()
-        if True:
+        acceptance_offset = 10
+
+        if (ball.rect.center[0] != self.destination_rect.center[0]) and (
+                ball.rect.center[0] >= self.destination_rect.center[0] - acceptance_offset) and (
+                ball.rect.center[0] <= self.destination_rect.center[0] + acceptance_offset):
+            current_y = ball.rect.y
+            ball.rect.center = self.destination_rect.center
+            ball.rect.y = current_y
+        elif ball.rect.center[0] > self.destination_rect.center[0]:
+            ball.rect = ball.rect.move(-self.speed_x, 0)
+            return
+        elif ball.rect.center[0] < self.destination_rect.center[0]:
+            ball.rect = ball.rect.move(self.speed_x, 0)
+            return
+
+        if (ball.rect.bottom > self.destination_rect.top - acceptance_offset) and (
+                ball.rect.bottom < self.destination_rect.top + acceptance_offset):
             self.reset_animations()
             self.callback()
-            # else:
-            #   ball.rect = ball.rect.move(0, self.speed_y)
+        elif ball.rect.bottom > self.destination_rect.top:
+            ball.rect = ball.rect.move(0, -self.speed_y)
+        elif ball.rect.bottom < self.destination_rect.top:
+            ball.rect = ball.rect.move(0, self.speed_y)
 
     # Todo:Refactor return none
 
@@ -73,7 +93,7 @@ class TestTube(Drawable):
         return None
 
     def is_full(self):
-        return len(self._balls) == 4
+        return len(self._balls) == self._capacity
 
     def is_empty(self):
         return len(self._balls) == 0
@@ -83,7 +103,7 @@ class TestTube(Drawable):
         if len(self._balls) == 0:
             return True
 
-        if len(self._balls) < 4:
+        if len(self._balls) < self._capacity:
             return False
 
         start_ball = self._balls[0]
@@ -198,3 +218,13 @@ class TestTube(Drawable):
             aux_list.append(ball.value)
 
         return aux_list
+
+    def __eq__(self, other):
+        if len(self._balls) != len(other._balls):
+            return False
+
+        for i in range(len(self._balls)):
+            if self._balls[i].value != other._balls[i].value:
+                return False
+
+        return True

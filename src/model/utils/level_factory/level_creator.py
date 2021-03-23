@@ -37,8 +37,16 @@ class LevelCreator:
             ]
         elif level_number == 3:
 
-            return [
-
+            raw_matrix = [
+                [7, 6, 1, 4],
+                [2, 1, 6, 1],
+                [3, 3, 2, 4],
+                [3, 2, 6, 5],
+                [7, 4, 5, 3],
+                [5, 5, 2, 4],
+                [7, 7, 6, 1],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ]
 
         elif level_number == 4:
@@ -139,4 +147,3 @@ class LevelCreator:
             offset_x += distance_between_cols + test_tube_width
 
         return response
-

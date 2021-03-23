@@ -5,6 +5,7 @@ import pygame
 from src.controller.AI.move_generator import MoveGenerator
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
+from src.model.headers.bot_simulating_header import BotSimulatingHeader
 from src.model.move import Move
 from src.view.animation_managers.animation_bot_manager import AnimationBotManager
 
@@ -12,11 +13,11 @@ from src.view.animation_managers.animation_bot_manager import AnimationBotManage
 class AIPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
-        self._move_generator = MoveGenerator(len(model.state.test_tubes))
+        self._move_generator = MoveGenerator(len(self.model.state.test_tubes))
 
-        self._starting_state = model.state.clone()
+        self._starting_state = self.model.state.clone()
 
-        self._current_node = Node(model.state.clone(), None, 0, None)
+        self._current_node = Node(self.model.state.clone(), None, 0, None)
 
         self._animation_manager = AnimationBotManager()
 
@@ -24,12 +25,13 @@ class AIPlayingState(PlayingState):
 
         self._visited = [self._current_node]
 
+        self._staring_header = None
+
     def run(self):
         solved = False
         run = True
 
         while run:
-
             if self.is_solved(self.current_node.state.test_tubes):
                 solved = True
                 break
@@ -37,6 +39,9 @@ class AIPlayingState(PlayingState):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return
+
+            self.model.update()
+            self.model.draw(self.game.view)
 
             for play in self._move_generator.plays:
 
@@ -65,10 +70,11 @@ class AIPlayingState(PlayingState):
 
                     if unique:
                         self.exec(child)
+                        self.model.header.statistics.current_depth = child.depth
+                        self.model.header.statistics.visited_queue_length = len(self.visited)
+                        self.model.header.statistics.queue_length = len(self.queue)
 
             self.extract()
-
-            print(len(self.visited))
 
             if len(self.queue) == 0:
                 print("No possible moves")
@@ -79,6 +85,11 @@ class AIPlayingState(PlayingState):
             return print("No solution")
         else:
             self.draw_solution()
+            if self.model.next_level():
+                self.reset()
+                return self.run()
+
+        pygame.quit()
 
     # Template Methods
     def exec(self, child):
@@ -87,10 +98,12 @@ class AIPlayingState(PlayingState):
     def extract(self):
         pass
 
-    #
     def draw_solution(self):
-        path = []
 
+        self.model.header = BotSimulatingHeader()
+        self.model.header.statistics.current_level = self.model.level
+
+        path = []
         curr_node = self.visited[len(self.visited) - 1]
         while curr_node.parent is not None:
             path.append(curr_node)
@@ -100,17 +113,17 @@ class AIPlayingState(PlayingState):
 
         self.model.state = self._starting_state.clone()
 
-        while len(self.visited):
+        while len(path) > 0 or self._animation_manager.animation_pending:
+            self.model.header.statistics.plays_missing = len(path)
             self.game.view.clock.tick(self.game.view.fps)
 
             if not self._animation_manager.animation_pending and len(path):
                 self._animation_manager.execute_move_animation(path.pop(0), self.model)
+
             self.model.update()
-            self.model.draw(self.game.view.screen)
+            self.model.draw(self.game.view)
 
-        print(len(self.visited))
-
-        pygame.quit()
+        self._animation_manager.animation_pending = False
 
     # Getters and Setters
     @property
@@ -128,3 +141,18 @@ class AIPlayingState(PlayingState):
     @property
     def visited(self):
         return self._visited
+
+    def reset(self):
+        self._move_generator = MoveGenerator(len(self.model.state.test_tubes))
+
+        self._starting_state = self.model.state.clone()
+
+        self._current_node = Node(self.model.state.clone(), None, 0, None)
+
+        self._animation_manager = AnimationBotManager()
+
+        self._queue = []
+
+        self._visited = [self._current_node]
+
+        self.model.header = self._staring_header

@@ -33,4 +33,4 @@ class Move:
 
     def execute(self, state):
         state.test_tubes[self.destination_index].insert_ball(state.test_tubes[self.origin_index].pop_ball())
-        state.updateRawTubes(self.destination_index,self.origin_index)
+        state.update_raw_tubes(self.destination_index, self.origin_index)
