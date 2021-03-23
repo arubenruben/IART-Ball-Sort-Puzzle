@@ -41,24 +41,27 @@ class ChooseBotState(MenuState):
         self.model.buttons.append(button_a_star)
         self.model.buttons.append(button_back)
 
+        self.running = True
+
     def run(self):
 
-        run = True
-
-        while run:
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
-                    break
-
-                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                    self._event_manager.handle_mouse_event(event)
+        while self.running:
 
             self.model.update()
             self.model.draw(self.game.view)
 
-        pygame.quit()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                    pygame.quit()
+                    break
+
+                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                    button = self._event_manager.handle_mouse_event(event)
+                    if button is not None:
+                        self.running = False
+                        return button.callback()
+
 
     def change_state_home(self):
         from src.controller.menu_state.states.home_state import HomeState

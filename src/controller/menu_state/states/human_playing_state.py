@@ -12,12 +12,15 @@ class HumanPlayingState(PlayingState):
         # Todo:Order Matters refactor
         self._animation_manager = AnimationHumanManager()
         self._event_manager = HumanPlayingEventManager(self._animation_manager, model.state)
+        self.running = True
 
     def run(self):
 
-        run = True
-        while run:
+        while self.running:
             move = None
+
+            self.model.update()
+            self.model.draw(self.game.view)
 
             self.game.view.clock.tick(self.game.view.fps)
 
@@ -31,13 +34,14 @@ class HumanPlayingState(PlayingState):
             # TODO:Test if game is possible. Game end
 
             for event in pygame.event.get():
+
                 if event.type == pygame.QUIT:
-                    run = False
+                    self.running = False
+                    pygame.quit()
+                    break
+
                 if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     move = self._event_manager.handle_mouse_event(event)
-
-            self.model.update()
-            self.model.draw(self.game.view)
 
             if move is not None:
                 if move.validate():

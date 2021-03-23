@@ -5,7 +5,9 @@ class HomeEventManager:
     def handle_mouse_event(self, event):
         for button in self.model.buttons:
             if button.rect.collidepoint(event.pos):
-                return button.callback()
+                return button
+
+        return None
 
     @property
     def model(self):
