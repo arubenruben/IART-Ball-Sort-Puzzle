@@ -8,12 +8,12 @@ class Node:
         self._h = None
 
     def __eq__(self, other):
-        selfTubesClone= self.state.raw_test_tubes[:]
-        otherTubesClone=other.state.raw_test_tubes[:]
+        selfTubesClone = self.state.raw_test_tubes[:]
+        otherTubesClone = other.state.raw_test_tubes[:]
         i=0
         for tube1 in list(selfTubesClone):
-            j=0
-            removed=False
+            j = 0
+            removed = False
             for tube2 in list(otherTubesClone):  
                 if self.compareRawTubes(tube1[0],tube2[0]):
                     selfTubesClone.pop(i)
