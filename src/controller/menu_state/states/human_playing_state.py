@@ -34,7 +34,8 @@ class HumanPlayingState(PlayingState):
                     self.model.header = HumanPlayingHeader()
                     self.model.header.statistics.current_level = self.model.level
                 else:
-                    break
+                    self.running = False
+                    return self.change_to_state_victory()
 
             # TODO:Test if game is possible. Game end
 
