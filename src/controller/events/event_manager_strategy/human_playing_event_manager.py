@@ -1,4 +1,4 @@
-class EventManager:
+class HumanPlayingEventManager:
     def __init__(self, animation_manager, state):
         self._animation_manager = animation_manager
         self._state = state

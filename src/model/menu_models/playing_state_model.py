@@ -16,7 +16,7 @@ class PlayingStateModel(Drawable):
             (self.width, self.height))
 
         self._level_creator = LevelCreator()
-        self._state = State(self._level_creator.create(3, (self.width, self.height)))
+        self._state = State(self._level_creator.create(1, (self.width, self.height)))
         self._level = 1
         self._header = None
 
