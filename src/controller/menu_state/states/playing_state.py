@@ -10,3 +10,9 @@ class PlayingState(MenuState):
             if not tube.is_solved():
                 return False
         return True
+
+    def change_to_state_victory(self):
+        pass
+
+    def change_to_state_defeat(self):
+        pass
