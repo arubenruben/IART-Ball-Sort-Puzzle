@@ -37,8 +37,16 @@ class LevelCreator:
             ]
         elif level_number == 3:
 
-            return [
-
+            raw_matrix = [
+                [7, 6, 1, 4],
+                [2, 1, 6, 1],
+                [3, 3, 2, 4],
+                [3, 2, 6, 5],
+                [7, 4, 5, 3],
+                [5, 5, 2, 4],
+                [7, 7, 6, 1],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ]
 
         elif level_number == 4:
@@ -98,8 +106,6 @@ class LevelCreator:
             distance_between_rows = math.floor(2 * screen_height_available / 10)
             total_distance_wasted_between_rows = (number_rows - 1) * math.floor(2 * screen_height_available / 10)
             test_tube_height = math.floor((screen_height_available - total_distance_wasted_between_rows) / number_rows)
-
-
 
         test_tube_width = math.floor(screen_width_available / 10)
         ##########

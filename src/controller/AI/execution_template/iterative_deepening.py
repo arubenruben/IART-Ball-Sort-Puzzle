@@ -3,7 +3,7 @@ from copy import copy
 import pygame
 
 from src.controller.AI.node import Node
-from src.controller.menu_state.states.AI_playing_state import AIPlayingState
+from src.controller.menu_state.states.ai_playing_state import AIPlayingState
 from src.model.move import Move
 
 

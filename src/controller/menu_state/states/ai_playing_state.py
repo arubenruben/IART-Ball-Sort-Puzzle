@@ -1,12 +1,10 @@
 from copy import copy
-from time import sleep
 
 import pygame
 
 from src.controller.AI.move_generator import MoveGenerator
 from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
-from src.model.headers.bot_searching_header import BotSearchingHeader
 from src.model.headers.bot_simulating_header import BotSimulatingHeader
 from src.model.move import Move
 from src.view.animation_managers.animation_bot_manager import AnimationBotManager
@@ -100,10 +98,7 @@ class AIPlayingState(PlayingState):
     def extract(self):
         pass
 
-    #
     def draw_solution(self):
-
-        header = self.model.header
 
         self.model.header = BotSimulatingHeader()
         self.model.header.statistics.current_level = self.model.level

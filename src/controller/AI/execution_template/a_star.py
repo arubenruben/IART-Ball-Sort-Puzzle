@@ -1,6 +1,4 @@
-from copy import copy
-
-from src.controller.menu_state.states.AI_playing_state import AIPlayingState
+from src.controller.menu_state.states.ai_playing_state import AIPlayingState
 from src.model.headers.bot_searching_header import BotSearchingHeader
 
 

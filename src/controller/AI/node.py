@@ -1,6 +1,3 @@
-import math
-
-
 class Node:
     def __init__(self, state, parent, depth, operator):
         self._state = state
