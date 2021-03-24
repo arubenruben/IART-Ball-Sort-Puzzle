@@ -26,3 +26,7 @@ def color_converter(int_value):
         return ORANGE
     elif int_value == 7:
         return LIGHT_BLUE
+    elif int_value == 8:
+        return WHITE
+    elif int_value == 9:
+        return BLACK
