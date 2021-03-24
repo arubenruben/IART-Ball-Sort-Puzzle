@@ -1,3 +1,5 @@
+import os
+
 import pygame
 
 from src.controller.events.event_manager_strategy.human_playing_event_manager import HumanPlayingEventManager

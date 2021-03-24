@@ -1,3 +1,5 @@
+import os
+
 import pygame
 
 from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
@@ -18,6 +20,10 @@ class VictoryState(MenuState):
                              "Back to Home", self.change_state_home)
 
         self.model.buttons.append(back_button)
+
+        pygame.mixer.music.load(os.path.join('../', 'assets', 'sounds', 'end_music.wav'))
+        pygame.mixer.music.set_volume(0.4)
+        pygame.mixer.music.play(-1)
 
         self.running = True
 
