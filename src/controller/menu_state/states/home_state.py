@@ -1,3 +1,5 @@
+import os
+
 import pygame
 
 from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
@@ -23,6 +25,10 @@ class HomeState(MenuState):
         self.model.buttons.append(button_play_human)
         self.model.buttons.append(button_play_bot)
         self.running = True
+
+        pygame.mixer.music.load(os.path.join('../', 'assets', 'sounds', 'music.wav'))
+        pygame.mixer.music.set_volume(0.4)
+        pygame.mixer.music.play(-1)
 
     def run(self):
 

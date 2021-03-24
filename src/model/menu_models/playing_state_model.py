@@ -12,13 +12,14 @@ class PlayingStateModel(Drawable):
     def __init__(self, screen_dimension):
         self.width, self.height = screen_dimension
         self._background = pygame.transform.scale(
-            pygame.image.load(os.path.join('./', 'assets', 'img', 'background.jpg')),
+            pygame.image.load(os.path.join('../', 'assets', 'img', 'background.jpg')),
             (self.width, self.height))
 
         self._level_creator = LevelCreator()
         self._state = State(self._level_creator.create(1, (self.width, self.height)))
         self._level = 1
         self._header = None
+        pygame.mixer.music.stop()
 
     def update(self):
 

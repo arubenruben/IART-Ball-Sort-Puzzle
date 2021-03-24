@@ -28,11 +28,13 @@ class AIPlayingState(PlayingState):
 
         self._staring_header = None
 
-    def run(self):
-        solved = False
-        run = True
+        self._running = True
 
-        while run:
+    def run(self):
+
+        solved = False
+
+        while self._running:
             self.update_and_draw_state()
 
             if self.is_solved(self.current_node.state.test_tubes):
@@ -57,6 +59,9 @@ class AIPlayingState(PlayingState):
             if self.model.next_level():
                 self.reset()
                 return self.run()
+            else:
+                self._running = False
+                return self.change_to_state_victory()
 
     # Template Methods
     def exec(self, child):

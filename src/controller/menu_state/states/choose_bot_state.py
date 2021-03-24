@@ -6,7 +6,6 @@ from src.controller.ai.execution_template.iterative_deepening import IterativeDe
 from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
 from src.controller.menu_state.menu_state import MenuState
 from src.controller.menu_state.states.choose_heuristic_state import ChooseHeuristicState
-
 from src.model.elements.button import Button
 from src.model.menu_models.home_state_model import HomeStateModel
 from src.model.menu_models.playing_state_model import PlayingStateModel

@@ -9,7 +9,7 @@ class State:
 
     @property
     def test_tubes(self):
-        if self._test_tubes is None:
+        if self._test_tubes is None and self._raw_test_tubes is not None:
             self.expand()
 
         return self._test_tubes
