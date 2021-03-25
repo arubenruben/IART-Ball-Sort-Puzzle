@@ -22,11 +22,13 @@ class ChooseHeuristicState(MenuState):
                            "Entropy", self.change_state_heuristic_h1)
         button_h2 = Button(pygame.Rect(model.width // 2 - 300 // 2, 2 * model.height // 6, 300, 100),
                            "Distance Homogenous", self.change_state_heuristic_h2)
+        button_h3 = Button(pygame.Rect(model.width // 2 + 350 // 2, 2 * model.height // 6, 300, 100),
+                           "Taboo Search Like", self.change_state_heuristic_h3)
 
-        if algorithm != "A_STAR":
-            button_h3 = Button(pygame.Rect(model.width // 2 + 350 // 2, 2 * model.height // 6, 300, 100),
-                               "Taboo Search Like", self.change_state_heuristic_h3)
-            self.model.buttons.append(button_h3)
+        # if algorithm != "A_STAR":
+        #   button_h3 = Button(pygame.Rect(model.width // 2 + 350 // 2, 2 * model.height // 6, 300, 100),
+        #                     "Taboo Search Like", self.change_state_heuristic_h3)
+        # self.model.buttons.append(button_h3)
 
         button_back = Button(pygame.Rect(model.width // 2 - 400 // 2, 4 * model.height // 6, 400, 100),
                              "Back", self.change_state_bot_choose)
@@ -34,6 +36,7 @@ class ChooseHeuristicState(MenuState):
         self.model.buttons.append(button_back)
         self.model.buttons.append(button_h1)
         self.model.buttons.append(button_h2)
+        self.model.buttons.append(button_h3)
         self.running = True
 
     def run(self):
