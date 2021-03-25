@@ -170,3 +170,8 @@ class AIPlayingState(PlayingState):
 
         self.model.header = self._staring_header
         self.model.header.statistics._starting_time_stamp = time.time()
+
+    def give_hint(self):
+        self.node_expansion()
+        self.extract()
+        return self.visited[len(self.visited) - 1].operator

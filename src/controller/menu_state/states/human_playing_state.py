@@ -6,6 +6,7 @@ from src.controller.events.event_manager_strategy.human_playing_event_manager im
 from src.controller.menu_state.states.playing_state import PlayingState
 from src.model.headers.human_playing_header import HumanPlayingHeader
 from src.view.animation_managers.animation_human_manager import AnimationHumanManager
+from src.controller.AI.execution_template.a_star import AStar
 
 
 class HumanPlayingState(PlayingState):
@@ -59,3 +60,11 @@ class HumanPlayingState(PlayingState):
                     self.model.header.statistics.plays_done += 1
                 else:
                     move.fail(self._animation_manager)
+
+    def get_hint(self, heuristic):
+        #TODO: Heuristics for hints
+        bot = AStar(self.game, self.model)
+        move = bot.give_hint()
+        return move
+
+
