@@ -3,8 +3,8 @@ from copy import copy
 
 import pygame
 
-from src.controller.ai.move_generator import MoveGenerator
-from src.controller.ai.node import Node
+from src.controller.AI.move_generator import MoveGenerator
+from src.controller.AI.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
 from src.model.headers.bot_simulating_header import BotSimulatingHeader
 from src.model.move import Move

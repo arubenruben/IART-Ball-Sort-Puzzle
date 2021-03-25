@@ -7,6 +7,7 @@ from src.controller.menu_state.states.playing_state import PlayingState
 from src.model.headers.human_playing_header import HumanPlayingHeader
 from src.view.animation_managers.animation_human_manager import AnimationHumanManager
 from src.controller.AI.execution_template.a_star import AStar
+from src.controller.AI.heuristics.concrete_heuristics.entropy import EntropyHeuristic
 
 
 class HumanPlayingState(PlayingState):
@@ -21,12 +22,10 @@ class HumanPlayingState(PlayingState):
         self.model.header.statistics.current_level = self.model.level
 
     def run(self):
-
         while self.running:
             move = None
 
             self.game.view.clock.tick(self.game.view.fps)
-
             self.model.update()
             self.model.draw(self.game.view)
 
@@ -61,9 +60,8 @@ class HumanPlayingState(PlayingState):
                 else:
                     move.fail(self._animation_manager)
 
-    def get_hint(self, heuristic):
-        #TODO: Heuristics for hints
-        bot = AStar(self.game, self.model)
+    def get_hint(self):
+        bot = AStar(self.game, self.model, EntropyHeuristic())
         move = bot.give_hint()
         return move
 
