@@ -17,7 +17,7 @@ class AnimationHumanManager(AnimationManager):
 
     def process_collision(self, test_tube):
 
-        if self.state == "down" and test_tube is not None and not test_tube.is_empty():
+        if self.state == "down" and test_tube is not None and not test_tube.is_empty() and test_tube.is_solved() is not True:
             pygame.mixer.music.load(os.path.join('../', 'assets', 'sounds', 'push.wav'))
             pygame.mixer.music.play()
 
