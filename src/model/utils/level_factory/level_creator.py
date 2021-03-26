@@ -162,7 +162,12 @@ class LevelCreator:
         if raw_matrix is None:
             return
 
-        number_rows = math.ceil(len(raw_matrix) / 7)
+        if len(raw_matrix)<10:
+            maximum_number_tubes_per_row=5
+        elif len(raw_matrix)<13:
+            maximum_number_tubes_per_row=6
+
+        number_rows = math.ceil(len(raw_matrix) / maximum_number_tubes_per_row)
         margin_y = math.floor(2 * screen_height / 10)
         margin_x = math.floor(2 * screen_width / 10)
 
@@ -200,6 +205,8 @@ class LevelCreator:
                 row_counter += 1
                 offset_y += distance_between_rows + test_tube_height
                 offset_x = margin_x
+                if tube_counter!=len(raw_matrix)/2:
+                    offset_x = margin_x + test_tube_width
 
             if row_counter == number_rows - 1 and number_rows != 2:
                 number_cols = len(raw_matrix) - tube_counter
