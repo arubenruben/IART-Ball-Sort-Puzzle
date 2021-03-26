@@ -117,13 +117,7 @@ class LevelCreator:
                 [0, 0, 0, 0]
             ]
         else:
-            return None
-        if level_number == 0:
-            raw_matrix = [
-                [2, 6, 2, 6],
-                [6, 2, 6, 2],
-                [0, 0, 0, 0]
-            ]
+            return []
 
         if raw_matrix is None:
             return
