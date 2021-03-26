@@ -41,7 +41,7 @@ class IterativeDeepening(AIPlayingState):
                 if current_depth > max_depth:
                     break
 
-                self.event_processing()
+                event_processing()
 
                 self.node_expansion()
 

@@ -22,7 +22,6 @@ class AStar(AIPlayingState):
 
     def extract(self):
         self.queue.sort(key=get_a_star_value, reverse=True)
-
         self.current_node = self.queue.pop()
         self.visited.append(self.current_node)
 
