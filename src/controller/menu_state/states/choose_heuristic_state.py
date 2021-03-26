@@ -1,10 +1,10 @@
 import pygame
 
-from src.controller.ai.execution_template.a_star import AStar
-from src.controller.ai.execution_template.greedy import Greedy
-from src.controller.ai.heuristics.concrete_heuristics.distance import DistanceHeuristic
-from src.controller.ai.heuristics.concrete_heuristics.entropy import EntropyHeuristic
-from src.controller.ai.heuristics.concrete_heuristics.taboo_search_like import TabooSearchHeuristic
+from src.controller.AI.execution_template.a_star import AStar
+from src.controller.AI.execution_template.greedy import Greedy
+from src.controller.AI.heuristics.concrete_heuristics.distance import DistanceHeuristic
+from src.controller.AI.heuristics.concrete_heuristics.entropy import EntropyHeuristic
+from src.controller.AI.heuristics.concrete_heuristics.taboo_search_like import TabooSearchHeuristic
 from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
 from src.controller.menu_state.menu_state import MenuState
 from src.model.elements.button import Button
@@ -22,11 +22,13 @@ class ChooseHeuristicState(MenuState):
                            "Entropy", self.change_state_heuristic_h1)
         button_h2 = Button(pygame.Rect(model.width // 2 - 300 // 2, 2 * model.height // 6, 300, 100),
                            "Distance Homogenous", self.change_state_heuristic_h2)
+        button_h3 = Button(pygame.Rect(model.width // 2 + 350 // 2, 2 * model.height // 6, 300, 100),
+                           "Taboo Search Like", self.change_state_heuristic_h3)
 
-        if algorithm != "A_STAR":
-            button_h3 = Button(pygame.Rect(model.width // 2 + 350 // 2, 2 * model.height // 6, 300, 100),
-                               "Taboo Search Like", self.change_state_heuristic_h3)
-            self.model.buttons.append(button_h3)
+        # if algorithm != "A_STAR":
+        #   button_h3 = Button(pygame.Rect(model.width // 2 + 350 // 2, 2 * model.height // 6, 300, 100),
+        #                     "Taboo Search Like", self.change_state_heuristic_h3)
+        # self.model.buttons.append(button_h3)
 
         button_back = Button(pygame.Rect(model.width // 2 - 400 // 2, 4 * model.height // 6, 400, 100),
                              "Back", self.change_state_bot_choose)
@@ -34,6 +36,7 @@ class ChooseHeuristicState(MenuState):
         self.model.buttons.append(button_back)
         self.model.buttons.append(button_h1)
         self.model.buttons.append(button_h2)
+        self.model.buttons.append(button_h3)
         self.running = True
 
     def run(self):
