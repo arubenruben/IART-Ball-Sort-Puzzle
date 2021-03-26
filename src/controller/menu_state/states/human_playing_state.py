@@ -8,6 +8,7 @@ from src.model.headers.human_playing_header import HumanPlayingHeader
 from src.view.animation_managers.animation_human_manager import AnimationHumanManager
 from src.controller.AI.execution_template.a_star import AStar
 from src.controller.AI.heuristics.concrete_heuristics.entropy import EntropyHeuristic
+from src.controller.AI.node import Node
 
 
 class HumanPlayingState(PlayingState):
@@ -57,12 +58,13 @@ class HumanPlayingState(PlayingState):
                 if move.validate():
                     move.execute(self._animation_manager)
                     self.model.header.statistics.plays_done += 1
+                    print(self.get_hint().destination_index)
+                    print()
                 else:
                     move.fail(self._animation_manager)
 
     def get_hint(self):
+        current_node = Node(self.model.state.clone(), None, 0, None)
         bot = AStar(self.game, self.model, EntropyHeuristic())
-        move = bot.give_hint()
+        move = bot.give_hint(current_node)
         return move
-
-

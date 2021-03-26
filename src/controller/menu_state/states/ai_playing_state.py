@@ -11,6 +11,12 @@ from src.model.move import Move
 from src.view.animation_managers.animation_bot_manager import AnimationBotManager
 
 
+def event_processing():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            return
+
+
 class AIPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
@@ -41,7 +47,7 @@ class AIPlayingState(PlayingState):
                 solved = True
                 break
 
-            self.event_processing()
+            event_processing()
 
             self.node_expansion()
 
@@ -69,11 +75,6 @@ class AIPlayingState(PlayingState):
 
     def extract(self):
         pass
-
-    def event_processing(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
 
     def update_and_draw_state(self):
         self.model.update()
@@ -171,7 +172,8 @@ class AIPlayingState(PlayingState):
         self.model.header = self._staring_header
         self.model.header.statistics._starting_time_stamp = time.time()
 
-    def give_hint(self):
+    def give_hint(self, current_node):
+        self.current_node = current_node
         self.node_expansion()
         self.extract()
-        return self.visited[len(self.visited) - 1].operator
+        return self.current_node.operator
