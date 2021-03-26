@@ -51,34 +51,44 @@ class LevelCreator:
 
         elif level_number == 4:
             raw_matrix = [
-                [3,3,5,4],
-                [3,2,4,2],
-                [2,6,1,7],
-                [5,4,1,6],
-                [3,1,4,6],
-                [7,6,1,5],
-                [7,7,5,2],
-                [0,0,0,0],
-                [0,0,0,0],
+                [3, 3, 5, 4],
+                [3, 2, 4, 2],
+                [2, 6, 1, 7],
+                [5, 4, 1, 6],
+                [3, 1, 4, 6],
+                [7, 6, 1, 5],
+                [7, 7, 5, 2],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ]
 
         elif level_number == 5:
             raw_matrix = [
-                [7,1,8,2],
-                [2,5,3,1],
-                [9,8,1,8],
-                [4,5,3,4],
-                [9,5,6,9],
-                [2,1,4,2],
-                [7,7,6,4],
-                [7,6,9,6],
-                [3,8,5,3],
-                [0,0,0,0],
-                [0,0,0,0],
+                [4, 3, 4, 2],
+                [3, 9, 7, 5],
+                [3, 8, 5, 5],
+                [9, 7, 7, 4],
+                [8, 2, 9, 2],
+                [1, 9, 1, 1],
+                [1, 8, 5, 6],
+                [4, 6, 2, 8],
+                [4, 6, 6, 7],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ]
         elif level_number == 6:
-            return [
-                
+            raw_matrix = [
+                [7, 1, 8, 2],
+                [2, 5, 3, 1],
+                [9, 8, 1, 8],
+                [4, 5, 3, 4],
+                [9, 5, 6, 9],
+                [2, 1, 4, 2],
+                [7, 7, 6, 4],
+                [7, 6, 9, 6],
+                [3, 8, 5, 3],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ]
         elif level_number == 7:
             raw_matrix = [
@@ -185,7 +195,8 @@ class LevelCreator:
             if tube_counter == 0 or tube_counter > 0 and tube_counter % maximum_number_tubes_per_row == 0:
                 total_space_filled_by_tubes_in_row = number_cols * test_tube_width
                 total_space_available_for_distance_between_tubes = screen_width_available - total_space_filled_by_tubes_in_row
-                distance_between_cols = math.floor(total_space_available_for_distance_between_tubes / (number_cols - 1))
+                distance_between_cols = math.floor(
+                    total_space_available_for_distance_between_tubes / (number_cols - 1 + 1))
 
             tube_position = pygame.Rect(
                 offset_x, offset_y, test_tube_width, test_tube_height
