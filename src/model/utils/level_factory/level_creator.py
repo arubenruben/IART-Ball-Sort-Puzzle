@@ -100,15 +100,47 @@ class LevelCreator:
                 [7, 6, 9, 6],
                 [3, 8, 5, 3],
                 [0, 0, 0, 0],
-                [0, 0, 0, 0]
+                [0, 0, 0, 0],
+            ]
+        elif level_number == 7:
+            raw_matrix = [
+                [9, 5, 7, 2],
+                [7, 6, 4, 4],
+                [7, 1, 2, 5],
+                [9, 4, 4, 6],
+                [6, 9, 7, 2],
+                [9, 2, 6, 1],
+                [1, 5, 5, 1],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ]
         elif level_number == 8:
-            return []
-        elif level_number == 9:
-            return [
-
+            raw_matrix = [
+                [1, 1, 4, 3],
+                [3, 7, 7, 4],
+                [2, 2, 1, 3],
+                [7, 3, 5, 7],
+                [9, 9, 2, 9],
+                [9, 1, 4, 5],
+                [5, 2, 4, 5],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ]
-        elif level_number == 10: # Level 101
+        elif level_number == 9:  # https://levelsolved.com/ball-sort-puzzle-level-86-solution/ - Level 86
+            raw_matrix = [
+                [7, 2, 5, 8],
+                [5, 1, 6, 6],
+                [3, 9, 4, 8],
+                [9, 7, 2, 1],
+                [1, 9, 4, 3],
+                [3, 5, 1, 8],
+                [5, 4, 6, 7],
+                [4, 6, 8, 3],
+                [2, 9, 2, 7],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+            ]
+        elif level_number == 10:  # Level 101
             raw_matrix = [
                 [1, 4, 6, 10],
                 [9, 7, 11, 11],
@@ -123,6 +155,18 @@ class LevelCreator:
                 [3, 2, 5, 10],
                 [0, 0, 0, 0],
                 [0, 0, 0, 0]
+            ]
+        elif level_number == 11:  # https://levelsolved.com/ball-sort-puzzle-level-93-solution/
+            raw_matrix = [
+                [1, 5, 5, 1],
+                [1, 9, 4, 4],
+                [7, 3, 7, 1],
+                [5, 4, 2, 2],
+                [2, 3, 9, 9],
+                [4, 9, 3, 5],
+                [7, 7, 3, 2],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
             ]
         else:
             return None
