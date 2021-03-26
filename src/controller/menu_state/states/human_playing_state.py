@@ -12,6 +12,7 @@ from src.model.headers.human_playing_header import HumanPlayingHeader
 from src.view.animation_managers.animation_human_manager import AnimationHumanManager
 from src.model.elements.button import Button
 
+
 class HumanPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
@@ -23,7 +24,7 @@ class HumanPlayingState(PlayingState):
         self.model.header = HumanPlayingHeader()
         self.model.header.statistics.current_level = self.model.level
         self._last_move = None
-        button_level_reset = Button(pygame.Rect(model.width-150,0,150,50),"Reset Level",self.reset_level)
+        button_level_reset = Button(pygame.Rect(model.width - 150, 0, 150, 50), "Reset Level", self.reset_level)
         self.model.buttons.append(button_level_reset)
 
     def run(self):
@@ -62,7 +63,7 @@ class HumanPlayingState(PlayingState):
                     move = self._event_manager.handle_mouse_event(event)
 
             if move is not None:
-                if(type(move).__name__=="Button"):
+                if (type(move).__name__ == "Button"):
                     move.callback()
                     self.reset()
                 elif move.validate():
@@ -97,14 +98,16 @@ class HumanPlayingState(PlayingState):
 
         self.model.header = current_header
 
-        if bot.give_hint() is None:
+        suggested_move = bot.give_hint()
+
+        if suggested_move is None:
             return True
 
-        if len(bot.queue) == 1 and self._last_move is not None and bot.give_hint() == self._last_move:
+        if len(bot.queue) == 0 and self._last_move is not None and suggested_move == self._last_move:
             return True
 
         return False
-        
+
     def reset_level(self):
         self.model.reset_level()
         return
@@ -113,4 +116,4 @@ class HumanPlayingState(PlayingState):
         self._animation_manager = AnimationHumanManager()
         self._event_manager = HumanPlayingEventManager(self._animation_manager, self.model)
         self.model.header = HumanPlayingHeader()
-        self.model.header.statistics.current_level = self.model.level 
+        self.model.header.statistics.current_level = self.model.level
