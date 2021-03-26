@@ -132,7 +132,7 @@ class LevelCreator:
             return [
 
             ]
-        elif level_number == 11:
+        elif level_number == 11:    #https://levelsolved.com/ball-sort-puzzle-level-93-solution/
             raw_matrix = [
                 [1,5,5,1],
                 [1,9,4,4],
@@ -141,6 +141,8 @@ class LevelCreator:
                 [2,3,9,9],
                 [4,9,3,5],
                 [7,7,3,2],
+                [0,0,0,0],
+                [0,0,0,0],
             ]
         else:
             return None
