@@ -9,6 +9,7 @@ from src.view.animation_managers.animation_human_manager import AnimationHumanMa
 from src.controller.AI.execution_template.a_star import AStar
 from src.controller.AI.heuristics.concrete_heuristics.entropy import EntropyHeuristic
 from src.controller.AI.node import Node
+from src.model.elements.button import Button
 
 
 class HumanPlayingState(PlayingState):
@@ -17,10 +18,12 @@ class HumanPlayingState(PlayingState):
 
         # Todo:Order Matters refactor
         self._animation_manager = AnimationHumanManager()
-        self._event_manager = HumanPlayingEventManager(self._animation_manager, model.state)
+        self._event_manager = HumanPlayingEventManager(self._animation_manager, model)
         self.running = True
         self.model.header = HumanPlayingHeader()
         self.model.header.statistics.current_level = self.model.level
+        button_level_reset = Button(pygame.Rect(model.width-150,0,150,50),"Reset Level",self.reset_level)
+        self.model.buttons.append(button_level_reset)
 
     def run(self):
         while self.running:
@@ -32,10 +35,7 @@ class HumanPlayingState(PlayingState):
 
             if self.is_solved(self.model.state.test_tubes):
                 if self.model.next_level():
-                    self._animation_manager = AnimationHumanManager()
-                    self._event_manager = HumanPlayingEventManager(self._animation_manager, self.model.state)
-                    self.model.header = HumanPlayingHeader()
-                    self.model.header.statistics.current_level = self.model.level
+                    self.reset()
                 else:
                     self.running = False
                     return self.change_to_state_victory()
@@ -55,7 +55,10 @@ class HumanPlayingState(PlayingState):
                     move = self._event_manager.handle_mouse_event(event)
 
             if move is not None:
-                if move.validate():
+                if(type(move).__name__=="Button"):
+                    move.callback()
+                    self.reset()
+                elif move.validate():
                     move.execute(self._animation_manager)
                     self.model.header.statistics.plays_done += 1
                     print(self.get_hint().destination_index)
@@ -68,3 +71,13 @@ class HumanPlayingState(PlayingState):
         bot = AStar(self.game, self.model, EntropyHeuristic())
         move = bot.give_hint(current_node)
         return move
+
+    def reset_level(self):
+        self.model.reset_level()
+        return
+
+    def reset(self):
+        self._animation_manager = AnimationHumanManager()
+        self._event_manager = HumanPlayingEventManager(self._animation_manager, self.model)
+        self.model.header = HumanPlayingHeader()
+        self.model.header.statistics.current_level = self.model.level

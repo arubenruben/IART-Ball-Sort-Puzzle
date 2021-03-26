@@ -1,12 +1,17 @@
 class HumanPlayingEventManager:
-    def __init__(self, animation_manager, state):
+    def __init__(self, animation_manager, model):
         self._animation_manager = animation_manager
-        self._state = state
+        self._state = model.state
+        self._model = model
 
     def handle_mouse_event(self, event):
 
         if self._animation_manager.animation_pending:
             return
+
+        for button in self.model.buttons:
+            if button.rect.collidepoint(event.pos):
+                return button
 
         test_tube_that_collide = None
 
@@ -16,3 +21,7 @@ class HumanPlayingEventManager:
                 break
 
         return self._animation_manager.process_collision(test_tube_that_collide)
+
+    @property
+    def model(self):
+        return self._model

@@ -16,9 +16,10 @@ class PlayingStateModel(Drawable):
             (self.width, self.height))
 
         self._level_creator = LevelCreator()
-        self._state = State(self._level_creator.create(10, (self.width, self.height)))
+        self._state = State(self._level_creator.create(1, (self.width, self.height)))
         self._level = 1
         self._header = None
+        self._buttons = []
         pygame.mixer.music.stop()
 
     def update(self):
@@ -35,6 +36,9 @@ class PlayingStateModel(Drawable):
         for test_tube in self.state.test_tubes:
             test_tube.draw(view)
 
+        for button in self.buttons:
+            button.draw(view)
+
         if self.header:
             self.header.draw(view)
 
@@ -43,6 +47,11 @@ class PlayingStateModel(Drawable):
     def next_level(self):
         self._level += 1
         self.state = State(self._level_creator.create(self._level, (self.width, self.height)))
+
+        return len(self.state.test_tubes) > 0
+
+    def reset_level(self):
+        self.state= State(self._level_creator.create(self._level, (self.width, self.height)))
 
         return len(self.state.test_tubes) > 0
 
@@ -69,3 +78,7 @@ class PlayingStateModel(Drawable):
     @property
     def level(self):
         return self._level
+
+    @property
+    def buttons(self):
+        return self._buttons
