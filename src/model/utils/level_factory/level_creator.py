@@ -78,15 +78,21 @@ class LevelCreator:
             ]
         elif level_number == 6:
             return [
-
+                
             ]
         elif level_number == 7:
-            return [
-
+            raw_matrix = [
+                [9,5,7,2],
+                [7,6,4,4],
+                [7,1,2,5],
+                [9,4,4,6],
+                [6,9,7,2],
+                [9,2,6,1],
+                [1,5,5,1],
             ]
         elif level_number == 8:
             return [
-
+                
             ]
         elif level_number == 9:
             return [
