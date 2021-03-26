@@ -3,8 +3,8 @@ from copy import copy
 
 import pygame
 
-from src.controller.AI.move_generator import MoveGenerator
-from src.controller.AI.node import Node
+from src.controller.ai.move_generator import MoveGenerator
+from src.controller.ai.node import Node
 from src.controller.menu_state.states.playing_state import PlayingState
 from src.model.headers.bot_simulating_header import BotSimulatingHeader
 from src.model.move import Move
@@ -54,12 +54,11 @@ class AIPlayingState(PlayingState):
             self.extract()
 
             if len(self.queue) == 0:
-                print("No possible moves")
                 solved = False
                 break
 
         if solved is False:
-            return print("No solution")
+            return self.change_to_state_defeat()
         else:
             self.draw_solution()
             if self.model.next_level():
@@ -178,8 +177,7 @@ class AIPlayingState(PlayingState):
         self.model.header = self._staring_header
         self.model.header.statistics._starting_time_stamp = time.time()
 
-    def give_hint(self, current_node):
-        self.current_node = current_node
+    def give_hint(self):
         self.node_expansion()
         self.extract()
-        return self.current_node.operator
+        return self.current_node

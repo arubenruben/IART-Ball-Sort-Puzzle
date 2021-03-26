@@ -11,12 +11,20 @@ class AStar(AIPlayingState):
 
     def exec(self, child):
         child.h = self._heuristic.evaluate(child)
+
+        if self.is_solved(child.state.test_tubes):
+            child.g = 0
+            child.h = 0
+
         self.queue.append(child)
 
     def extract(self):
         self.queue.sort(key=get_a_star_value, reverse=True)
-        self.current_node = self.queue.pop()
-        self.visited.append(self.current_node)
+        if len(self.queue) > 0:
+            self.current_node = self.queue.pop()
+            self.visited.append(self.current_node)
+        else:
+            self.current_node = None
 
 
 def get_a_star_value(node):

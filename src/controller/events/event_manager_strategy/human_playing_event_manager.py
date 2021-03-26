@@ -1,3 +1,6 @@
+import pygame
+
+
 class HumanPlayingEventManager:
     def __init__(self, animation_manager, model):
         self._animation_manager = animation_manager
@@ -25,3 +28,13 @@ class HumanPlayingEventManager:
     @property
     def model(self):
         return self._model
+
+    def handle_keyboard_event(self, event):
+
+        if self._animation_manager.animation_pending:
+            return False
+
+        if event.key != pygame.K_h:
+            return False
+
+        return True
