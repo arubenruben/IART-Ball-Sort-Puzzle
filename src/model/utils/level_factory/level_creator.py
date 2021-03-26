@@ -213,7 +213,7 @@ class LevelCreator:
                 offset_y += distance_between_rows + test_tube_height
                 offset_x = margin_x
 
-            if row_counter == number_rows - 1:
+            if row_counter == number_rows - 1 and number_rows != 2:
                 number_cols = len(raw_matrix) - tube_counter
             else:
                 number_cols = maximum_number_tubes_per_row
