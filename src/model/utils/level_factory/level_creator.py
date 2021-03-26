@@ -10,7 +10,7 @@ class LevelCreator:
 
     def create(self, level_number, screen_dimension):
         screen_width, screen_height = screen_dimension
-        maximum_number_tubes_per_row = 5
+        maximum_number_tubes_per_row = 7
         response = []
 
         if level_number == 1:
@@ -174,7 +174,7 @@ class LevelCreator:
         if raw_matrix is None:
             return
 
-        number_rows = math.ceil(len(raw_matrix) / 5)
+        number_rows = math.ceil(len(raw_matrix) / 7)
         margin_y = math.floor(2 * screen_height / 10)
         margin_x = math.floor(2 * screen_width / 10)
 
