@@ -9,6 +9,9 @@ WHITE = pygame.Color(255, 255, 255)
 BLACK = pygame.Color(0, 0, 0)
 VIOLET = pygame.Color(127, 0, 255)
 LIGHT_BLUE = pygame.Color(173, 216, 230)
+LIGHT_GREEN = pygame.Color(144, 238, 144)
+LIGHT_PINK = pygame.Color(255, 192, 203)
+BROWN = pygame.Color(101, 67, 33)
 
 
 def color_converter(int_value):
@@ -30,3 +33,9 @@ def color_converter(int_value):
         return WHITE
     elif int_value == 9:
         return BLACK
+    elif int_value == 10:
+        return LIGHT_GREEN
+    elif int_value == 11:
+        return LIGHT_PINK
+    elif int_value == 12:
+        return BROWN

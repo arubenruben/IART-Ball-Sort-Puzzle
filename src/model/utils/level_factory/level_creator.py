@@ -62,7 +62,7 @@ class LevelCreator:
                 [0, 0, 0, 0],
             ]
 
-        elif level_number == 5:
+        elif level_number == 5:  # Level 51
             raw_matrix = [
                 [4, 3, 4, 2],
                 [3, 9, 7, 5],
@@ -78,6 +78,18 @@ class LevelCreator:
             ]
         elif level_number == 6:
             raw_matrix = [
+                [9, 5, 7, 2],
+                [7, 6, 4, 4],
+                [7, 1, 2, 5],
+                [9, 4, 4, 6],
+                [6, 9, 7, 2],
+                [9, 2, 6, 1],
+                [1, 5, 5, 1],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ]
+        elif level_number == 7:
+            raw_matrix = [
                 [7, 1, 8, 2],
                 [2, 5, 3, 1],
                 [9, 8, 1, 8],
@@ -88,29 +100,29 @@ class LevelCreator:
                 [7, 6, 9, 6],
                 [3, 8, 5, 3],
                 [0, 0, 0, 0],
-                [0, 0, 0, 0],
-            ]
-        elif level_number == 7:
-            raw_matrix = [
-                [9, 5, 7, 2],
-                [7, 6, 4, 4],
-                [7, 1, 2, 5],
-                [9, 4, 4, 6],
-                [6, 9, 7, 2],
-                [9, 2, 6, 1],
-                [1, 5, 5, 1],
+                [0, 0, 0, 0]
             ]
         elif level_number == 8:
-            return [
-
-            ]
+            return []
         elif level_number == 9:
             return [
 
             ]
-        elif level_number == 10:
-            return [
-
+        elif level_number == 10: # Level 101
+            raw_matrix = [
+                [1, 4, 6, 10],
+                [9, 7, 11, 11],
+                [9, 12, 2, 2],
+                [1, 3, 8, 4],
+                [6, 10, 5, 7],
+                [8, 12, 7, 4],
+                [6, 1, 7, 9],
+                [5, 3, 1, 6],
+                [12, 11, 4, 10],
+                [8, 3, 5, 9],
+                [3, 2, 5, 10],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
             ]
         else:
             return None
@@ -166,7 +178,7 @@ class LevelCreator:
                 total_space_filled_by_tubes_in_row = number_cols * test_tube_width
                 total_space_available_for_distance_between_tubes = screen_width_available - total_space_filled_by_tubes_in_row
                 distance_between_cols = math.floor(
-                    total_space_available_for_distance_between_tubes / (number_cols - 1 + 1))
+                    total_space_available_for_distance_between_tubes / (number_cols - 1))
 
             tube_position = pygame.Rect(
                 offset_x, offset_y, test_tube_width, test_tube_height
