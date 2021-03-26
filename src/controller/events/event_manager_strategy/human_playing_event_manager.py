@@ -1,3 +1,6 @@
+import pygame
+
+
 class HumanPlayingEventManager:
     def __init__(self, animation_manager, state):
         self._animation_manager = animation_manager
@@ -16,3 +19,13 @@ class HumanPlayingEventManager:
                 break
 
         return self._animation_manager.process_collision(test_tube_that_collide)
+
+    def handle_keyboard_event(self, event):
+
+        if self._animation_manager.animation_pending:
+            return False
+
+        if event.key != pygame.K_h:
+            return False
+
+        return True

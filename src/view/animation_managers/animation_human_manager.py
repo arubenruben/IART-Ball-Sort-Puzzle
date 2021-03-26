@@ -2,6 +2,7 @@ import os
 
 import pygame
 
+from src.controller.ai.node import Node
 from src.model.move_for_human import MoveForHuman
 from src.view.animation_managers.animation_bot_manager import AnimationManager
 
@@ -47,6 +48,7 @@ class AnimationHumanManager(AnimationManager):
         self.test_tube_source = None
 
     def execute_move_animation(self, move):
+        self.test_tube_source = move.origin_test_tube
         self.test_tube_destination = move.destination_test_tube
         self.test_tube_source.set_animation_between_tubes(self.test_tube_destination.rect,
                                                           self.handle_finish_animation_move_between_tubes)
@@ -64,10 +66,8 @@ class AnimationHumanManager(AnimationManager):
 
         pygame.mixer.music.load(os.path.join('../', 'assets', 'sounds', 'pop.wav'))
         pygame.mixer.music.play()
-
         ball_test = self.test_tube_source.pop_ball()
         self.test_tube_destination.insert_ball(ball_test)
-
         self.state = "down"
         self.test_tube_source = None
         self.test_tube_destination = None

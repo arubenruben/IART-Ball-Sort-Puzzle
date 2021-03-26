@@ -1,4 +1,4 @@
-from src.controller.AI.heuristics.heuristic import Heuristic
+from src.controller.ai.heuristics.heuristic import Heuristic
 
 
 class EntropyHeuristic(Heuristic):
@@ -17,16 +17,17 @@ class EntropyHeuristic(Heuristic):
             if len(tube[0]) <= 1:
                 continue
 
-            tubeColor = tube[0][0]
+            tube_color = tube[0][0]
 
-            mustFail = False
+            must_fail = False
+
             for i in range(1, len(tube[0])):
 
-                if mustFail is not True and tube[0][i] != tubeColor:
+                if must_fail is not True and tube[0][i] != tube_color:
                     entropy_sum += 1
-                    mustFail = True
+                    must_fail = True
 
-                if mustFail is True:
+                if must_fail is True:
                     entropy_sum += 1
 
         return entropy_sum
