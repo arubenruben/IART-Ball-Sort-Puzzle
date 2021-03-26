@@ -18,6 +18,8 @@ class AStar(AIPlayingState):
 
         self.queue.append(child)
 
+    # TODO: Crashing is this pops all over the place
+
     def extract(self):
         self.queue.sort(key=get_a_star_value, reverse=True)
 

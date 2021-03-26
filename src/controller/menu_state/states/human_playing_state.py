@@ -9,7 +9,6 @@ from src.controller.ai.node import Node
 from src.controller.events.event_manager_strategy.human_playing_event_manager import HumanPlayingEventManager
 from src.controller.menu_state.states.playing_state import PlayingState
 from src.model.headers.human_playing_header import HumanPlayingHeader
-from src.model.move_for_human import MoveForHuman
 from src.view.animation_managers.animation_human_manager import AnimationHumanManager
 
 
@@ -34,8 +33,6 @@ class HumanPlayingState(PlayingState):
             self.model.update()
             self.model.draw(self.game.view)
 
-            # TODO:Test if game is possible. Game end
-
             if self.is_solved(self.model.state.test_tubes):
                 if self.model.next_level():
                     self._animation_manager = AnimationHumanManager()
@@ -46,8 +43,6 @@ class HumanPlayingState(PlayingState):
                     self.running = False
                     return self.change_to_state_victory()
 
-            # TODO:Add Hints used in the statistics object
-
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
@@ -57,7 +52,7 @@ class HumanPlayingState(PlayingState):
 
                 if event.type == pygame.KEYUP:
                     if self._event_manager.handle_keyboard_event(event):
-                        move = self.get_hint()
+                        self.get_hint()
                 elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     move = self._event_manager.handle_mouse_event(event)
 
@@ -77,10 +72,30 @@ class HumanPlayingState(PlayingState):
 
         if self._last_move is not None:
             bot._visited = [self._last_move]
+
         best_node_possible = bot.give_hint()
+
+        if best_node_possible is None:
+            return
 
         self.model.header = current_header
         self.model.header.hint = str(
             best_node_possible.operator._origin_index + 1) + " to: " + str(
             best_node_possible.operator._destination_index + 1)
         self.model.header.statistics.hints_used += 1
+
+    def is_game_impossible(self):
+
+        current_header = self.model.header
+
+        bot = AStar(self.game, self.model, DistanceHeuristic())
+
+        if self._last_move is not None:
+            bot._visited = [self._last_move]
+
+        self.model.header = current_header
+        
+        if bot.give_hint() is None:
+            return True
+
+        return False
