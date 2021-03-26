@@ -16,8 +16,8 @@ class PlayingStateModel(Drawable):
             (self.width, self.height))
 
         self._level_creator = LevelCreator()
-        self._state = State(self._level_creator.create(10, (self.width, self.height)))
-        self._level = 10
+        self._state = State(self._level_creator.create(7, (self.width, self.height)))
+        self._level = 1
         self._header = None
         self._buttons = []
         pygame.mixer.music.stop()
