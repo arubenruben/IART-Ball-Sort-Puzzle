@@ -16,8 +16,8 @@ class TestTube(Drawable):
         self._animating_up = False
         self._animating_down = False
         self._animating_move = False
-        self._speed_y = 10
-        self._speed_x = 10
+        self._speed_y = 15
+        self._speed_x = 15
         self._callback = None
         self._destination_rect = None
         self._original_ball_position = None

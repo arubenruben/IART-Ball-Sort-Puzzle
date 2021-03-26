@@ -15,14 +15,34 @@ class LevelCreator:
 
         if level_number == 1:
             raw_matrix = [
+                [2, 6, 2, 6],
+                [6, 2, 6, 2],
+                [0, 0, 0, 0]
+            ]
+
+
+        elif level_number == 2:
+
+            raw_matrix = [
                 [3, 2, 1, 2],
                 [2, 3, 1, 1],
                 [1, 2, 3, 3],
                 [0, 0, 0, 0],
-                [0, 0, 0, 0],
+                [0, 0, 0, 0]
             ]
 
-        elif level_number == 2:
+        elif level_number == 3:
+            raw_matrix = [
+                [10, 6, 2, 8],
+                [6, 10, 2, 8],
+                [8, 1, 6, 1],
+                [6, 8, 1, 2],
+                [10, 10, 1, 2],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ]
+
+        elif level_number == 4:
 
             raw_matrix = [
                 [1, 5, 2, 2],
@@ -35,36 +55,9 @@ class LevelCreator:
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
             ]
-        elif level_number == 3:
-
+        elif level_number == 5:
             raw_matrix = [
-                [7, 6, 1, 4],
-                [2, 1, 6, 1],
-                [3, 3, 2, 4],
-                [3, 2, 6, 5],
-                [7, 4, 5, 3],
-                [5, 5, 2, 4],
-                [7, 7, 6, 1],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-            ]
-
-        elif level_number == 4:
-            raw_matrix = [
-                [3, 3, 5, 4],
-                [3, 2, 4, 2],
-                [2, 6, 1, 7],
-                [5, 4, 1, 6],
-                [3, 1, 4, 6],
-                [7, 6, 1, 5],
-                [7, 7, 5, 2],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-            ]
-
-        elif level_number == 5:  # Level 51
-            raw_matrix = [
-                [4, 3, 4, 2],
+                [4, 3, 3, 2],
                 [3, 9, 7, 5],
                 [3, 8, 5, 5],
                 [9, 7, 7, 4],
@@ -76,45 +69,7 @@ class LevelCreator:
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
             ]
-        elif level_number == 6:
-            raw_matrix = [
-                [9, 5, 7, 2],
-                [7, 6, 4, 4],
-                [7, 1, 2, 5],
-                [9, 4, 4, 6],
-                [6, 9, 7, 2],
-                [9, 2, 6, 1],
-                [1, 5, 5, 1],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0]
-            ]
-        elif level_number == 7:
-            raw_matrix = [
-                [7, 1, 8, 2],
-                [2, 5, 3, 1],
-                [9, 8, 1, 8],
-                [4, 5, 3, 4],
-                [9, 5, 6, 9],
-                [2, 1, 4, 2],
-                [7, 7, 6, 4],
-                [7, 6, 9, 6],
-                [3, 8, 5, 3],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-            ]
-        elif level_number == 8:
-            raw_matrix = [
-                [1, 1, 4, 3],
-                [3, 7, 7, 4],
-                [2, 2, 1, 3],
-                [7, 3, 5, 7],
-                [9, 9, 2, 9],
-                [9, 1, 4, 5],
-                [5, 2, 4, 5],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-            ]
-        elif level_number == 9:  # https://levelsolved.com/ball-sort-puzzle-level-86-solution/ - Level 86
+        elif level_number == 6:  # https://levelsolved.com/ball-sort-puzzle-level-86-solution/ - Level 86
             raw_matrix = [
                 [7, 2, 5, 8],
                 [5, 1, 6, 6],
@@ -128,7 +83,23 @@ class LevelCreator:
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
             ]
-        elif level_number == 10:  # Level 101
+        elif level_number == 7:
+            raw_matrix = [
+                [2, 9, 8, 7],
+                [6, 8, 8, 5],
+                [6, 7, 3, 6],
+                [2, 1, 6, 7],
+                [7, 10, 2, 11],
+                [2, 11, 5, 1],
+                [10, 10, 3, 3],
+                [11, 7, 1, 5],
+                [3, 1, 9, 9],
+                [11, 7, 10, 2],
+                [2, 9, 8, 5],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ]
+        elif level_number == 8:  # Level 101
             raw_matrix = [
                 [4, 3, 2, 1],
                 [4, 3, 2, 1],
@@ -144,18 +115,6 @@ class LevelCreator:
                 [1, 2, 3, 4],
                 [0, 0, 0, 0],
                 [0, 0, 0, 0]
-            ]
-        elif level_number == 11:  # https://levelsolved.com/ball-sort-puzzle-level-93-solution/
-            raw_matrix = [
-                [1, 5, 5, 1],
-                [1, 9, 4, 4],
-                [7, 3, 7, 1],
-                [5, 4, 2, 2],
-                [2, 3, 9, 9],
-                [4, 9, 3, 5],
-                [7, 7, 3, 2],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
             ]
         else:
             return []
