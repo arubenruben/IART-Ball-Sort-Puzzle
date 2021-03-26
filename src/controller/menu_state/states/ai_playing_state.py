@@ -96,7 +96,7 @@ class AIPlayingState(PlayingState):
                 unique = True
 
                 for visited_node in self.visited:
-                    if child.depth > visited_node.depth + 4:
+                    if child.depth > visited_node.depth + 5:
                         continue
 
                     if child == visited_node:
@@ -104,7 +104,7 @@ class AIPlayingState(PlayingState):
                         break
 
                 for node_in_queue in self.queue:
-                    if child.depth == node_in_queue.depth + 3:
+                    if child.depth == node_in_queue.depth + 5:
                         continue
 
                     if child == node_in_queue:

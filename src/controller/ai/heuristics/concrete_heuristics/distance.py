@@ -52,6 +52,5 @@ class DistanceHeuristic(Heuristic):
                     continue
                 else:
                     distance += len(tube[0]) - i
-                    #distance += len(tube[0]) - i + len(tubes[tube_color[tube[0][i]][0]][0]) - tube_color[tube[0][i]][1]
 
         return distance
