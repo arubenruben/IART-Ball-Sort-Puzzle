@@ -54,12 +54,11 @@ class AIPlayingState(PlayingState):
             self.extract()
 
             if len(self.queue) == 0:
-                print("No possible moves")
                 solved = False
                 break
 
         if solved is False:
-            return print("No solution")
+            return self.change_to_state_defeat()
         else:
             self.draw_solution()
             if self.model.next_level():
@@ -172,8 +171,7 @@ class AIPlayingState(PlayingState):
         self.model.header = self._staring_header
         self.model.header.statistics._starting_time_stamp = time.time()
 
-    def give_hint(self, current_node):
-        self.current_node = current_node
+    def give_hint(self):
         self.node_expansion()
         self.extract()
         return self.current_node

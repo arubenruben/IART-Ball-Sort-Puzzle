@@ -33,6 +33,9 @@ class HumanPlayingState(PlayingState):
             self.model.update()
             self.model.draw(self.game.view)
 
+            if self._animation_manager.animation_pending:
+                continue
+
             if self.is_solved(self.model.state.test_tubes):
                 if self.model.next_level():
                     self._animation_manager = AnimationHumanManager()
@@ -42,6 +45,9 @@ class HumanPlayingState(PlayingState):
                 else:
                     self.running = False
                     return self.change_to_state_victory()
+
+            if self.is_game_impossible():
+                return self.change_to_state_defeat()
 
             for event in pygame.event.get():
 
@@ -70,9 +76,6 @@ class HumanPlayingState(PlayingState):
 
         bot = AStar(self.game, self.model, DistanceHeuristic())
 
-        if self._last_move is not None:
-            bot._visited = [self._last_move]
-
         best_node_possible = bot.give_hint()
 
         if best_node_possible is None:
@@ -90,12 +93,12 @@ class HumanPlayingState(PlayingState):
 
         bot = AStar(self.game, self.model, DistanceHeuristic())
 
-        if self._last_move is not None:
-            bot._visited = [self._last_move]
-
         self.model.header = current_header
-        
+
         if bot.give_hint() is None:
+            return True
+
+        if len(bot.queue) == 1 and self._last_move is not None and bot.give_hint() == self._last_move:
             return True
 
         return False

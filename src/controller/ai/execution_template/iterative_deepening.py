@@ -19,9 +19,6 @@ class IterativeDeepening(AIPlayingState):
 
         while run:
 
-            if max_depth > 100:
-                return False
-
             self._queue = []
 
             self._current_node = Node(self._starting_state.clone(), None, 0, None)
@@ -41,12 +38,13 @@ class IterativeDeepening(AIPlayingState):
                 if current_depth > max_depth:
                     break
 
-                event_processing()
-
                 self.node_expansion()
 
-                self.current_node = self.queue.pop()
-                self.visited.append(self.current_node)
+                if len(self.queue) > 0:
+                    self.current_node = self.queue.pop()
+                    self.visited.append(self.current_node)
+                else:
+                    return self.change_to_state_defeat()
 
                 current_depth += 1
 

@@ -18,7 +18,7 @@ class LevelCreator:
                 [3, 2, 1, 2],
                 [2, 3, 1, 1],
                 [1, 2, 3, 3],
-                [0, 0, 0, 0],
+                [3, 2, 1, 2],
                 [0, 0, 0, 0],
             ]
 
@@ -130,18 +130,18 @@ class LevelCreator:
             ]
         elif level_number == 10:  # Level 101
             raw_matrix = [
-                [1, 4, 6, 10],
-                [9, 7, 11, 11],
-                [9, 12, 2, 2],
-                [1, 3, 8, 4],
-                [6, 10, 5, 7],
-                [8, 12, 7, 4],
-                [6, 1, 7, 9],
-                [5, 3, 1, 6],
-                [12, 11, 4, 10],
-                [8, 2, 12, 11],
-                [8, 3, 5, 9],
-                [3, 2, 5, 10],
+                [4, 3, 2, 1],
+                [4, 3, 2, 1],
+                [8, 7, 6, 5],
+                [8, 7, 6, 5],
+                [12, 11, 10, 9],
+                [12, 11, 10, 9],
+                [9, 10, 11, 12],
+                [9, 10, 11, 12],
+                [5, 6, 7, 8],
+                [5, 6, 7, 8],
+                [1, 2, 3, 4],
+                [1, 2, 3, 4],
                 [0, 0, 0, 0],
                 [0, 0, 0, 0]
             ]
@@ -163,10 +163,10 @@ class LevelCreator:
         if raw_matrix is None:
             return
 
-        if len(raw_matrix)<10:
-            maximum_number_tubes_per_row=5
-        elif len(raw_matrix)<13:
-            maximum_number_tubes_per_row=6
+        if len(raw_matrix) < 10:
+            maximum_number_tubes_per_row = 5
+        elif len(raw_matrix) < 13:
+            maximum_number_tubes_per_row = 6
 
         number_rows = math.ceil(len(raw_matrix) / maximum_number_tubes_per_row)
         margin_y = math.floor(2 * screen_height / 10)
@@ -206,7 +206,7 @@ class LevelCreator:
                 row_counter += 1
                 offset_y += distance_between_rows + test_tube_height
                 offset_x = margin_x
-                if tube_counter!=len(raw_matrix)/2:
+                if tube_counter != len(raw_matrix) / 2:
                     offset_x = margin_x + test_tube_width
 
             if row_counter == number_rows - 1 and number_rows != 2:

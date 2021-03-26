@@ -18,12 +18,11 @@ class AStar(AIPlayingState):
 
         self.queue.append(child)
 
-    # TODO: Crashing is this pops all over the place
-
     def extract(self):
         self.queue.sort(key=get_a_star_value, reverse=True)
-        self.current_node = self.queue.pop()
-        self.visited.append(self.current_node)
+        if len(self.queue) > 0:
+            self.current_node = self.queue.pop()
+            self.visited.append(self.current_node)
 
 
 def get_a_star_value(node):
