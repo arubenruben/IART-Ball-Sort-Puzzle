@@ -23,6 +23,8 @@ class AStar(AIPlayingState):
         if len(self.queue) > 0:
             self.current_node = self.queue.pop()
             self.visited.append(self.current_node)
+        else:
+            self.current_node = None
 
 
 def get_a_star_value(node):
