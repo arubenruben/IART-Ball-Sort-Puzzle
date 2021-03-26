@@ -1,8 +1,8 @@
 import pygame
 
-from src.controller.AI.execution_template.bfs import BFS
-from src.controller.AI.execution_template.dfs import DFS
-from src.controller.AI.execution_template.iterative_deepening import IterativeDeepening
+from src.controller.ai.execution_template.bfs import BFS
+from src.controller.ai.execution_template.dfs import DFS
+from src.controller.ai.execution_template.iterative_deepening import IterativeDeepening
 from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
 from src.controller.menu_state.menu_state import MenuState
 from src.controller.menu_state.states.choose_heuristic_state import ChooseHeuristicState
@@ -60,7 +60,6 @@ class ChooseBotState(MenuState):
                     if button is not None:
                         self.running = False
                         return button.callback()
-
 
     def change_state_home(self):
         from src.controller.menu_state.states.home_state import HomeState

@@ -1,6 +1,6 @@
 import pygame
 
-from src.controller.AI.node import Node
+from src.controller.ai.node import Node
 from src.controller.menu_state.states.ai_playing_state import AIPlayingState
 from src.model.headers.bot_searching_header import BotSearchingHeader
 
@@ -18,9 +18,6 @@ class IterativeDeepening(AIPlayingState):
         solved = False
 
         while run:
-
-            if max_depth > 100:
-                return False
 
             self._queue = []
 
@@ -41,12 +38,13 @@ class IterativeDeepening(AIPlayingState):
                 if current_depth > max_depth:
                     break
 
-                event_processing()
-
                 self.node_expansion()
 
-                self.current_node = self.queue.pop()
-                self.visited.append(self.current_node)
+                if len(self.queue) > 0:
+                    self.current_node = self.queue.pop()
+                    self.visited.append(self.current_node)
+                else:
+                    return self.change_to_state_defeat()
 
                 current_depth += 1
 
