@@ -96,11 +96,15 @@ class AIPlayingState(PlayingState):
                 unique = True
 
                 for visited_node in self.visited:
+                    if child.depth > visited_node.depth + 5:
+                        continue
                     if child == visited_node:
                         unique = False
                         break
 
                 for node_in_queue in self.queue:
+                    if child.depth > node_in_queue.depth + 5:
+                        continue
                     if child == node_in_queue:
                         unique = False
                         break
@@ -135,6 +139,8 @@ class AIPlayingState(PlayingState):
 
             self.model.update()
             self.model.draw(self.game.view)
+
+        self.model.header.statistics.iterations = 0
 
         self._animation_manager.animation_pending = False
 
