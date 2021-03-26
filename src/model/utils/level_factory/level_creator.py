@@ -61,10 +61,9 @@ class LevelCreator:
                 [0, 0, 0, 0],
                 [0, 0, 0, 0],
             ]
-
-        elif level_number == 5:  # Level 51
+        elif level_number == 5:
             raw_matrix = [
-                [4, 3, 4, 2],
+                [4, 3, 3, 2],
                 [3, 9, 7, 5],
                 [3, 8, 5, 5],
                 [9, 7, 7, 4],

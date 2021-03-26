@@ -47,7 +47,7 @@ class Node:
                     break
 
         return len(test_tube_duplication_aux) == 0
-
+    
     @property
     def parent(self):
         return self._parent

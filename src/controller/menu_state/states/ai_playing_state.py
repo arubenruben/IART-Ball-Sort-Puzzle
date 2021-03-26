@@ -97,11 +97,17 @@ class AIPlayingState(PlayingState):
                 unique = True
 
                 for visited_node in self.visited:
+                    if child.depth > visited_node.depth + 4:
+                        continue
+
                     if child == visited_node:
                         unique = False
                         break
 
                 for node_in_queue in self.queue:
+                    if child.depth == node_in_queue.depth + 3:
+                        continue
+
                     if child == node_in_queue:
                         unique = False
                         break
