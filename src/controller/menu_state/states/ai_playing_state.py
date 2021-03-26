@@ -103,14 +103,9 @@ class AIPlayingState(PlayingState):
                         break
 
                 for node_in_queue in self.queue:
-<<<<<<< HEAD
                     if child.depth == node_in_queue.depth + 5:
                         continue
 
-=======
-                    if child.depth > node_in_queue.depth + 5:
-                        continue
->>>>>>> 324336bec8f8051dfba0247d299f5a329af9fc9e
                     if child == node_in_queue:
                         unique = False
                         break
