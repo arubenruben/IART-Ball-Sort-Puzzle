@@ -89,18 +89,48 @@ class LevelCreator:
                 [6,9,7,2],
                 [9,2,6,1],
                 [1,5,5,1],
+                [0,0,0,0],
+                [0,0,0,0],
             ]
         elif level_number == 8:
-            return [
-                
+            raw_matrix = [
+                [1,1,4,3],
+                [3,7,7,4],
+                [2,2,1,3],
+                [7,3,5,7],
+                [9,9,2,9],
+                [9,1,4,5],
+                [5,2,4,5],
+                [0,0,0,0],
+                [0,0,0,0],
             ]
-        elif level_number == 9:
-            return [
-
+        elif level_number == 9:     #https://levelsolved.com/ball-sort-puzzle-level-86-solution/ - Level 86  
+            raw_matrix = [
+                [7,2,5,8],
+                [5,1,6,6],
+                [3,9,4,8],
+                [9,7,2,1],
+                [1,9,4,3],
+                [3,5,1,8],
+                [5,4,6,7],
+                [4,6,8,3],
+                [2,9,2,7],
+                [0,0,0,0],
+                [0,0,0,0],
             ]
         elif level_number == 10:
             return [
 
+            ]
+        elif level_number == 11:
+            raw_matrix = [
+                [1,5,5,1],
+                [1,9,4,4],
+                [7,3,7,1],
+                [5,4,2,2],
+                [2,3,9,9],
+                [4,9,3,5],
+                [7,7,3,2],
             ]
         else:
             return None
