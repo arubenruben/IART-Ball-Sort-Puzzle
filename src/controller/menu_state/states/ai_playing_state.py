@@ -135,8 +135,6 @@ class AIPlayingState(PlayingState):
             self.model.update()
             self.model.draw(self.game.view)
 
-        self.model.header.statistics.iterations = 0
-
         self._animation_manager.animation_pending = False
 
     def get_solution_path(self):
@@ -183,9 +181,10 @@ class AIPlayingState(PlayingState):
 
         self.model.header = self._staring_header
         self.model.header.statistics._starting_time_stamp = time.time()
+        self.model.header.statistics.iterations = 0
 
     def give_hint(self):
-        max_depth = 20
+        max_depth = 15
         solved = True
 
         while True:

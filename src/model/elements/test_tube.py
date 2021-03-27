@@ -16,8 +16,8 @@ class TestTube(Drawable):
         self._animating_up = False
         self._animating_down = False
         self._animating_move = False
-        self._speed_y = 15
-        self._speed_x = 15
+        self._speed_y = 10
+        self._speed_x = 10
         self._callback = None
         self._destination_rect = None
         self._original_ball_position = None
@@ -58,7 +58,6 @@ class TestTube(Drawable):
         else:
             ball.rect = ball.rect.move(0, self.speed_y)
 
-    # Todo:Move Animation
     def animate_between_tubes(self):
         ball = self.get_first_ball()
         acceptance_offset = 10
@@ -85,7 +84,6 @@ class TestTube(Drawable):
         elif ball.rect.bottom < self.destination_rect.top:
             ball.rect = ball.rect.move(0, self.speed_y)
 
-    # Todo:Refactor return none
 
     def get_first_ball(self):
         if len(self._balls) > 0:

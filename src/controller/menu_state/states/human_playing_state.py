@@ -1,6 +1,3 @@
-import os
-from copy import copy
-
 import pygame
 
 from src.controller.ai.execution_template.a_star import AStar
@@ -8,9 +5,9 @@ from src.controller.ai.heuristics.concrete_heuristics.distance import DistanceHe
 from src.controller.ai.node import Node
 from src.controller.events.event_manager_strategy.human_playing_event_manager import HumanPlayingEventManager
 from src.controller.menu_state.states.playing_state import PlayingState
+from src.model.elements.button import Button
 from src.model.headers.human_playing_header import HumanPlayingHeader
 from src.view.animation_managers.animation_human_manager import AnimationHumanManager
-from src.model.elements.button import Button
 
 
 class HumanPlayingState(PlayingState):
