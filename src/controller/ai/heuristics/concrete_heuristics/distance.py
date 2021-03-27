@@ -1,4 +1,4 @@
-from src.controller.ai.heuristics.heuristic import Heuristic
+from controller.ai.heuristics.heuristic import Heuristic
 
 
 def count_tube_colors(tube, color):

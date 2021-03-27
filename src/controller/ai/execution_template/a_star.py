@@ -1,5 +1,5 @@
-from src.controller.menu_state.states.ai_playing_state import AIPlayingState
-from src.model.headers.bot_searching_header import BotSearchingHeader
+from controller.menu_state.states.ai_playing_state import AIPlayingState
+from model.headers.bot_searching_header import BotSearchingHeader
 
 
 class AStar(AIPlayingState):

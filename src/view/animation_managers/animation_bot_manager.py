@@ -1,4 +1,4 @@
-from src.view.animation_managers.animation_manager import AnimationManager
+from view.animation_managers.animation_manager import AnimationManager
 
 
 class AnimationBotManager(AnimationManager):

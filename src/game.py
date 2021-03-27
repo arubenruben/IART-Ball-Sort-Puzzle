@@ -1,5 +1,5 @@
-from src.controller.menu_state.states.home_state import HomeState
-from src.model.menu_models.home_state_model import HomeStateModel
+from controller.menu_state.states.home_state import HomeState
+from model.menu_models.home_state_model import HomeStateModel
 
 
 class Game:

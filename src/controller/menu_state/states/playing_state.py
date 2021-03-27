@@ -1,7 +1,7 @@
-from src.controller.menu_state.menu_state import MenuState
-from src.controller.menu_state.states.defeat_state import DefeatState
-from src.controller.menu_state.states.victory_state import VictoryState
-from src.model.menu_models.home_state_model import HomeStateModel
+from controller.menu_state.menu_state import MenuState
+from controller.menu_state.states.defeat_state import DefeatState
+from controller.menu_state.states.victory_state import VictoryState
+from model.menu_models.home_state_model import HomeStateModel
 
 
 class PlayingState(MenuState):

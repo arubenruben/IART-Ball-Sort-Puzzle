@@ -1,8 +1,8 @@
 import pygame
 
-from src.controller.ai.node import Node
-from src.controller.menu_state.states.ai_playing_state import AIPlayingState
-from src.model.headers.bot_searching_header import BotSearchingHeader
+from controller.ai.node import Node
+from controller.menu_state.states.ai_playing_state import AIPlayingState
+from model.headers.bot_searching_header import BotSearchingHeader
 
 
 class IterativeDeepening(AIPlayingState):

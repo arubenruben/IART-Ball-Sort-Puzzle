@@ -2,11 +2,11 @@ import os
 
 import pygame
 
-from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
-from src.controller.menu_state.menu_state import MenuState
-from src.model.elements.button import Button
-from src.model.headers.defeat_header import DefeatHeader
-from src.model.menu_models.home_state_model import HomeStateModel
+from controller.events.event_manager_strategy.home_event_manager import HomeEventManager
+from controller.menu_state.menu_state import MenuState
+from model.elements.button import Button
+from model.headers.defeat_header import DefeatHeader
+from model.menu_models.home_state_model import HomeStateModel
 
 
 class DefeatState(MenuState):
@@ -19,7 +19,7 @@ class DefeatState(MenuState):
         back_button = Button(pygame.Rect(model.width // 2 - 400 // 2, model.height // 2 - 100 // 2, 400, 100),
                              "Back to Home", self.change_state_home)
 
-        pygame.mixer.music.load(os.path.join('../', 'assets', 'sounds', 'end_music.wav'))
+        pygame.mixer.music.load(os.path.join('assets', 'sounds', 'end_music.wav'))
         pygame.mixer.music.set_volume(0.4)
         pygame.mixer.music.play(-1)
 
@@ -44,6 +44,6 @@ class DefeatState(MenuState):
                         return button.callback()
 
     def change_state_home(self):
-        from src.controller.menu_state.states.home_state import HomeState
+        from controller.menu_state.states.home_state import HomeState
         self.game.menu_state = HomeState(self.game, HomeStateModel((self.game.view.width, self.game.view.height)))
         return self.game.run()

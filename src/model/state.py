@@ -1,5 +1,5 @@
-from src.model.elements.test_tube import TestTube
-from src.model.utils.raw_ball_converter import convert_raw_matrix_to_balls
+from model.elements.test_tube import TestTube
+from model.utils.raw_ball_converter import convert_raw_matrix_to_balls
 
 
 class State:

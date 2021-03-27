@@ -2,13 +2,13 @@ import os
 
 import pygame
 
-from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
-from src.controller.menu_state.menu_state import MenuState
-from src.controller.menu_state.states.choose_bot_state import ChooseBotState
-from src.controller.menu_state.states.human_playing_state import HumanPlayingState
-from src.model.elements.button import Button
-from src.model.menu_models.home_state_model import HomeStateModel
-from src.model.menu_models.playing_state_model import PlayingStateModel
+from controller.events.event_manager_strategy.home_event_manager import HomeEventManager
+from controller.menu_state.menu_state import MenuState
+from controller.menu_state.states.choose_bot_state import ChooseBotState
+from controller.menu_state.states.human_playing_state import HumanPlayingState
+from model.elements.button import Button
+from model.menu_models.home_state_model import HomeStateModel
+from model.menu_models.playing_state_model import PlayingStateModel
 
 
 class HomeState(MenuState):
@@ -26,7 +26,7 @@ class HomeState(MenuState):
         self.model.buttons.append(button_play_bot)
         self.running = True
 
-        pygame.mixer.music.load(os.path.join('../', 'assets', 'sounds', 'music.wav'))
+        pygame.mixer.music.load(os.path.join('assets', 'sounds', 'music.wav'))
         pygame.mixer.music.set_volume(0.4)
         pygame.mixer.music.play(-1)
 

@@ -1,6 +1,6 @@
 import pygame
 
-from src.model.drawable import Drawable
+from model.drawable import Drawable
 
 
 class Button(Drawable):

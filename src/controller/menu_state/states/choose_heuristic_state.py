@@ -1,15 +1,15 @@
 import pygame
 
-from src.controller.ai.execution_template.a_star import AStar
-from src.controller.ai.execution_template.greedy import Greedy
-from src.controller.ai.heuristics.concrete_heuristics.distance import DistanceHeuristic
-from src.controller.ai.heuristics.concrete_heuristics.entropy import EntropyHeuristic
-from src.controller.ai.heuristics.concrete_heuristics.taboo_search_like import TabooSearchHeuristic
-from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
-from src.controller.menu_state.menu_state import MenuState
-from src.model.elements.button import Button
-from src.model.menu_models.home_state_model import HomeStateModel
-from src.model.menu_models.playing_state_model import PlayingStateModel
+from controller.ai.execution_template.a_star import AStar
+from controller.ai.execution_template.greedy import Greedy
+from controller.ai.heuristics.concrete_heuristics.distance import DistanceHeuristic
+from controller.ai.heuristics.concrete_heuristics.entropy import EntropyHeuristic
+from controller.ai.heuristics.concrete_heuristics.taboo_search_like import TabooSearchHeuristic
+from controller.events.event_manager_strategy.home_event_manager import HomeEventManager
+from controller.menu_state.menu_state import MenuState
+from model.elements.button import Button
+from model.menu_models.home_state_model import HomeStateModel
+from model.menu_models.playing_state_model import PlayingStateModel
 
 
 class ChooseHeuristicState(MenuState):
@@ -94,7 +94,7 @@ class ChooseHeuristicState(MenuState):
         self.game.run()
 
     def change_state_bot_choose(self):
-        from src.controller.menu_state.states.choose_bot_state import ChooseBotState
+        from controller.menu_state.states.choose_bot_state import ChooseBotState
         self.game.menu_state = ChooseBotState(self.game,
                                               HomeStateModel((self.game.view.width, self.game.view.height)))
         self.game.run()

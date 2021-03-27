@@ -1,7 +1,7 @@
 import pygame
 
-from src.model.drawable import Drawable
-from src.model.utils.colors import color_converter
+from model.drawable import Drawable
+from model.utils.colors import color_converter
 
 
 class Ball(Drawable):

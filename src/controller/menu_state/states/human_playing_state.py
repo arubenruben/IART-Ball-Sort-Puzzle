@@ -1,13 +1,13 @@
 import pygame
 
-from src.controller.ai.execution_template.a_star import AStar
-from src.controller.ai.heuristics.concrete_heuristics.distance import DistanceHeuristic
-from src.controller.ai.node import Node
-from src.controller.events.event_manager_strategy.human_playing_event_manager import HumanPlayingEventManager
-from src.controller.menu_state.states.playing_state import PlayingState
-from src.model.elements.button import Button
-from src.model.headers.human_playing_header import HumanPlayingHeader
-from src.view.animation_managers.animation_human_manager import AnimationHumanManager
+from controller.ai.execution_template.a_star import AStar
+from controller.ai.heuristics.concrete_heuristics.distance import DistanceHeuristic
+from controller.ai.node import Node
+from controller.events.event_manager_strategy.human_playing_event_manager import HumanPlayingEventManager
+from controller.menu_state.states.playing_state import PlayingState
+from model.elements.button import Button
+from model.headers.human_playing_header import HumanPlayingHeader
+from view.animation_managers.animation_human_manager import AnimationHumanManager
 
 
 class HumanPlayingState(PlayingState):

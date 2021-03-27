@@ -3,12 +3,12 @@ from copy import copy
 
 import pygame
 
-from src.controller.ai.move_generator import MoveGenerator
-from src.controller.ai.node import Node
-from src.controller.menu_state.states.playing_state import PlayingState
-from src.model.headers.bot_simulating_header import BotSimulatingHeader
-from src.model.move import Move
-from src.view.animation_managers.animation_bot_manager import AnimationBotManager
+from controller.ai.move_generator import MoveGenerator
+from controller.ai.node import Node
+from controller.menu_state.states.playing_state import PlayingState
+from model.headers.bot_simulating_header import BotSimulatingHeader
+from model.move import Move
+from view.animation_managers.animation_bot_manager import AnimationBotManager
 
 
 def event_processing():

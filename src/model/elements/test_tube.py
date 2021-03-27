@@ -2,8 +2,8 @@ import os
 
 import pygame
 
-from src.model.drawable import Drawable
-from src.model.elements.ball import Ball
+from model.drawable import Drawable
+from model.elements.ball import Ball
 
 
 class TestTube(Drawable):
@@ -23,7 +23,7 @@ class TestTube(Drawable):
         self._original_ball_position = None
 
         self._background_image = pygame.transform.scale(
-            pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png')),
+            pygame.image.load(os.path.join('assets', 'img', 'test_tube.png')),
             (rect.width, rect.height))
 
     def update(self):
@@ -83,7 +83,6 @@ class TestTube(Drawable):
             ball.rect = ball.rect.move(0, -self.speed_y)
         elif ball.rect.bottom < self.destination_rect.top:
             ball.rect = ball.rect.move(0, self.speed_y)
-
 
     def get_first_ball(self):
         if len(self._balls) > 0:

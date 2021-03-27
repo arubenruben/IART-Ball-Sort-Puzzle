@@ -1,14 +1,14 @@
 import pygame
 
-from src.controller.ai.execution_template.bfs import BFS
-from src.controller.ai.execution_template.dfs import DFS
-from src.controller.ai.execution_template.iterative_deepening import IterativeDeepening
-from src.controller.events.event_manager_strategy.home_event_manager import HomeEventManager
-from src.controller.menu_state.menu_state import MenuState
-from src.controller.menu_state.states.choose_heuristic_state import ChooseHeuristicState
-from src.model.elements.button import Button
-from src.model.menu_models.home_state_model import HomeStateModel
-from src.model.menu_models.playing_state_model import PlayingStateModel
+from controller.ai.execution_template.bfs import BFS
+from controller.ai.execution_template.dfs import DFS
+from controller.ai.execution_template.iterative_deepening import IterativeDeepening
+from controller.events.event_manager_strategy.home_event_manager import HomeEventManager
+from controller.menu_state.menu_state import MenuState
+from controller.menu_state.states.choose_heuristic_state import ChooseHeuristicState
+from model.elements.button import Button
+from model.menu_models.home_state_model import HomeStateModel
+from model.menu_models.playing_state_model import PlayingStateModel
 
 
 class ChooseBotState(MenuState):
@@ -62,8 +62,8 @@ class ChooseBotState(MenuState):
                         return button.callback()
 
     def change_state_home(self):
-        from src.controller.menu_state.states.home_state import HomeState
-        from src.model.menu_models.home_state_model import HomeStateModel
+        from controller.menu_state.states.home_state import HomeState
+        from model.menu_models.home_state_model import HomeStateModel
 
         self.game.menu_state = HomeState(self.game,
                                          HomeStateModel((self.game.view.width, self.game.view.height)))

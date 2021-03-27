@@ -1,4 +1,4 @@
-from src.model.elements.ball import Ball
+from model.elements.ball import Ball
 
 
 def convert_raw_matrix_to_balls(raw_list, tube_position):

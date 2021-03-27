@@ -1,5 +1,5 @@
-from src.model.drawable import Drawable
-from src.model.headers.statistics import Statistics
+from model.drawable import Drawable
+from model.headers.statistics import Statistics
 
 
 class BotSimulatingHeader(Drawable):

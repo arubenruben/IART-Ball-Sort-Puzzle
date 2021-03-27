@@ -2,9 +2,9 @@ import os
 
 import pygame
 
-from src.model.drawable import Drawable
-from src.model.state import State
-from src.model.utils.level_factory.level_creator import LevelCreator
+from model.drawable import Drawable
+from model.state import State
+from model.utils.level_factory.level_creator import LevelCreator
 
 
 class PlayingStateModel(Drawable):
@@ -12,7 +12,7 @@ class PlayingStateModel(Drawable):
     def __init__(self, screen_dimension):
         self.width, self.height = screen_dimension
         self._background = pygame.transform.scale(
-            pygame.image.load(os.path.join('../', 'assets', 'img', 'background.jpg')),
+            pygame.image.load(os.path.join('assets', 'img', 'background.jpg')),
             (self.width, self.height))
 
         self._level_creator = LevelCreator()

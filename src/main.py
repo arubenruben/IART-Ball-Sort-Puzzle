@@ -1,5 +1,5 @@
 from game import Game
-from src.view.view import View
+from view.view import View
 
 if __name__ == '__main__':
     screen_width = 1024
