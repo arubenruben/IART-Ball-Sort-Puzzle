@@ -26,7 +26,7 @@ class HomeState(MenuState):
         self.model.buttons.append(button_play_bot)
         self.running = True
 
-        pygame.mixer.music.load(os.path.join('assets', 'sounds', 'music.wav'))
+        pygame.mixer.music.load(os.path.join('../', 'assets', 'sounds', 'music.wav'))
         pygame.mixer.music.set_volume(0.4)
         pygame.mixer.music.play(-1)
 

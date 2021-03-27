@@ -21,7 +21,7 @@ class VictoryState(MenuState):
 
         self.model.buttons.append(back_button)
 
-        pygame.mixer.music.load(os.path.join('assets', 'sounds', 'end_music.wav'))
+        pygame.mixer.music.load(os.path.join('../', 'assets', 'sounds', 'end_music.wav'))
         pygame.mixer.music.set_volume(0.4)
         pygame.mixer.music.play(-1)
 

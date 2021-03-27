@@ -23,7 +23,7 @@ class TestTube(Drawable):
         self._original_ball_position = None
 
         self._background_image = pygame.transform.scale(
-            pygame.image.load(os.path.join('assets', 'img', 'test_tube.png')),
+            pygame.image.load(os.path.join('../', 'assets', 'img', 'test_tube.png')),
             (rect.width, rect.height))
 
     def update(self):

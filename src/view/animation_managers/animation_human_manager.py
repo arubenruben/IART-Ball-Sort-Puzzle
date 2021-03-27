@@ -17,7 +17,7 @@ class AnimationHumanManager(AnimationManager):
     def process_collision(self, test_tube):
 
         if self.state == "down" and test_tube is not None and not test_tube.is_empty() and test_tube.is_solved() is not True:
-            pygame.mixer.music.load(os.path.join('assets', 'sounds', 'push.wav'))
+            pygame.mixer.music.load(os.path.join('../','assets', 'sounds', 'push.wav'))
             pygame.mixer.music.play()
 
             self.state = "moving_up"
@@ -26,7 +26,7 @@ class AnimationHumanManager(AnimationManager):
             return None
 
         if self.state == "up" and (test_tube is None or self.test_tube_source is test_tube):
-            pygame.mixer.music.load(os.path.join('assets', 'sounds', 'move_fail.wav'))
+            pygame.mixer.music.load(os.path.join('../','assets', 'sounds', 'move_fail.wav'))
             pygame.mixer.music.play()
 
             self.state = "moving_down"
@@ -62,7 +62,7 @@ class AnimationHumanManager(AnimationManager):
 
     def handle_finish_animation_move_between_tubes(self):
 
-        pygame.mixer.music.load(os.path.join('assets', 'sounds', 'pop.wav'))
+        pygame.mixer.music.load(os.path.join('../','assets', 'sounds', 'pop.wav'))
         pygame.mixer.music.play()
         ball_test = self.test_tube_source.pop_ball()
         self.test_tube_destination.insert_ball(ball_test)
