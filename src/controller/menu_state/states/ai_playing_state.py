@@ -121,13 +121,7 @@ class AIPlayingState(PlayingState):
         self.model.header = BotSimulatingHeader()
         self.model.header.statistics.current_level = self.model.level
 
-        path = []
-        curr_node = self.visited[len(self.visited) - 1]
-        while curr_node.parent is not None:
-            path.append(curr_node)
-            curr_node = curr_node.parent
-
-        path.reverse()
+        path = self.get_solution_path()
 
         self.model.state = self._starting_state.clone()
 
@@ -144,6 +138,18 @@ class AIPlayingState(PlayingState):
         self.model.header.statistics.iterations = 0
 
         self._animation_manager.animation_pending = False
+
+    def get_solution_path(self):
+        path = []
+
+        curr_node = self.visited[len(self.visited) - 1]
+        while curr_node.parent is not None:
+            path.append(curr_node)
+            curr_node = curr_node.parent
+
+        path.reverse()
+
+        return path
 
     # Getters and Setters
     @property
@@ -179,6 +185,57 @@ class AIPlayingState(PlayingState):
         self.model.header.statistics._starting_time_stamp = time.time()
 
     def give_hint(self):
-        self.node_expansion()
-        self.extract()
-        return self.current_node
+        max_depth = 20
+        solved = True
+
+        while True:
+            if self.current_node.depth > max_depth:
+                break
+
+            if self.is_solved(self.current_node.state.test_tubes):
+                break
+
+            self.node_expansion()
+
+            self.extract()
+
+            if len(self.queue) == 0:
+                if self.current_node is None:
+                    solved = False
+                break
+
+        if solved:
+            return self.get_solution_path().pop(0)
+
+        else:
+            return None
+
+    def test_game_impossible(self):
+        max_depth = 8
+
+        shorted = False
+
+        while True:
+
+            if self.current_node.depth > max_depth:
+                shorted = True
+                break
+
+            if self.is_solved(self.current_node.state.test_tubes):
+                break
+
+            self.node_expansion()
+
+            self.extract()
+
+            if len(self.queue) == 0 and self.current_node is None:
+                return None
+
+        path = self.get_solution_path()
+
+        if shorted and len(path) > 0:
+            return self.get_solution_path().pop()
+        elif shorted and len(path) == 0:
+            return self.current_node
+
+        return self.get_solution_path().pop()

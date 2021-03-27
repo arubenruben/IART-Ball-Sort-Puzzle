@@ -17,7 +17,6 @@ class HumanPlayingState(PlayingState):
     def __init__(self, game, model):
         super().__init__(game, model)
 
-        # Todo:Order Matters refactor
         self._animation_manager = AnimationHumanManager()
         self._event_manager = HumanPlayingEventManager(self._animation_manager, model)
         self.running = True
@@ -75,6 +74,7 @@ class HumanPlayingState(PlayingState):
                     move.fail(self._animation_manager)
 
     def get_hint(self):
+
         current_header = self.model.header
 
         bot = AStar(self.game, self.model, DistanceHeuristic())
@@ -85,6 +85,13 @@ class HumanPlayingState(PlayingState):
             return
 
         self.model.header = current_header
+
+        if self._last_move is not None and best_node_possible == self._last_move:
+            bot = AStar(self.game, self.model, DistanceHeuristic())
+            self.model.header = current_header
+            bot._visited.append(best_node_possible)
+            best_node_possible = bot.give_hint()
+
         self.model.header.hint = str(
             best_node_possible.operator._origin_index + 1) + " to: " + str(
             best_node_possible.operator._destination_index + 1)
@@ -98,12 +105,9 @@ class HumanPlayingState(PlayingState):
 
         self.model.header = current_header
 
-        suggested_move = bot.give_hint()
+        suggested_move = bot.test_game_impossible()
 
         if suggested_move is None:
-            return True
-
-        if len(bot.queue) == 0 and self._last_move is not None and suggested_move == self._last_move:
             return True
 
         return False
