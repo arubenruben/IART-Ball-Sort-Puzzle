@@ -56,8 +56,8 @@ class IterativeDeepening(AIPlayingState):
                     self.reset()
                     return self.run()
                 else:
-                    pygame.quit()
-                    return
+                    self._running = False
+                    return self.change_to_state_victory()
 
     def exec(self, child):
         self.queue.append(child)
